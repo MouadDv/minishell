@@ -1,6 +1,7 @@
 #ifndef MINI_SHELL_H
 # define MINI_SHELL_H
 # include <unistd.h>
+# include "libft/libft.h"
 # include <stdlib.h>
 # include <stdio.h>
 # include <string.h>
@@ -20,9 +21,10 @@ typedef struct s_red
 	char    type;
     char    *filename;
     char    *delimiter;
-	struct os_red   *next;
+	struct s_red   *next;
 }				t_red;
 
 int    scan(char *str);
+int    parse_data(char *buf);
 
 #endif
