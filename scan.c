@@ -18,7 +18,7 @@ int ft_scan_b(char *str, int *i)
             return (0);
         }
     }
-    if (str[j] == '|' && str[j] == '|')
+    if (str[j] == '|' && str[j + 1] == '|')
     {
         *i = j;
         return (0);
