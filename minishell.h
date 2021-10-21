@@ -19,12 +19,15 @@ typedef struct s_cmd
 typedef struct s_red
 {
 	char    type;
-    char    *filename;
-    char    *delimiter;
+    char    *arg;
 	struct s_red   *next;
 }				t_red;
 
 int    scan(char *str);
 int    parse_data(char *buf);
+t_cmd   *alloc_cmd_s();
+t_red   *alloc_red_s();
+int     end_of_delimiter(char *str);
+void    subarg(int   *r, int i, char *str, t_red *red);
 
 #endif

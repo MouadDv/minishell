@@ -6,14 +6,14 @@
 #    By: milmi <milmi@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/11/10 00:43:14 by milmi             #+#    #+#              #
-#    Updated: 2021/10/17 19:30:00 by milmi            ###   ########.fr        #
+#    Updated: 2021/10/21 19:16:27 by milmi            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 
 NAME = minishell
 LIBFT = libft.a
-SRCS = main.c scan.c parser.c
+SRCS = main.c scan.c parser.c parser_utils.c
 FLAGS= -g -lreadline -L /Users/milmi/.brew/opt/readline/lib -I /Users/milmi/.brew/opt/readline/include -Wall -Wextra -Werror -fsanitize=address
 rm = rm -f
 CC = gcc

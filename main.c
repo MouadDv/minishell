@@ -28,8 +28,8 @@ char *get_line()
     if (ft_strlen(buf) > 0) {
         add_history(buf);
     }
-    write (1, buf, ft_strlen(buf));
-    write (1, "\n", 1);
+    // write (1, buf, ft_strlen(buf));
+    // write (1, "\n", 1);
     if (scan(buf) == 0)
         write (1, "Minishell: Syntax error\n", 24);
     else

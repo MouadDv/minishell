@@ -13,19 +13,13 @@ void print_strct(t_cmd *strct)
     h = 1;
     while (tmp)
     {
-        //fprintf(stderr, "[cmd] == > %s\n", tmp->cmd);
-        // while (tmp->args[i])
-        // {
-        //     fprintf(stderr, "[arg][%d] ============ > %s\n", i, tmp->args[i]);
-        //     i++;
-        // }
+        fprintf(stderr, "[cmd] == > %s\n", tmp->cmd);
         i = 0;
         tmp2 = tmp->redirections;
         while (tmp2)
         {
             fprintf (stderr, " {%d}     [type] ====== > [%c]\n",h, tmp2->type);
-            fprintf (stderr, " {%d}     [filename] == > %s\n",h, tmp2->filename);
-            fprintf (stderr, " {%d}     [delimiter] = > [%s]\n",h, tmp2->delimiter);
+            fprintf (stderr, " {%d}     [argument] == > %s\n",h, tmp2->arg);
             h++;
             tmp2 = tmp2->next;
         }
@@ -34,72 +28,45 @@ void print_strct(t_cmd *strct)
     
 }
 
-t_cmd   *alloc_cmd_s()
-{
-    t_cmd   *ret;
-
-    ret = malloc(sizeof(t_cmd));
-    if (!ret)
-        return (0);
-    ret->args = NULL;
-    ret->cmd = NULL;
-    ret->next = NULL;
-    ret->redirections = NULL;
-    return (ret);
-}
-
-t_red   *alloc_red_s()
-{
-    t_red   *ret;
-
-    ret = malloc(sizeof(t_red));
-    if (!ret)
-        return (0);
-    ret->delimiter = NULL;
-    ret->filename = NULL;
-    ret->next = NULL;
-    ret->type = 0;
-    return (ret);
-}
-
-int     end_of_delimiter(char *str)
-{
-    int i;
-
-    i = 0;
-    while (str[i] && str[i] != '|' && str[i] != '<' && str[i] != '>' && str[i] != ' ')
-        i++;
-    return (i);
-}
-
 void    get_redir(char  *str, t_red *red, int *r)
 {
+    if (str[0] == '<' && str[1] == '<')
+    {
+        red->type = 'h';
+        subarg(r, 2, str, red);
+    }
+    else if (str[0] == '>' && str[1] == '>')
+    {
+        red->type = 'a';
+        subarg(r, 2, str, red);
+    }
+    else if (str[0] == '>')
+    {
+        red->type = 'o';
+        subarg(r, 2, str, red);
+    }
+    else if (str[0] == '<')
+    {
+        red->type = 'i';
+        subarg(r, 2, str, red);
+    }
+}
+
+void    get_cmd(char   *str, t_cmd   *strct, int    *r)
+{
     int i;
 
     i = 0;
-    if (str[i] == '<' && str[i + 1] == '<')
+    if (str[i] != '<' && str[i] != '>' && str[i] != '|')
     {
-        i += 2;
-        red->type = 'h';
-        red->filename = NULL;
-        while (str[i] == ' ' && str[i])
+        while (str[i] && str[i] != '<' && str[i] != '>' && str[i] != '|')
             i++;
-        red->delimiter = ft_substr(str, i, end_of_delimiter(str + i));
-        *r = *r + i - 1;
-    }
-    else if (str[i] == '>' && str[i + 1] == '>')
-    {
-        i += 2;
-        red->type = 'a';
-        red->delimiter = NULL;
-        while (str[i] == ' ' && str[i])
-            i++;
-        red->filename = ft_substr(str, i, end_of_delimiter(str + i));
+        strct->cmd = ft_substr(str, 0, i);
         *r = *r + i - 1;
     }
 }
 
-int    parce_syntax_one(char   *str, t_cmd   *strct)
+int    parce_syntax(char   *str, t_cmd   *strct)
 {
     t_red   *tmp;
     int i;
@@ -123,18 +90,16 @@ int    parce_syntax_one(char   *str, t_cmd   *strct)
                 return (0);
             get_redir(str + i, tmp, &i);
         }
+        else if (str[i] == '|')
+        {
+            strct->next = alloc_cmd_s();
+            strct = strct->next;
+        }
+        else if (str[i] != ' ')
+            get_cmd(str + i, strct, &i);
         i++;
     }
     return (1);
-}
-
-int    parce_syntax_two(char   *str, t_cmd   *strct)
-{
-    t_cmd   *tmp;
-
-    strlen(str);
-    tmp = strct;
-    return (0);
 }
 
 int    parse_data(char *buf)
@@ -146,16 +111,8 @@ int    parse_data(char *buf)
     if (!strct)
         return (0);
     str = ft_strtrim(buf, " ");
-    if (str[0] == '<' || str[0] == '>')
-    {
-        if (parce_syntax_one(str, strct) == 0)
-            return (0);
-    }
-    else
-    {
-        if (parce_syntax_two(str, strct) == 0)
-            return (0);
-    }
+    if (parce_syntax(str, strct) == 0)
+        return (0);
     print_strct(strct);
     return (1);
 }

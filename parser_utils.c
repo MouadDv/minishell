@@ -39,27 +39,10 @@ int     end_of_delimiter(char *str)
 
 void    subarg(int   *r, int i, char *str, t_red *red)
 {
+    int end;
     while (str[i] == ' ' && str[i])
             i++;
-    red->arg = ft_substr(str, i, end_of_delimiter(str + i));
-    *r = *r + i - 1;
-}
-
-void    get_command(char    *str, int   *r, t_cmd *cmd, int i)
-{
-    int e;
-
-    e = i + 1;
-    if (str[i] == '"')
-    {
-        while (str[e] && str[e] != '"')
-            e++;
-        cmd = ft_substr(str, i, e);
-    }
-    else
-    {
-        while (str[e] && str[e] != '|' && str[e] != '<' && str[e] != '>')
-            e++;
-        cmd = ft_substr(str, i, e);
-    }
+    end = end_of_delimiter(str + i);
+    red->arg = ft_substr(str, i, end);
+    *r = *r + i + end - 1;
 }
