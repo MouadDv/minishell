@@ -23,6 +23,13 @@ typedef struct s_red
 	struct s_red   *next;
 }				t_red;
 
+typedef struct s_node {
+    char    *name;
+    char    *val;
+    struct s_node *next;
+} t_node;
+
+
 int    scan(char *str);
 int    parse_data(char *buf);
 t_cmd   *alloc_cmd_s();
