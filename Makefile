@@ -15,13 +15,14 @@ NAME = minishell
 LIBFT = libft.a
 SRCS = main.c scan.c parser.c parser_utils.c
 FLAGS= -g -lreadline -L /Users/milmi/.brew/opt/readline/lib -I /Users/milmi/.brew/opt/readline/include -Wall -Wextra -Werror -fsanitize=address
+HOMEENVFLAGS= -g -lreadline -L /usr/local/opt/readline/lib -I /usr/local/opt/readline/include -Wall -Wextra -Werror -fsanitize=address
 rm = rm -f
 CC = gcc
 
 all : $(NAME)
 
 $(NAME) : $(LIBFT)
-	$(CC) $(FLAGS) $(LIBFT) $(SRCS) $(LIBFT) -o $(NAME)
+	$(CC) $(HOMEENVFLAGS) $(LIBFT) $(SRCS) $(LIBFT) -o $(NAME)
 
 $(LIBFT):
 	make -C libft

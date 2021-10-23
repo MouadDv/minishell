@@ -16,8 +16,6 @@ void    sighandler(int  sig)
 char **copy_env(char **env)
 {
 	char **newenv;
-	char *cur;
-	int	cur_length;
 	int l;
 	int i;
 	
@@ -25,20 +23,17 @@ char **copy_env(char **env)
 	l = 0;
 	while (env[l])
 		l++;
-	newenv = malloc(sizeof (char **) * (l + 1));
+	newenv = malloc(sizeof(char *) * (l + 1));
 	if (newenv == NULL)
 		return (NULL);
-	while (i < l)
+    newenv[l] = NULL;
+	while (env[i])
 	{
-		cur = env[i];
-		cur_length = strlen(cur);
-		newenv[i] = malloc (cur_length + 1);
+		newenv[i] = ft_strdup(env[i]);
 		if (newenv[i] == NULL)
 			return (NULL);
-		ft_memcpy(newenv[i], env[i], cur_length);
 		i++;
 	}
-	
 	return (newenv);
 }
 
@@ -46,7 +41,6 @@ void test_add(t_node **head, char *name, char *val)
 {
     t_node  *newnode;
     t_node  *lastnode;
-    int ret;
 
     newnode = malloc(sizeof(t_node));
     newnode->name = strdup(name);
@@ -115,12 +109,18 @@ int main(int argc, char **argv, char **env)
 	t_node	*node;
 	char **newenv;
 
-	newenv = copy_env(env);
-	init_struct(newenv, &node);
-    signal(SIGQUIT, SIG_IGN);
-    while (1) {
-        signal(SIGINT, sighandler);
-        get_line();
+    node = NULL;
+    if (argc == 1)
+    {
+        ft_strlen(argv[0]);
+        newenv = copy_env(env);
+        init_struct(newenv, &node);
+        signal(SIGQUIT, SIG_IGN);
+        while (1) {
+            signal(SIGINT, sighandler);
+            get_line();
+        }
+        return 0;
     }
-    return 0;
+    return 1;
 }

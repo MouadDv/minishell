@@ -37,4 +37,10 @@ t_red   *alloc_red_s();
 int     end_of_delimiter(char *str);
 void    subarg(int   *r, int i, char *str, t_red *red);
 
+
+
+
+char	*ft_strjoin1(char const *s1, char const *s2);
+void	*ft_memcpy1(void *dest, const void *src, size_t n);
+
 #endif
