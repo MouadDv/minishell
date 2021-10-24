@@ -108,15 +108,8 @@ int main(int argc, char **argv, char **env)
 {
 	t_node	*node;
 	char **newenv;
-    char    **str;
 
     node = NULL;
-    str = splitargs("cat djs jsdssssssh sjdfsssssh sjssssssdf");
-    printf("%s\n", str[0]);
-    printf("%s\n", str[1]);
-    printf("%s\n", str[2]);
-    printf("%s\n", str[3]);
-    printf("%s\n", str[4]);
     if (argc == 1)
     {
         ft_strlen(argv[0]);

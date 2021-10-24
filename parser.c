@@ -14,6 +14,12 @@ void print_strct(t_cmd *strct)
     while (tmp)
     {
         fprintf(stderr, "[cmd] == > %s\n", tmp->cmd);
+        while (tmp->args[i])
+        {
+            printf ("Arg[%d]. ========> %s\n",i, tmp->args[i]);
+            i++;
+        }
+        
         i = 0;
         tmp2 = tmp->redirections;
         while (tmp2)
@@ -99,6 +105,7 @@ int    parce_syntax(char   *str, t_cmd   *strct)
             get_cmd(str + i, strct, &i);
         i++;
     }
+    strct->args = splitargs(strct->cmd);
     return (1);
 }
 

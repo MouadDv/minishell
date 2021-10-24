@@ -4,6 +4,7 @@ int     sizelen(char    *str)
 {
     int     ret;
     int     i;
+    int     trig;
 
     ret = 0;
     i = 0;
@@ -12,22 +13,43 @@ int     sizelen(char    *str)
         if (str[i] == '"')
         {
             ret++;
-            while (str[i + 1] && !(str[i + 1] == '"' && (str[i + 2] == ' ' || str[i + 2] == '\0')))
+            i++;
+            trig = 1;
+            while (str[i])
+            {
+                if (str[i] == '"' && trig == 0)
+                    trig = 1;
+                else if (str[i] == '"')
+                    trig = 0;
+                if (str[i] == ' ' && trig == 0)
+                    break;
                 i++;
+            }
         }
         else if (str[i] == '\'')
         {
             ret++;
-            while (str[i + 1] && !(str[i + 1] == '\'' && (str[i + 2] == ' ' || str[i + 2] == '\0')))
+            i++;
+            trig = 1;
+            while (str[i])
+            {
+                if (str[i] == '\'' && trig == 0)
+                    trig = 1;
+                else if (str[i] == '\'')
+                    trig = 0;
+                if (str[i] == ' ' && trig == 0)
+                    break;
                 i++;
+            }
         }
         else if (str[i] != ' ')
         {
             ret++;
-            while (str[i + 1] && str[i + 1] != ' ')
+            while (str[i] && str[i] != ' ')
                 i++;
-        } 
-        i++;
+        }
+        if (str[i] == '"' || str[i] == '\'' || str[i] == ' ')
+            i++;
     }
     return (ret);
 }
@@ -37,26 +59,45 @@ char    *get_arg(char   *str, int   *r)
     int     i;
     char    *ret;
     int     s;
+    int     trig;
 
     i = *r;
-    s = 0;
+    s = 1;
     while (str[i] && str[i] == ' ')
         i++;
-    if (str[i] == '"')
+    if (str[i] == '\'')
     {
-        while (str[s] && !(str[s] == '"' && (str[s + 1] == ' ' || str[s + 1] == '\0')))
+        trig = 1;
+        while (str[s + i])
+        {
+            if (str[s + i] == '\'' && trig == 0)
+                trig = 1;
+            else if (str[s + i] == '\'')
+                trig = 0;
+            if (str[s + i] == ' ' && trig == 0)
+                break;
             s++;
+        }
         ret = ft_substr(str + i, 0, s);
     }
-    else if (str[i] == '\'')
+    else if (str[i] == '"')
     {
-        while (str[s] && !(str[s] == '\'' && (str[s + 1] == ' ' || str[s + 1] == '\0')))
+        trig = 1;
+        while (str[s + i])
+        {
+            if (str[s + i] == '"' && trig == 0)
+                trig = 1;
+            else if (str[s + i] == '"')
+                trig = 0;
+            if (str[s + i] == ' ' && trig == 0)
+                break;
             s++;
+        }
         ret = ft_substr(str + i, 0, s);
     }
     else
     {
-        while (str[s] && str[s] != ' ')
+        while (str[s + i] && str[s + i] != ' ')
             s++;
         ret = ft_substr(str + i, 0, s);
     }
