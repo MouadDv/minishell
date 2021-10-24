@@ -29,6 +29,8 @@ void print_strct(t_cmd *strct)
             h++;
             tmp2 = tmp2->next;
         }
+        i = 0;
+        h = 0;
         tmp = tmp->next;
     }
     
@@ -102,10 +104,12 @@ int    parce_syntax(char   *str, t_cmd   *strct)
             strct = strct->next;
         }
         else if (str[i] != ' ')
+        {
             get_cmd(str + i, strct, &i);
+            strct->args = splitargs(strct->cmd);
+        }
         i++;
     }
-    strct->args = splitargs(strct->cmd);
     return (1);
 }
 
