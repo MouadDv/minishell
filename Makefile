@@ -3,18 +3,18 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: milmi <milmi@student.42.fr>                +#+  +:+       +#+         #
+#    By: sbensarg <sbensarg@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/11/10 00:43:14 by milmi             #+#    #+#              #
-#    Updated: 2021/10/21 19:16:27 by milmi            ###   ########.fr        #
+#    Updated: 2021/10/25 21:54:54 by sbensarg         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 
 NAME = minishell
 LIBFT = libft.a
-SRCS = main.c scan.c parser.c parser_utils.c parser_utils2.c
-FLAGS= -g -lreadline -L /Users/milmi/.brew/opt/readline/lib -I /Users/milmi/.brew/opt/readline/include -Wall -Wextra -Werror -fsanitize=address
+SRCS = main.c scan.c parser.c parser_utils.c parser_utils2.c execution.c implim_cd.c implim_pwd.c 
+FLAGS= -g -lreadline -L /Users/sbensarg/goinfre/.brew/opt/readline/lib -I /Users/sbensarg/goinfre/.brew/opt/readline/include -Wall -Wextra -Werror -fsanitize=address
 HOMEENVFLAGS= -g -lreadline -L /usr/local/opt/readline/lib -I /usr/local/opt/readline/include -Wall -Wextra -Werror -fsanitize=address
 rm = rm -f
 CC = gcc
@@ -22,7 +22,7 @@ CC = gcc
 all : $(NAME)
 
 $(NAME) : $(LIBFT)
-	$(CC) $(HOMEENVFLAGS) $(LIBFT) $(SRCS) $(LIBFT) -o $(NAME)
+	$(CC) $(FLAGS) $(LIBFT) $(SRCS) $(LIBFT) -o $(NAME)
 
 $(LIBFT):
 	make -C libft

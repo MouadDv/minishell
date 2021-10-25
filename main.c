@@ -79,7 +79,7 @@ void	init_struct(char **envp, t_node **head)
     }
 }
 
-char *get_line()
+char *get_line(t_node *node)
 {
     char    *buf;
 
@@ -99,7 +99,7 @@ char *get_line()
     if (scan(buf) == 0)
         write (1, "Minishell: Syntax error\n", 24);
     else
-        parse_data(buf);
+        parse_data(buf, node);
     free(buf);
     return (buf);
 }
@@ -119,7 +119,7 @@ int main(int argc, char **argv, char **env)
         while (1)
         {
             signal(SIGINT, sighandler);
-            get_line();
+           	get_line(node);		   
         }
         return 0;
     }

@@ -7,6 +7,8 @@
 # include <string.h>
 # include <readline/readline.h>
 # include <readline/history.h>
+#include <limits.h>
+#include <sys/param.h>
 
 typedef struct s_cmd
 {
@@ -30,14 +32,18 @@ typedef struct s_node {
 } t_node;
 
 
-int    scan(char *str);
-int    parse_data(char *buf);
-t_cmd   *alloc_cmd_s();
-t_red   *alloc_red_s();
-int     end_of_delimiter(char *str);
-void    subarg(int   *r, int i, char *str, t_red *red);
-int     sizelen(char    *str);
-char    **splitargs(char    *str);
+int		scan(char *str);
+int		parse_data(char *buf, t_node *node);
+t_cmd	*alloc_cmd_s();
+t_red	*alloc_red_s();
+int		end_of_delimiter(char *str);
+void	subarg(int   *r, int i, char *str, t_red *red);
+int		sizelen(char    *str);
+char	**splitargs(char    *str);
+void 	ft_execution(t_cmd   *strct, t_node *node);
+void	impli_cd(char *ptr, t_node *node);
+void 	ft_pwd(void);
+
 
 
 
