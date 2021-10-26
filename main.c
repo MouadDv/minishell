@@ -5,7 +5,7 @@ void    sighandler(int  sig)
     if (sig == SIGINT)
     {
         rl_on_new_line();
-        write (1, "minishell>> ", 12);
+        write (1, "\033[35;1mminishell$ \033[0m", 23);
         write (1, rl_line_buffer, ft_strlen(rl_line_buffer));
         write (1, "  \b\b\n", 5);
         rl_replace_line("", 1);
@@ -37,47 +37,6 @@ char **copy_env(char **env)
 	return (newenv);
 }
 
-void test_add(t_node **head, char *name, char *val)
-{
-    t_node  *newnode;
-    t_node  *lastnode;
-
-    newnode = malloc(sizeof(t_node));
-    newnode->name = strdup(name);
-    newnode->val = strdup(val);
-    newnode->next = NULL;
-    if(*head == NULL)
-         *head = newnode;
-    else
-    {
-        lastnode = *head;
-        while(lastnode->next != NULL)
-            lastnode = lastnode->next;
-        lastnode->next = newnode;
-    }
-
-}
-
-void	init_struct(char **envp, t_node **head)
-{
-    int     i;
-    char    *s;
-    char    *key;
-
-    i = 0;
-  
-    while (envp[i])
-    {
-        if((s = ft_strchr(envp[i], '=')))
-        {
-            *s = '\0';
-            key = ft_strjoin1("=\"", (s+1));
-            key = ft_strjoin1(key, "\"");
-            test_add(head, envp[i], key);
-        }
-        i++;
-    }
-}
 
 char *get_line(t_node *node)
 {
@@ -85,7 +44,7 @@ char *get_line(t_node *node)
 
     signal(SIGQUIT, SIG_IGN);
     signal(SIGINT, sighandler);
-    buf = readline("minishell>> ");
+    buf = readline("\033[35;1mminishell$ \033[0m");
     if (buf == NULL)
     {
         write(1, "exit\n", 5);

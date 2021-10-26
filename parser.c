@@ -124,7 +124,7 @@ int    parse_data(char *buf, t_node *node)
     str = ft_strtrim(buf, " ");
     if (parce_syntax(str, strct) == 0)
         return (0);
-    print_strct(strct);
+   // print_strct(strct);
 	ft_execution(strct, node);
     return (1);
 }
