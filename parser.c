@@ -117,6 +117,8 @@ int    parse_data(char *buf, t_node *node)
 {
     char    *str;
     t_cmd   *strct;
+	t_node *tm;
+	tm = node;
 
     strct = alloc_cmd_s();
     if (!strct)
@@ -124,7 +126,7 @@ int    parse_data(char *buf, t_node *node)
     str = ft_strtrim(buf, " ");
     if (parce_syntax(str, strct) == 0)
         return (0);
-   // print_strct(strct);
+    //print_strct(strct);
 	ft_execution(strct, node);
     return (1);
 }

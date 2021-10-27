@@ -12,7 +12,7 @@
 #include <fcntl.h>
 #include <errno.h>
 #include <sys/stat.h>
-#include "GNL/get_next_line.h"
+# include <signal.h>
 
 typedef struct s_cmd
 {

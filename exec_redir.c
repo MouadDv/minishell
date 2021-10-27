@@ -6,7 +6,7 @@
 /*   By: sbensarg <sbensarg@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/29 18:10:16 by chicky            #+#    #+#             */
-/*   Updated: 2021/10/26 19:48:05 by sbensarg         ###   ########.fr       */
+/*   Updated: 2021/10/27 19:40:02 by sbensarg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -142,32 +142,29 @@ void 	ft_exec_child_heredoc(char **cmd, t_red *redir, t_node *head)
 	char	*line;
 	int		i;
 	t_red	*tmp2;
-	int		fdtmp;
 
 	tmp2 = redir;
 	i = 0;
 	b_in = 0;
 	path = ft_path(head);
-	
+
 	while (tmp2)
 	{
-		pipe(fd);
-		fdtmp = open("/var/tmp/tmpfile", O_CREAT | O_APPEND | O_RDWR, 0777);
-		write(1, "heredoc>", 8);
-		while (get_next_line(0, &line) > 0)
-		{	
-		if (ft_strncmp(line, tmp2->arg, ft_strlen(tmp2->arg) + 1) == 0)
+		if (pipe(fd) == -1)
+			exit (EXIT_FAILURE);
+		while (1)
+		{
+			line = readline("heredoc>");
+			if (ft_strncmp(line, tmp2->arg, ft_strlen(tmp2->arg) + 1) == 0)
 				break ;
 			write(fd[1], line, ft_strlen(line));
 			write(fd[1], "\n", 1);
-			write(1, "heredoc>", 8);
 			free(line);
 		}
-		free(line);
-		tmp2= tmp2->next;
+		tmp2 = tmp2->next;
 	}
-	dup2(fd[0], 0);
 	close(fd[1]);
+	dup2(fd[0], 0);
 	close(fd[0]);
 	ft_builtins(cmd, head, &b_in);
 	if (b_in == 1)

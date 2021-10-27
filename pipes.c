@@ -6,7 +6,7 @@
 /*   By: sbensarg <sbensarg@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/09 16:27:13 by sbensarg          #+#    #+#             */
-/*   Updated: 2021/10/26 19:40:56 by sbensarg         ###   ########.fr       */
+/*   Updated: 2021/10/27 19:39:46 by sbensarg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,19 +14,19 @@
 
 void	ft_pipes(t_node *node, t_cmd *strct)
 {
-	int   p[2];
-	pid_t pid;
-	int   fd_in = 0;
-	char **ptrs;
-	char **path;
+	int		p[2];
+	pid_t	pid;
+	int  	fd_in;
+	char	**ptrs;
+	char	**path;
 	t_cmd	*tmp;
 	t_red	*tmp2;
+	int		i;
+	int		flag;
 	
 
 	tmp = strct;
-	int i;
-	int flag;
-	
+	fd_in = 0;
 	flag = 0;
 	path = ft_path(node);
 	ptrs = malloc(sizeof(t_cmd));
