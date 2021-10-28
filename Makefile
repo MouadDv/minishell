@@ -13,7 +13,7 @@
 
 NAME = minishell
 LIBFT = libft.a
-SRCS = main.c scan.c parser.c parser_utils.c parser_utils2.c
+SRCS = main.c scan.c parser.c parser_utils.c parser_utils2.c data_proccessing.c data_proccessing_utils.c
 FLAGS= -g -lreadline -L /Users/milmi/.brew/opt/readline/lib -I /Users/milmi/.brew/opt/readline/include -Wall -Wextra -Werror -fsanitize=address
 HOMEENVFLAGS= -g -lreadline -L /usr/local/opt/readline/lib -I /usr/local/opt/readline/include -Wall -Wextra -Werror -fsanitize=address
 rm = rm -f

@@ -28,14 +28,10 @@ void    sizelen_norm(int    *i, int    *ret, char   *str)
     }
 }
 
-int     sizelen(char    *str)
+int     sizelen(char    *str, int   ret, int    i)
 {
-    int     ret;
-    int     i;
     int     trig;
 
-    ret = 0;
-    i = 0;
     while (str[i])
     {
         if (str[i] == '"')
@@ -133,7 +129,7 @@ char    **splitargs(char    *str)
     int     i;
     int     r;
 
-    size = sizelen(str);
+    size = sizelen(str, 0, 0);
     ret = malloc(sizeof(char *) * (size + 1));
     if (!ret)
         return (NULL);

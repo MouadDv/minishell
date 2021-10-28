@@ -113,7 +113,7 @@ int    parce_syntax(char   *str, t_cmd   *strct)
     return (1);
 }
 
-int    parse_data(char *buf)
+int    parse_and_exec(char *buf, t_node	*node)
 {
     char    *str;
     t_cmd   *strct;
@@ -123,6 +123,8 @@ int    parse_data(char *buf)
         return (0);
     str = ft_strtrim(buf, " ");
     if (parce_syntax(str, strct) == 0)
+        return (0);
+    if (data_proc(strct, node) == 0)
         return (0);
     print_strct(strct);
     return (1);

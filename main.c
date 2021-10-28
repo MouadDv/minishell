@@ -79,12 +79,10 @@ void	init_struct(char **envp, t_node **head)
     }
 }
 
-char *get_line()
+char *get_line(t_node	*node)
 {
     char    *buf;
 
-    signal(SIGQUIT, SIG_IGN);
-    signal(SIGINT, sighandler);
     buf = readline("minishell>> ");
     if (buf == NULL)
     {
@@ -94,12 +92,11 @@ char *get_line()
     if (ft_strlen(buf) > 0) {
         add_history(buf);
     }
-    // write (1, buf, ft_strlen(buf));
-    // write (1, "\n", 1);
     if (scan(buf) == 0)
         write (1, "Minishell: Syntax error\n", 24);
     else
-        parse_data(buf);
+        parse_and_exec(buf, node);
+    //memory free
     free(buf);
     return (buf);
 }
@@ -116,11 +113,9 @@ int main(int argc, char **argv, char **env)
         newenv = copy_env(env);
         init_struct(newenv, &node);
         signal(SIGQUIT, SIG_IGN);
+        signal(SIGINT, sighandler);
         while (1)
-        {
-            signal(SIGINT, sighandler);
-            get_line();
-        }
+            get_line(node);
         return 0;
     }
     return 1;

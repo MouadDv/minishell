@@ -30,14 +30,16 @@ typedef struct s_node {
 } t_node;
 
 
-int    scan(char *str);
-int    parse_data(char *buf);
+int     scan(char *str);
+int    parse_and_exec(char *buf, t_node	*node);
 t_cmd   *alloc_cmd_s();
 t_red   *alloc_red_s();
 int     end_of_delimiter(char *str);
 void    subarg(int   *r, int i, char *str, t_red *red);
-int     sizelen(char    *str);
+int     sizelen(char    *str, int   ret, int    i);
 char    **splitargs(char    *str);
+int     data_proc(t_cmd   *strct, t_node	*node);
+char    *env_val(char   *name, t_node	*node);
 
 
 
