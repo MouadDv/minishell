@@ -1,49 +1,5 @@
 #include "minishell.h"
 
-// void ft_builtins(t_cmd *strct, t_node *node, int *flag)
-// {
-// 	t_node	*temp;
-// 	t_cmd	*tmp;
-// 	int		i;
-
-// 	i = 0;
-// 	tmp = strct;
-// 	temp = node;
-// 	if (ft_strncmp(tmp->args[0], "cd", 2) == 0)
-// 		impli_cd(tmp->args[1], node);
-// 	else if (ft_strncmp(tmp->args[0], "export", 6) == 0)
-// 	{
-// 		if (tmp->args[1])
-// 			ft_global_export(tmp->args, node);
-// 		else
-// 		{
-// 			temp = copy_list(node);
-// 			ft_sort_list(temp);
-// 			ft_export(temp);
-// 		}
-// 	}
-// 	else if (ft_strncmp(tmp->args[0], "unset", 5) == 0)
-// 	{
-// 		if (tmp->args[1])
-// 			ft_unset(&node, tmp->args[1]);	
-// 	}
-// 	else if (ft_strncmp(tmp->args[0], "env", 3) == 0)
-// 		ft_env(node);
-// 	else if (ft_strncmp(tmp->args[0], "pwd", 3) == 0)
-// 		ft_pwd();
-// 	else if (ft_strncmp(tmp->args[0], "echo", 4) == 0)
-// 	{
-// 		if (ft_strncmp(tmp->args[1], "$?", ft_strlen(tmp->args[1])) == 0)
-// 			printf("%d\n", g_data.statuscode);
-// 		else
-// 			ft_global_echo(tmp->args);
-// 	}
-// 	else if (ft_strncmp(tmp->args[0], "exit", 4) == 0)
-// 		ft_exit(tmp->args);
-// 	else
-// 		*flag = 1;
-// }
-
 void ft_builtins(char **ptr, t_node *node, int *flag)
 {
 	t_node *temp;
@@ -99,10 +55,14 @@ void	ft_simple_cmd(t_cmd *strct, t_node *node)
 void 	ft_execution(t_cmd *strct, t_node *node)
 {
 	t_cmd	*tmp;
+	t_red	*tmp2;
 
 	tmp = strct;
+	tmp2 = tmp->redirections;
 	if (tmp->next != NULL)
 		ft_pipes(node, strct);
+	else if (tmp2)
+		ft_global_redir(strct, node);
 	else
 		ft_simple_cmd(strct, node);
 }

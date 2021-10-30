@@ -6,13 +6,13 @@
 /*   By: sbensarg <sbensarg@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/09 16:27:13 by sbensarg          #+#    #+#             */
-/*   Updated: 2021/10/27 19:39:46 by sbensarg         ###   ########.fr       */
+/*   Updated: 2021/10/30 18:58:04 by sbensarg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	ft_pipes(t_node *node, t_cmd *strct)
+void	ft_pipes(t_node *node,t_cmd *strct)
 {
 	int		p[2];
 	pid_t	pid;
@@ -23,14 +23,21 @@ void	ft_pipes(t_node *node, t_cmd *strct)
 	t_red	*tmp2;
 	int		i;
 	int		flag;
+	int		*tab;
+	int		b_in;
 	
 
 	tmp = strct;
-	fd_in = 0;
 	flag = 0;
 	path = ft_path(node);
 	ptrs = malloc(sizeof(t_cmd));
+	tmp2 = tmp->redirections;
+	b_in = 0;
+	flag = 0;
+	tab = ft_tab_of_in_out(tmp2, &flag);
 	i = 0;
+	fd_in = 0;
+	fprintf(stderr, "tab[0] = %d , tab[1] = %d\n", tab[0], tab[1]);
 	while (tmp)
 	{
 		pipe(p);
@@ -47,20 +54,24 @@ void	ft_pipes(t_node *node, t_cmd *strct)
 			close(p[0]);
 			if (fd_in == -1 && tmp->args[0])
 				return ;
-			tmp2 = tmp->redirections;
+
 			if (tmp2)
 			{
-				while (tmp2)
+				if (tab[0] != 1024 && tab[0] != -1 && flag != 1)
 				{
-					if (tmp2->type == 'i' || tmp2->type == 'o' || tmp2->type == 'a' || tmp2->type == 'h')
-					{	
-						if (tmp2->type == 'i' || tmp2->type == 'o' || tmp2->type == 'a')
-							ft_exec_child_redir(tmp->args, tmp2, node);
-						if (tmp2->type == 'h')
-							ft_exec_child_heredoc(tmp->args, tmp2, node);
-					}
-					tmp2 = tmp2->next;
+					dup2(tab[0], 0);
+					close(tab[0]);
 				}
+				if (tab[1] != 1024 && tab[1] != -1 && flag != 1)
+				{
+					dup2(tab[1], 1);
+					close(tab[1]);
+				}
+				ft_builtins(tmp->args, node, &b_in);
+				if (b_in == 1)
+					ptrs = ft_find_path(path, tmp->args);
+				execve(ptrs[0], ptrs, NULL);
+				exit(EXIT_FAILURE);	
 			}
 			else
 			{
@@ -78,6 +89,11 @@ void	ft_pipes(t_node *node, t_cmd *strct)
 			if(fd_old != 0) 
 				close(fd_old);
 			fd_in = p[0];
+			close(tab[0]);
+			close(tab[1]);
+			tab[0] = 1024;
+			tab[1] = 1024;
+				
 		}
 		tmp = tmp->next;
 		i++;

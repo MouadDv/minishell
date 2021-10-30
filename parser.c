@@ -119,7 +119,7 @@ int    parse_data(char *buf, t_node *node)
     t_cmd   *strct;
 	t_node *tm;
 	tm = node;
-
+	
     strct = alloc_cmd_s();
     if (!strct)
         return (0);
