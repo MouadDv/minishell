@@ -1,26 +1,28 @@
 #include "minishell.h"
 
-int     end_of_delimiter(char *str)
+int	end_of_delimiter(char	*str)
 {
-    int i;
+	int	i;
 
-    i = 0;
-    while (str[i] && str[i] != '|' && str[i] != '<' && str[i] != '>' && str[i] != ' ')
-        i++;
-    return (i);
+	i = 0;
+	while (str[i] && str[i] != '|' && str[i] != '<'
+		&& str[i] != '>' && str[i] != ' ')
+		i++;
+	return (i);
 }
 
-void    subarg(int   *r, int i, char *str, t_red *red)
+void	subarg(int	*r, int	i, char	*str, t_red	*red)
 {
-    int end;
-    while (str[i] == ' ' && str[i])
-            i++;
-    end = end_of_delimiter(str + i);
-    red->arg = ft_substr(str, i, end);
-    *r = *r + i + end - 1;
+	int	end;
+
+	while (str[i] == ' ' && str[i])
+		i++;
+	end = end_of_delimiter(str + i);
+	red->arg = ft_substr(str, i, end);
+	*r = *r + i + end - 1;
 }
 
-char	*ft_strjoin1(char const *s1, char const *s2)
+char	*ft_strjoin1(char const	*s1, char const	*s2)
 {
 	int		lens1;
 	int		lens2;
@@ -40,7 +42,7 @@ char	*ft_strjoin1(char const *s1, char const *s2)
 	return (newstr);
 }
 
-void	*ft_memcpy1(void *dest, const void *src, size_t n)
+void	*ft_memcpy1(void	*dest, const void	*src, size_t	n)
 {
 	char	*psrc;
 	char	*pdest;
@@ -49,8 +51,8 @@ void	*ft_memcpy1(void *dest, const void *src, size_t n)
 	if (!dest && !src)
 		return (NULL);
 	i = 0;
-	psrc = (char*)src;
-	pdest = (char*)dest;
+	psrc = (char *)src;
+	pdest = (char *)dest;
 	while (i < n)
 	{
 		pdest[i] = psrc[i];

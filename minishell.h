@@ -44,7 +44,9 @@ void    free_null(void  *buff);
 void    free_strct(t_cmd    *strct, t_red   *tmp, t_red   *tmp2, t_cmd   *tmp3);
 void    free_node(t_node	*node);
 char	*get_arg(char	*str, int	*r);
-
+char	**copy_env(char	**env);
+void	test_add(t_node	**head, char	*name, char	*val);
+void	init_struct(char	**envp, t_node	**head);
 
 
 char	*ft_strjoin1(char const *s1, char const *s2);
