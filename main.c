@@ -13,7 +13,7 @@ void    sighandler(int  sig)
     }
 }
 
-char **copy_env(char **env)
+char    **copy_env(char **env)
 {
 	char **newenv;
 	int l;
@@ -37,14 +37,14 @@ char **copy_env(char **env)
 	return (newenv);
 }
 
-void test_add(t_node **head, char *name, char *val)
+void    test_add(t_node **head, char *name, char *val)
 {
     t_node  *newnode;
     t_node  *lastnode;
 
     newnode = malloc(sizeof(t_node));
-    newnode->name = strdup(name);
-    newnode->val = strdup(val);
+    newnode->name = ft_strdup(name);
+    newnode->val = ft_strdup(val);
     newnode->next = NULL;
     if(*head == NULL)
          *head = newnode;
@@ -63,6 +63,7 @@ void	init_struct(char **envp, t_node **head)
     int     i;
     char    *s;
     char    *key;
+    char    *tmp;
 
     i = 0;
   
@@ -72,14 +73,17 @@ void	init_struct(char **envp, t_node **head)
         {
             *s = '\0';
             key = ft_strjoin1("=\"", (s+1));
+            tmp = key;
             key = ft_strjoin1(key, "\"");
+            free_null(tmp);
             test_add(head, envp[i], key);
+            free_null(key);
         }
         i++;
     }
 }
 
-char *get_line(t_node	*node)
+void    get_line(t_node	*node)
 {
     char    *buf;
 
@@ -87,31 +91,36 @@ char *get_line(t_node	*node)
     if (buf == NULL)
     {
         write(1, "exit\n", 5);
+        free_node(node);
         exit(0);
     }
     if (ft_strlen(buf) > 0) {
         add_history(buf);
+
+        if (scan(buf) == 0)
+            write (1, "Minishell: Syntax error\n", 24);
+        else
+            parse_and_exec(buf, node);
     }
-    if (scan(buf) == 0)
-        write (1, "Minishell: Syntax error\n", 24);
-    else
-        parse_and_exec(buf, node);
-    //memory free
     free(buf);
-    return (buf);
 }
 
-int main(int argc, char **argv, char **env)
+int     main(int argc, char **argv, char **env)
 {
 	t_node	*node;
 	char **newenv;
+    int     i;
 
     node = NULL;
+    i = 0;
     if (argc == 1)
     {
         ft_strlen(argv[0]);
         newenv = copy_env(env);
         init_struct(newenv, &node);
+        while (newenv[i++])
+            free_null(newenv[i - 1]);
+        free_null(newenv);
         signal(SIGQUIT, SIG_IGN);
         signal(SIGINT, sighandler);
         while (1)

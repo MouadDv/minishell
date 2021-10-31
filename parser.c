@@ -127,5 +127,7 @@ int    parse_and_exec(char *buf, t_node	*node)
     if (data_proc(strct, node) == 0)
         return (0);
     print_strct(strct);
+    free_strct(strct, NULL, NULL, NULL);
+    free_null(str);
     return (1);
 }

@@ -16,5 +16,7 @@ char    *env_val(char   *name, t_node	*node)
         }
         node = node->next;
     }
+    if (ret == NULL)
+        ret = ft_strdup("");
     return (ret);
 }
