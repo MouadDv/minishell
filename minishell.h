@@ -79,13 +79,12 @@ char	*ft_check_absolute_path(char **cmd);
 char	*ft_if_exec(char **path, char *file, int *j);
 char	*ft_check_path(char **path, char **cmd);
 void	ft_pipes(t_node *node, t_cmd *strct);
-void 	ft_exec_child_redir(char **cmd, t_red *redir, t_node *head);
-void 	ft_exec_redir(char **cmd, t_red *redir, t_node *head);
+void 	ft_exec_redir(char **cmd, t_cmd *strct, t_node *head);
 void 	ft_builtins(char **ptr, t_node *node, int *flag);
-void	reset_dup(void);
 void 	ft_global_redir(t_cmd *strct, t_node *head);
-int  	search(t_red* head, char x);
-int 	*ft_tab_of_in_out(t_red *redir, int *flag);
+int		*ft_tab_of_in_out(t_red *redir, int *flag);
+
+void 	print_strct(t_cmd *strct);
 
 
 char	*ft_strjoin1(char const *s1, char const *s2);

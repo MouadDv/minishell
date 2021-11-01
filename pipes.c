@@ -6,7 +6,7 @@
 /*   By: sbensarg <sbensarg@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/09 16:27:13 by sbensarg          #+#    #+#             */
-/*   Updated: 2021/10/30 18:58:04 by sbensarg         ###   ########.fr       */
+/*   Updated: 2021/11/01 17:22:17 by sbensarg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,19 +25,15 @@ void	ft_pipes(t_node *node,t_cmd *strct)
 	int		flag;
 	int		*tab;
 	int		b_in;
-	
 
 	tmp = strct;
 	flag = 0;
 	path = ft_path(node);
 	ptrs = malloc(sizeof(t_cmd));
-	tmp2 = tmp->redirections;
 	b_in = 0;
 	flag = 0;
-	tab = ft_tab_of_in_out(tmp2, &flag);
 	i = 0;
 	fd_in = 0;
-	fprintf(stderr, "tab[0] = %d , tab[1] = %d\n", tab[0], tab[1]);
 	while (tmp)
 	{
 		pipe(p);
@@ -45,6 +41,31 @@ void	ft_pipes(t_node *node,t_cmd *strct)
 			exit(EXIT_FAILURE);
 		else if (pid == 0)
 		{
+			tmp2 = tmp->redirections;
+			if (tmp2)
+			{
+				tab = ft_tab_of_in_out(tmp2, &flag);
+				if (tab[0] != 1024 && tab[0] != -1 && flag != 1 && flag != 2)
+				{
+					dup2(tab[0], 0);					
+					fd_in = tab[0];
+				}
+				if (tab[1] != 1024 && tab[1] != -1 && flag != 3 && flag != 4)
+				{
+					dup2(tab[1], 1);
+					close(tab[1]);
+				}
+				ft_builtins(tmp->args, node, &b_in);
+				if (b_in == 1)
+					ptrs = ft_find_path(path, tmp->args);
+			}
+			else
+			{
+				ft_builtins(tmp->args, node, &flag);
+				if (flag == 1)
+					ptrs = ft_find_path(path, tmp->args);
+			}
+
 			dup2(fd_in, 0); 
 			if (tmp->next != NULL)
 			{
@@ -54,47 +75,14 @@ void	ft_pipes(t_node *node,t_cmd *strct)
 			close(p[0]);
 			if (fd_in == -1 && tmp->args[0])
 				return ;
-
-			if (tmp2)
-			{
-				if (tab[0] != 1024 && tab[0] != -1 && flag != 1)
-				{
-					dup2(tab[0], 0);
-					close(tab[0]);
-				}
-				if (tab[1] != 1024 && tab[1] != -1 && flag != 1)
-				{
-					dup2(tab[1], 1);
-					close(tab[1]);
-				}
-				ft_builtins(tmp->args, node, &b_in);
-				if (b_in == 1)
-					ptrs = ft_find_path(path, tmp->args);
-				execve(ptrs[0], ptrs, NULL);
-				exit(EXIT_FAILURE);	
-			}
-			else
-			{
-				ft_builtins(tmp->args, node, &flag);
-				if (flag == 1)
-					ptrs = ft_find_path(path, tmp->args);
-				execve(ptrs[0], ptrs, NULL);
-				exit(EXIT_FAILURE);
-			}
+			execve(ptrs[0], ptrs, NULL);
+		
 		}
-		else
-		{
-			close(p[1]);
-			int fd_old = fd_in;
-			if(fd_old != 0) 
-				close(fd_old);
-			fd_in = p[0];
-			close(tab[0]);
-			close(tab[1]);
-			tab[0] = 1024;
-			tab[1] = 1024;
-				
-		}
+		close(p[1]);
+		int fd_old = fd_in;
+		if(fd_old != 0) 
+			close(fd_old);
+		fd_in = p[0];
 		tmp = tmp->next;
 		i++;
 	}
