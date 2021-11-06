@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipes.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sbensarg <sbensarg@student.42.fr>          +#+  +:+       +#+        */
+/*   By: chicky <chicky@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/09 16:27:13 by sbensarg          #+#    #+#             */
-/*   Updated: 2021/11/01 17:22:17 by sbensarg         ###   ########.fr       */
+/*   Updated: 2021/11/06 00:09:39 by chicky           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@ void	ft_pipes(t_node *node,t_cmd *strct)
 	int		flag;
 	int		*tab;
 	int		b_in;
+	int		scode;
 
 	tmp = strct;
 	flag = 0;
@@ -34,6 +35,8 @@ void	ft_pipes(t_node *node,t_cmd *strct)
 	flag = 0;
 	i = 0;
 	fd_in = 0;
+	tmp2 = tmp->redirections;
+		
 	while (tmp)
 	{
 		pipe(p);
@@ -45,27 +48,44 @@ void	ft_pipes(t_node *node,t_cmd *strct)
 			if (tmp2)
 			{
 				tab = ft_tab_of_in_out(tmp2, &flag);
-				if (tab[0] != 1024 && tab[0] != -1 && flag != 1 && flag != 2)
+				if (tab[0] != 1024 && tab[0] != -1 && g_data.flagerr == -1)
 				{
-					dup2(tab[0], 0);					
 					fd_in = tab[0];
+					dup2(fd_in, 0);
+					close(fd_in);				
 				}
-				if (tab[1] != 1024 && tab[1] != -1 && flag != 3 && flag != 4)
+				if (tab[1] != 1024 && tab[1] != -1 && g_data.flagerr == -1)
 				{
 					dup2(tab[1], 1);
 					close(tab[1]);
 				}
-				ft_builtins(tmp->args, node, &b_in);
-				if (b_in == 1)
-					ptrs = ft_find_path(path, tmp->args);
+				else
+				{
+					if (g_data.flagerr != -1)
+					{
+						if (g_data.flagerr == 1)
+						{
+							write(2, "bash: ", 7);
+							write(2, g_data.cmderr, ft_strlen(g_data.cmderr));
+							write(2, ": No such file or directory\n", 29);
+						}
+						else if (g_data.flagerr == 2)
+						{
+							write(2, "bash: ", 7);
+							write(2, g_data.cmderr, ft_strlen(g_data.cmderr));
+							write(2, ": Is a Directory\n", 18);
+						}
+						else if (g_data.flagerr == 3)
+						{
+							write(2, "bash: ", 7);
+							write(2, g_data.cmderr, ft_strlen(g_data.cmderr));
+							write(2, ": Permission Denied\n", 20);
+						}
+						g_data.statuscode = 1;
+						exit(g_data.statuscode);
+					}
+				}
 			}
-			else
-			{
-				ft_builtins(tmp->args, node, &flag);
-				if (flag == 1)
-					ptrs = ft_find_path(path, tmp->args);
-			}
-
 			dup2(fd_in, 0); 
 			if (tmp->next != NULL)
 			{
@@ -75,22 +95,24 @@ void	ft_pipes(t_node *node,t_cmd *strct)
 			close(p[0]);
 			if (fd_in == -1 && tmp->args[0])
 				return ;
-			execve(ptrs[0], ptrs, NULL);
-		
+			ft_builtins(tmp->args, node, &flag);
+			if (flag == 1)
+				ptrs = ft_find_path(path, tmp->args);
+			
+				execve(ptrs[0], ptrs, NULL);
+				exit(g_data.statuscode);
 		}
-		close(p[1]);
-		int fd_old = fd_in;
-		if(fd_old != 0) 
-			close(fd_old);
-		fd_in = p[0];
+		else
+		{
+			waitpid(pid, &g_data.statuscode, 0);
+			close(p[1]);
+			int fd_old = fd_in;
+			if(fd_old != 0) 
+				close(fd_old);
+			fd_in = p[0];
+		}
 		tmp = tmp->next;
 		i++;
 	}
-	int nbr_cmd;
-	nbr_cmd = 0;
-	while (nbr_cmd < i)
-	{
-		wait(NULL);
-		nbr_cmd++;
-	}	
+	g_data.statuscode =  WEXITSTATUS(g_data.statuscode);
 }

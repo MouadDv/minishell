@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   call_exec.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sbensarg <sbensarg@student.42.fr>          +#+  +:+       +#+        */
+/*   By: chicky <chicky@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/24 16:06:52 by chicky            #+#    #+#             */
-/*   Updated: 2021/10/26 16:22:49 by sbensarg         ###   ########.fr       */
+/*   Updated: 2021/11/05 20:21:05 by chicky           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,9 +43,9 @@ char	*ft_check_absolute_path(char **cmd)
 	newpath = if_absolute_path(cmd, &flag);
 	if (flag == 1)
 	{
-		free(newpath);
 		write(2, newpath, ft_strlen(newpath));
-		write(2, ": is a directory\n", 17);
+		free(newpath);
+		write(2, ": Is a Directory\n", 17);
 		g_data.statuscode = 126;
 		newpath = NULL;
 	}
@@ -61,7 +61,12 @@ char 	**ft_find_path(char **path, char **ptrs)
 {
 	char *newpath;
 
-	if (ft_strncmp(ptrs[0], "/", 1) == 0)
+	if (ptrs[0] == NULL)
+	{
+		write(2, "invalid cmd\n", 12);
+		g_data.statuscode = 127;
+	}
+	else if (ft_strncmp(ptrs[0], "/", 1) == 0)
 		newpath = ft_check_absolute_path(ptrs);
 	else
 	{

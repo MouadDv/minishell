@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_redir.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sbensarg <sbensarg@student.42.fr>          +#+  +:+       +#+        */
+/*   By: chicky <chicky@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/29 18:10:16 by chicky            #+#    #+#             */
-/*   Updated: 2021/11/01 17:23:54 by sbensarg         ###   ########.fr       */
+/*   Updated: 2021/11/06 00:51:41 by chicky           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,12 +17,13 @@ void	reset_dup(void)
 	dup2(g_data.saved[0], 0);
 	dup2(g_data.saved[1], 1);
 }
+
 int	*ft_tab_of_in_out(t_red *redir, int *flag)
 {
 	t_red *tmp2;
-	int	fd[2];
 	int fdin;
 	int fdout;
+	int	fd[2];
 	char *line;
 	int *tab;
 
@@ -30,26 +31,44 @@ int	*ft_tab_of_in_out(t_red *redir, int *flag)
 	fdin = 1024;
 	fdout = 1024;
 	tab = malloc(sizeof(char) * 2);
+	g_data.cmderr = malloc(sizeof(tmp2->arg));
+	g_data.cmderr = NULL;
+	g_data.flagerr = -1;
 
 	while (tmp2 != NULL)
 	{
 		if (tmp2->type == 'i')
 		{
 			fdin = open(tmp2->arg, O_RDONLY);
-			if (fdin < 0)
+			if (fdin)
 			{
-				*flag = 1;
-				write(2, "bash: ", 7);
-				write(2, tmp2->arg, ft_strlen(tmp2->arg));
-				perror("");
-				exit (1);
+				if (fdin < 0)
+				{
+					if (g_data.cmderr == NULL)
+						g_data.cmderr = tmp2->arg;
+					if (errno == 13)
+					{
+						if(g_data.flagerr == -1) 
+							g_data.flagerr = 3;
+					}
+					else if (g_data.flagerr == -1)
+					{
+						g_data.flagerr = 1;
+					}
+				}
+				else if (open(tmp2->arg, O_DIRECTORY) > 0)
+				{
+					if (g_data.cmderr == NULL)
+						g_data.cmderr = tmp2->arg;
+					if(g_data.flagerr == -1) 
+						g_data.flagerr = 2;
+				}
 			}
 		}
 		if (tmp2->type == 'h')
 		{
 			if (pipe(fd) == -1)
 			{
-				*flag = 1;
 				exit (EXIT_FAILURE);
 			}
 			while (1)
@@ -72,13 +91,23 @@ int	*ft_tab_of_in_out(t_red *redir, int *flag)
 			fdout = open(tmp2->arg, O_CREAT | O_TRUNC | O_RDWR, 0777);
 			if (fdout < 0)
 			{
-				*flag = 1;
-				write(2, "bash: ", 7);
-				write(2, tmp2->arg, ft_strlen(tmp2->arg));
-				perror("");
+				if (g_data.cmderr == NULL)
+					g_data.cmderr = tmp2->arg;
 				if (errno == 13)
-					g_data.statuscode = 1;
-				exit (1);
+				{
+					if(g_data.flagerr == -1) 
+						g_data.flagerr = 3;
+				}
+				else if (open(tmp2->arg, O_DIRECTORY) > 0)
+				{
+					if(g_data.flagerr == -1) 
+						g_data.flagerr = 2;
+				}
+				else if (g_data.flagerr == -1)
+				{
+					g_data.flagerr = 1;
+				}
+				break;
 			}
 		}
 		if (tmp2->type == 'a')
@@ -86,72 +115,108 @@ int	*ft_tab_of_in_out(t_red *redir, int *flag)
 			fdout = open(tmp2->arg, O_CREAT | O_APPEND | O_RDWR, 0777);
 			if (fdout < 0)
 			{
-				*flag = 1;
-				write(2, "bash: ", 7);
-				write(2, tmp2->arg, ft_strlen(tmp2->arg));
-				perror("");
+			
+				if (g_data.cmderr == NULL)
+					g_data.cmderr = tmp2->arg;
+				
 				if (errno == 13)
-					g_data.statuscode = 1;
-				exit (1);
+				{
+					if(g_data.flagerr == -1) 
+						g_data.flagerr = 3;
+				}
+				else if (open(tmp2->arg, O_DIRECTORY) > 0)
+				{
+					if(g_data.flagerr == -1) 
+						g_data.flagerr = 2;
+				}
+				else if (g_data.flagerr == -1)
+				{
+					g_data.flagerr = 1;
+				}
+				break;
 			}
 		}
 		tmp2 = tmp2->next;
 	}
+
 	tab[0] = fdin;
 	tab[1] = fdout;
 	return(tab);
 }
 
-void 	ft_exec_redir(char **cmd, t_cmd *strct, t_node *head)
+void	ft_exec_redirections(char **cmd, t_red *redir, t_node *node)
 {
 	char	**path;
 	int		b_in;
 	int		flag;
 	int		p;
 	int		*tab;
-	t_cmd	*tmp;
-	t_red	*tmp2;
 
-	tmp = strct;
-	b_in = 0;
-	flag = 0;
-	path = ft_path(head);
-	ft_builtins(cmd, head, &b_in);
-	if (b_in == 1)
-		cmd = ft_find_path(path, cmd);
-	p = fork();
-	if (p == -1)
-		exit (EXIT_FAILURE);
-	else if (p == 0)
-	{
-		while (tmp)
-		{
-			tmp2 = tmp->redirections;
-			while(tmp2)
-			{
-				tab = ft_tab_of_in_out(tmp2, &flag);
-				if (tab[0] != 1024 && tab[0] != -1 && flag != 1 && flag != 2)
-				{
-					dup2(tab[0], 0);
-					close(tab[0]);
-				}
-				if (tab[1] != 1024 && tab[1] != -1 && flag != 3 && flag != 4)
-				{
-					dup2(tab[1], 1);
-					close(tab[1]);
-				}
-				execve(cmd[0], cmd, NULL);
-				exit(EXIT_FAILURE);
-				tmp2 = tmp2->next;
-			}
-			tmp = tmp->next;
-		}
+	char	**ptrs;
+	int		scode;
+	ptrs = malloc(sizeof(t_cmd));
+	path = ft_path(node);
 	
-	}
-	else
+	g_data.saved[0] = dup(0);
+	g_data.saved[1] = dup(1);
+	
+	if (redir)
 	{
-		wait(NULL);
-	}
+		tab = ft_tab_of_in_out(redir, &flag);
+			if (tab[0] != 1024 && tab[0] != -1 && g_data.flagerr == -1)
+			{
+				dup2(tab[0], 0);
+				close(tab[0]);				
+			}
+			if (tab[1] != 1024 && tab[1] != -1 && g_data.flagerr == -1)
+			{
+				dup2(tab[1], 1);
+				close(tab[1]);
+			}
+			if (g_data.flagerr != -1)
+			{
+				if (g_data.flagerr == 1)
+				{
+					write(2, "bash: ", 7);
+					write(2, g_data.cmderr, ft_strlen(g_data.cmderr));
+					write(2, ": No such file or directory\n", 29);
+				}
+				else if (g_data.flagerr == 2)
+				{
+					write(2, "bash: ", 7);
+					write(2, g_data.cmderr, ft_strlen(g_data.cmderr));
+					write(2, ": Is a Directory\n", 18);
+				}
+				else if (g_data.flagerr == 3)
+				{
+					write(2, "bash: ", 7);
+					write(2, g_data.cmderr, ft_strlen(g_data.cmderr));
+					write(2, ": Permission Denied\n", 20);
+				}
+				g_data.statuscode = 1;
+				return ;
+			}
+		}
+		ft_builtins(cmd, node, &flag);
+		if (flag == 1)
+			ptrs = ft_find_path(path, cmd);
+		if (ptrs != NULL)
+		{
+			p = fork();
+			if (p == -1)
+				exit (EXIT_FAILURE);
+			else if (p == 0)
+			{
+				execve(ptrs[0], ptrs, NULL);
+				exit(g_data.statuscode);
+			}
+			else
+			{
+				waitpid(p, &g_data.statuscode, 0);
+			}	
+		}
+		g_data.statuscode =  WEXITSTATUS(g_data.statuscode);
+		reset_dup();
 }
 
 void ft_global_redir(t_cmd *strct, t_node *head)
@@ -161,8 +226,6 @@ void ft_global_redir(t_cmd *strct, t_node *head)
 
 	tmp = strct;
 	tmp2 = tmp->redirections;
-	t_node *t;
-	t = head;
 
-	ft_exec_redir(tmp->args, strct, head);
+	ft_exec_redirections(tmp->args,tmp2, head);
 }

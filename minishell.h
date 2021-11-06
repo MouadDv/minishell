@@ -13,6 +13,7 @@
 #include <errno.h>
 #include <sys/stat.h>
 # include <signal.h>
+#include <sys/wait.h>
 
 typedef struct s_cmd
 {
@@ -39,6 +40,8 @@ typedef struct s_data {
 	
 	int statuscode;
 	int	saved[2];
+	char *cmderr;
+	int	flagerr;
 	
 }	t_data;
 
@@ -83,6 +86,10 @@ void 	ft_exec_redir(char **cmd, t_cmd *strct, t_node *head);
 void 	ft_builtins(char **ptr, t_node *node, int *flag);
 void 	ft_global_redir(t_cmd *strct, t_node *head);
 int		*ft_tab_of_in_out(t_red *redir, int *flag);
+int 	ft_b_in(char **ptr);
+int 	ft_heredoc(t_red *redir);
+//void	ft_exec_redirections( t_cmd *strct, t_node *node);
+void	ft_exec_redirections(char **cmd, t_red *redir, t_node *node);
 
 void 	print_strct(t_cmd *strct);
 

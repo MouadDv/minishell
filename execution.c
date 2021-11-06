@@ -1,5 +1,20 @@
 #include "minishell.h"
 
+int ft_b_in(char **ptr)
+{
+	if (ft_strncmp(ptr[0], "cd", ft_strlen(ptr[0])) == 0 ||
+		ft_strncmp(ptr[0], "export", ft_strlen(ptr[0])) == 0 ||
+		ft_strncmp(ptr[0], "unset", ft_strlen(ptr[0])) == 0 ||
+		ft_strncmp(ptr[0], "env", ft_strlen(ptr[0])) == 0 ||
+		ft_strncmp(ptr[0], "pwd", ft_strlen(ptr[0])) == 0 ||
+		ft_strncmp(ptr[0], "echo", ft_strlen(ptr[0])) == 0 ||
+		ft_strncmp(ptr[0], "exit", ft_strlen(ptr[0])) == 0)
+		return(1);
+	else
+	{
+		return(0);
+	}
+}
 void ft_builtins(char **ptr, t_node *node, int *flag)
 {
 	t_node *temp;
@@ -29,7 +44,10 @@ void ft_builtins(char **ptr, t_node *node, int *flag)
 	else if (ft_strncmp(ptr[0], "echo", ft_strlen(ptr[0])) == 0)
 	{
 		if (ft_strncmp(ptr[1], "$?", ft_strlen(ptr[1])) == 0)
+		{
 			printf("%d\n", g_data.statuscode);
+			g_data.statuscode = 0;
+		}
 		else
 			ft_global_echo(ptr);
 	}

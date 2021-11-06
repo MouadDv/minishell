@@ -67,6 +67,7 @@ int main(int argc, char **argv, char **env)
 {
 	t_node	*node;
 	char **newenv;
+   // g_data.statuscode = 0;
 
     node = NULL;
     if (argc == 1)
