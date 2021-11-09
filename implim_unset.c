@@ -6,7 +6,7 @@
 /*   By: sbensarg <sbensarg@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/14 20:49:09 by chicky            #+#    #+#             */
-/*   Updated: 2021/11/09 13:40:35 by sbensarg         ###   ########.fr       */
+/*   Updated: 2021/11/09 20:17:58 by sbensarg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,10 @@ void	ft_unset(t_node **head, char *name)
 {
 	t_node	*tmp;
 	t_node	*cur;
+	int		i;
 
+	i = 1;
+	g_data.statuscode = 0;
 	cur = *head;
 	if (ft_strncmp((*head)->name, name, ft_strlen(name)) == 0)
 	{
@@ -38,10 +41,20 @@ void	ft_unset(t_node **head, char *name)
 				tmp = cur->next;
 				cur->next = cur->next->next;
 				free(tmp);
-				break ;
 			}
-			else
 				cur = cur->next;
 		}
+	}
+}
+
+void	ft_unset_global(t_node **head, char **ptr)
+{
+	int	i;
+
+	i = 1;
+	while (ptr[i])
+	{
+		ft_unset(head, ptr[i]);
+		i++;
 	}
 }

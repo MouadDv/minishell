@@ -71,9 +71,8 @@ void	ft_init(t_node *head)
 	g_data.cmderr = malloc(sizeof(tmp2->arg));
 	g_data.tab = malloc(sizeof(char) * 2);
 	g_data.ptrs = malloc(sizeof(t_cmd));
-	
-
 }
+
 int main(int argc, char **argv, char **env)
 {
 	t_node	*node;

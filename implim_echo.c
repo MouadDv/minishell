@@ -6,7 +6,7 @@
 /*   By: sbensarg <sbensarg@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/17 22:52:22 by chicky            #+#    #+#             */
-/*   Updated: 2021/11/09 14:02:13 by sbensarg         ###   ########.fr       */
+/*   Updated: 2021/11/09 18:35:19 by sbensarg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@ void	ft_global_echo(char **ptr)
 
 	m = 0;
 	opt = 0;
+	g_data.statuscode = 0;
 	m = ft_echo_utils(ptr, &opt);
 	if (m != 0)
 		ft_echo(ptr, m, &opt);

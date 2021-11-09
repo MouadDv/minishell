@@ -83,7 +83,7 @@ int 	ft_check(t_node **head,char *name, char *val, int *flag);
 int 	ft_check_valid_identifier(char *name);
 void 	test_add(t_node **head, char *name, char *val);
 void	init_struct(char **envp, t_node **head);
-void 	ft_unset(t_node **head, char *name);
+void 	ft_unset_global(t_node **head, char **ptr);
 void 	ft_env(t_node *head);
 void 	ft_global_echo(char **ptr);
 int 	ft_echo_utils(char **ptr, int *opt);

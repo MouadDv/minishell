@@ -6,7 +6,7 @@
 /*   By: sbensarg <sbensarg@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/24 16:06:52 by chicky            #+#    #+#             */
-/*   Updated: 2021/11/09 14:08:57 by sbensarg         ###   ########.fr       */
+/*   Updated: 2021/11/09 16:59:54 by sbensarg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,8 +44,10 @@ void	call_exec(char **cmd)
 	else if (p == 0)
 	{
 		execve(cmd[0], cmd, NULL);
-		exit(EXIT_FAILURE);
+		
+		exit(g_data.statuscode);
 	}
 	else
-		wait(NULL);
+		waitpid(p, &g_data.statuscode, 0);
+	g_data.statuscode = WEXITSTATUS(g_data.statuscode);
 }

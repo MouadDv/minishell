@@ -6,7 +6,7 @@
 /*   By: sbensarg <sbensarg@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/02 15:07:03 by sbensarg          #+#    #+#             */
-/*   Updated: 2021/11/08 13:17:24 by sbensarg         ###   ########.fr       */
+/*   Updated: 2021/11/09 16:22:57 by sbensarg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,7 @@ void	impli_cd(char *ptr, t_node *node)
 	int		ret;
 	t_node	*tmp;
 
+	g_data.statuscode = 0;
 	tmp = node;
 	if (ptr == NULL || *ptr == ' ' || *ptr == '\0')
 		impli_cd_norm(tmp);

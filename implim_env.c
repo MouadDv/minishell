@@ -6,7 +6,7 @@
 /*   By: sbensarg <sbensarg@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/16 23:19:17 by chicky            #+#    #+#             */
-/*   Updated: 2021/11/09 13:42:23 by sbensarg         ###   ########.fr       */
+/*   Updated: 2021/11/09 17:20:34 by sbensarg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,9 +18,11 @@ void	ft_env(t_node *head)
 	char	*ret;
 	char	*value;
 	int		i;
+	
 
 	i = 0;
 	temp = head;
+	g_data.statuscode = 0;
 	while (temp != NULL)
 	{	
 		value = temp->val;

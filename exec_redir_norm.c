@@ -6,7 +6,7 @@
 /*   By: sbensarg <sbensarg@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/08 12:22:54 by sbensarg          #+#    #+#             */
-/*   Updated: 2021/11/08 12:44:05 by sbensarg         ###   ########.fr       */
+/*   Updated: 2021/11/09 20:28:53 by sbensarg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,7 +95,11 @@ void	ft_tab_of_in_out_norm(t_red *tmp2)
 	while (tmp2 != NULL)
 	{
 		if (tmp2->type == 'i')
+		{
 			g_data.fdin = ft_ret_input_fd(tmp2);
+			if (g_data.fdin < 0)
+				break ;
+		}
 		if (tmp2->type == 'h')
 			g_data.fdin = ft_ret_heredoc_fd(tmp2);
 		if (tmp2->type == 'o')
