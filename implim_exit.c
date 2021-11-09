@@ -6,7 +6,7 @@
 /*   By: sbensarg <sbensarg@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/17 12:31:16 by sbensarg          #+#    #+#             */
-/*   Updated: 2021/09/19 15:39:33 by sbensarg         ###   ########.fr       */
+/*   Updated: 2021/11/09 13:45:57 by sbensarg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 int	size_ptr_exit(char **ptr)
 {
-	int i;
+	int	i;
 
 	i = 1;
 	while (ptr[i])
@@ -22,11 +22,11 @@ int	size_ptr_exit(char **ptr)
 	return (i);
 }
 
-int is_digit(char *ptr)
+int	is_digit(char *ptr)
 {
-	int i;
+	int	i;
+
 	i = 0;
-	
 	if (ptr[i] == '-' || ptr[i] == '+')
 		i++;
 	while (ptr[i] >= '0' && ptr[i] <= '9')
@@ -38,10 +38,10 @@ int is_digit(char *ptr)
 
 void	ft_exit(char **ptr)
 {
-	int s;
-	int nbr;
-	int i;
-	int ret;
+	int	s;
+	int	nbr;
+	int	i;
+	int	ret;
 
 	i = 1;
 	s = size_ptr_exit(ptr);
@@ -56,9 +56,9 @@ void	ft_exit(char **ptr)
 	{
 		write(2, "bash: exit: ", 13);
 		write(2, ptr[1], ft_strlen(ptr[1]));
-		write(2, ": numeric argument required\n", 29); 
+		write(2, ": numeric argument required\n", 29);
 		exit(255);
 	}
 	else
-		exit(0);		
+		exit(0);
 }

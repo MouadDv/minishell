@@ -38,10 +38,25 @@ typedef struct s_node {
 
 typedef struct s_data {
 	
-	int statuscode;
-	int	saved[2];
-	char *cmderr;
-	int	flagerr;
+	int		statuscode;
+	int		saved[2];
+	char	*cmderr;
+	int		flagerr;
+	char	*newpath;
+	char	**path;
+	int  	fd_in;
+	int		fd_old;
+	int		fd[2];
+	int		p[2];
+	pid_t	pid;
+	int		*tab;
+	char	**ptrs;
+	pid_t	p1;
+	int		fdin;
+	int		fdout;
+	char	*wrd;
+    char	*val;
+
 	
 }	t_data;
 
@@ -74,7 +89,7 @@ void 	ft_global_echo(char **ptr);
 int 	ft_echo_utils(char **ptr, int *opt);
 void 	ft_echo(char **ptr, int m, int *opt);
 void	ft_exit(char **ptr);
-void	call_exec(char **cmd, t_node *head);
+void	call_exec(char **cmd);
 char	**ft_path(t_node *head);
 char 	**ft_find_path(char **path, char **ptrs);
 char	*if_absolute_path(char **cmd, int *j);
@@ -85,13 +100,42 @@ void	ft_pipes(t_node *node, t_cmd *strct);
 void 	ft_exec_redir(char **cmd, t_cmd *strct, t_node *head);
 void 	ft_builtins(char **ptr, t_node *node, int *flag);
 void 	ft_global_redir(t_cmd *strct, t_node *head);
-int		*ft_tab_of_in_out(t_red *redir, int *flag);
-int 	ft_b_in(char **ptr);
+int		*ft_tab_of_in_out(t_red *redir);
 int 	ft_heredoc(t_red *redir);
-//void	ft_exec_redirections( t_cmd *strct, t_node *node);
 void	ft_exec_redirections(char **cmd, t_red *redir, t_node *node);
+void	ft_dup_redir_in_pipes(t_red	*redir);
+void	ft_check_err_piped_redir(void);
+void	ft_check_err_redir(void);
+
+int		ft_ret_input_fd(t_red *tmp2);
+int		ft_ret_heredoc_fd(t_red *tmp2);
+int		ft_ret_outputfd(t_red *tmp2);
+int		ft_ret_appendfd(t_red *tmp2);
+void	ft_tab_of_in_out_norm(t_red *tmp2);
+void	reset_dup(void);
+void 	ft_check_err_norm(void);
+void	ft_check_err_norm2(t_red *tmp2);
+void	ft_global_check_err_norm(void);
+void	ft_print_err_msg(char *msg);
+
+void 	ft_sort_list(t_node *head);
+t_node	*copy_list(t_node *node);
+int 	ft_check_valid_identifier(char *name);
+int 	ft_check(t_node **head,char *name, char *val, int *flag);
+void 	test_add(t_node **head, char *name, char *val);
+int 	len_list(t_node *head);
+void	ft_swap(t_node *tmp1, t_node *tmp2);
+void	ft_sort_list(t_node *head);
+t_node	*alloc_list(void);
+t_node	*copy_list(t_node *node);
+int		ft_check_valid_identifier(char *name);
+
+
+
+
 
 void 	print_strct(t_cmd *strct);
+
 
 
 char	*ft_strjoin1(char const *s1, char const *s2);

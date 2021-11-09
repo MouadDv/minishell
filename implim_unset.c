@@ -6,23 +6,28 @@
 /*   By: sbensarg <sbensarg@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/14 20:49:09 by chicky            #+#    #+#             */
-/*   Updated: 2021/10/26 15:40:44 by sbensarg         ###   ########.fr       */
+/*   Updated: 2021/11/09 13:40:35 by sbensarg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void ft_unset(t_node **head, char *name)
+void	ft_unset_norm(t_node *tmp, t_node **head)
 {
-	t_node *tmp;
-	t_node *cur;
+	*head = (*head)->next;
+	free(tmp);
+}	
+
+void	ft_unset(t_node **head, char *name)
+{
+	t_node	*tmp;
+	t_node	*cur;
+
 	cur = *head;
-	
 	if (ft_strncmp((*head)->name, name, ft_strlen(name)) == 0)
 	{
 		tmp = *head;
-		*head = (*head)->next;
-		free(tmp);
+		ft_unset_norm(tmp, head);
 	}
 	else
 	{
@@ -36,8 +41,7 @@ void ft_unset(t_node **head, char *name)
 				break ;
 			}
 			else
-				cur = cur->next;	
+				cur = cur->next;
 		}
 	}
-	
 }

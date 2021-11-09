@@ -62,19 +62,31 @@ char *get_line(t_node *node)
     free(buf);
     return (buf);
 }
+void	ft_init(t_node *head)
+{
+	t_red *tmp2;
 
+	g_data.path = ft_path(head);
+	g_data.newpath = ft_strdup("");
+	g_data.cmderr = malloc(sizeof(tmp2->arg));
+	g_data.tab = malloc(sizeof(char) * 2);
+	g_data.ptrs = malloc(sizeof(t_cmd));
+	
+
+}
 int main(int argc, char **argv, char **env)
 {
 	t_node	*node;
 	char **newenv;
-   // g_data.statuscode = 0;
 
+   // g_data.statuscode = 0;
     node = NULL;
     if (argc == 1)
     {
         ft_strlen(argv[0]);
         newenv = copy_env(env);
         init_struct(newenv, &node);
+		ft_init(node);
         signal(SIGQUIT, SIG_IGN);
         while (1)
         {

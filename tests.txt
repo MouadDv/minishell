@@ -42,3 +42,11 @@ cd ../../../../../../../../../..
 =====> pas encore traiter <====
 -export modif la valeur de name deja ajouter + multiple args
 -echo sans param
+
+===>bugs<=====
+cat << g < tests.txt <ttt
+heredoc>dfgdgf
+heredoc>dfgdfg
+heredoc>g
+bash: tt: No such file or directory
+===================================

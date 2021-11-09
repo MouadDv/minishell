@@ -3,21 +3,21 @@
 /*                                                        :::      ::::::::   */
 /*   implim_pwd.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: chicky <chicky@student.42.fr>              +#+  +:+       +#+        */
+/*   By: sbensarg <sbensarg@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/02 17:00:49 by sbensarg          #+#    #+#             */
-/*   Updated: 2021/08/26 17:16:47 by chicky           ###   ########.fr       */
+/*   Updated: 2021/11/09 13:43:17 by sbensarg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void ft_pwd(void)
+void	ft_pwd(void)
 {
-    char buf[MAXPATHLEN];
-    char *ret_getcwd;
-    
-    ret_getcwd = getcwd(buf, MAXPATHLEN);
-    write(1, ret_getcwd, strlen(ret_getcwd));
-    write(1 , "\n", 1);
+	char	buf[MAXPATHLEN];
+	char	*ret_getcwd;
+
+	ret_getcwd = getcwd(buf, MAXPATHLEN);
+	write(1, ret_getcwd, strlen(ret_getcwd));
+	write(1, "\n", 1);
 }

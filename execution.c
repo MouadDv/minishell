@@ -1,57 +1,59 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   execution.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: sbensarg <sbensarg@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/11/06 12:34:40 by sbensarg          #+#    #+#             */
+/*   Updated: 2021/11/06 12:45:03 by sbensarg         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minishell.h"
 
-int ft_b_in(char **ptr)
+void	ft_b_in_export_norm(char **ptr, t_node *node)
 {
-	if (ft_strncmp(ptr[0], "cd", ft_strlen(ptr[0])) == 0 ||
-		ft_strncmp(ptr[0], "export", ft_strlen(ptr[0])) == 0 ||
-		ft_strncmp(ptr[0], "unset", ft_strlen(ptr[0])) == 0 ||
-		ft_strncmp(ptr[0], "env", ft_strlen(ptr[0])) == 0 ||
-		ft_strncmp(ptr[0], "pwd", ft_strlen(ptr[0])) == 0 ||
-		ft_strncmp(ptr[0], "echo", ft_strlen(ptr[0])) == 0 ||
-		ft_strncmp(ptr[0], "exit", ft_strlen(ptr[0])) == 0)
-		return(1);
+	t_node	*temp;
+
+	if (ptr[1])
+		ft_global_export(ptr, node);
 	else
 	{
-		return(0);
+		temp = copy_list(node);
+		ft_sort_list(temp);
+		ft_export(temp);
 	}
 }
-void ft_builtins(char **ptr, t_node *node, int *flag)
+
+void	ft_b_in_echo_norm(char **ptr)
 {
-	t_node *temp;
+	if (ft_strncmp(ptr[1], "$?", ft_strlen(ptr[1])) == 0)
+	{
+		printf("%d\n", g_data.statuscode);
+		g_data.statuscode = 0;
+	}
+	else
+		ft_global_echo(ptr);
+}
+
+void	ft_builtins(char **ptr, t_node *node, int *flag)
+{
 	if (ft_strncmp(ptr[0], "cd", ft_strlen(ptr[0])) == 0)
 		impli_cd(ptr[1], node);
 	else if (ft_strncmp(ptr[0], "export", ft_strlen(ptr[0])) == 0)
-	{
-		if (ptr[1])
-			ft_global_export(ptr, node);
-		else
-		{
-			temp = copy_list(node);
-			ft_sort_list(temp);
-			ft_export(temp);
-		}
-		
-	}
+		ft_b_in_export_norm(ptr, node);
 	else if (ft_strncmp(ptr[0], "unset", ft_strlen(ptr[0])) == 0)
 	{
 		if (ptr[1])
-			ft_unset(&node, ptr[1]);	
+			ft_unset(&node, ptr[1]);
 	}
 	else if (ft_strncmp(ptr[0], "env", ft_strlen(ptr[0])) == 0)
 		ft_env(node);
 	else if (ft_strncmp(ptr[0], "pwd", ft_strlen(ptr[0])) == 0)
-			ft_pwd();
+		ft_pwd();
 	else if (ft_strncmp(ptr[0], "echo", ft_strlen(ptr[0])) == 0)
-	{
-		if (ft_strncmp(ptr[1], "$?", ft_strlen(ptr[1])) == 0)
-		{
-			printf("%d\n", g_data.statuscode);
-			g_data.statuscode = 0;
-		}
-		else
-			ft_global_echo(ptr);
-	}
-		
+		ft_b_in_echo_norm(ptr);
 	else if (ft_strncmp(ptr[0], "exit", ft_strlen(ptr[0])) == 0)
 		ft_exit(ptr);
 	else
@@ -61,16 +63,16 @@ void ft_builtins(char **ptr, t_node *node, int *flag)
 void	ft_simple_cmd(t_cmd *strct, t_node *node)
 {
 	int		flag;
-	t_cmd   *tmp;
+	t_cmd	*tmp;
 
 	flag = 0;
 	tmp = strct;
-	ft_builtins(tmp->args, node , &flag);
+	ft_builtins(tmp->args, node, &flag);
 	if (flag == 1)
-		call_exec(tmp->args, node);
+		call_exec(tmp->args);
 }
 
-void 	ft_execution(t_cmd *strct, t_node *node)
+void	ft_execution(t_cmd *strct, t_node *node)
 {
 	t_cmd	*tmp;
 	t_red	*tmp2;
