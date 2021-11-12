@@ -1,6 +1,18 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   parser_utils.c                                     :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: milmi <milmi@student.42.fr>                +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/11/12 04:34:55 by milmi             #+#    #+#             */
+/*   Updated: 2021/11/12 04:37:28 by milmi            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minishell.h"
 
-int	end_of_delimiter(char	*str)
+int	end_of_delimiter(char *str)
 {
 	int	i;
 
@@ -11,7 +23,7 @@ int	end_of_delimiter(char	*str)
 	return (i);
 }
 
-void	subarg(int	*r, int	i, char	*str, t_red	*red)
+void	subarg(int *r, int i, char *str, t_red *red)
 {
 	int	end;
 
@@ -22,7 +34,7 @@ void	subarg(int	*r, int	i, char	*str, t_red	*red)
 	*r = *r + i + end - 1;
 }
 
-char	*ft_strjoin1(char	*s1, char const	*s2)
+char	*ft_strjoin1(char *s1, char const *s2)
 {
 	int		lens1;
 	int		lens2;

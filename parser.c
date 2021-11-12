@@ -1,6 +1,18 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   parser.c                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: milmi <milmi@student.42.fr>                +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/11/12 04:34:50 by milmi             #+#    #+#             */
+/*   Updated: 2021/11/12 04:58:54 by milmi            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minishell.h"
 
-void	get_redir(char	*str, t_red	*red, int	*r)
+void	get_redir(char *str, t_red *red, int *r)
 {
 	if (str[0] == '<' && str[1] == '<')
 	{
@@ -24,7 +36,7 @@ void	get_redir(char	*str, t_red	*red, int	*r)
 	}
 }
 
-void	get_cmd(char	*str, t_cmd	*strct, int	*r)
+void	get_cmd(char *str, t_cmd *strct, int *r)
 {
 	int	i;
 
@@ -39,7 +51,7 @@ void	get_cmd(char	*str, t_cmd	*strct, int	*r)
 	strct->args = splitargs(strct->cmd);
 }
 
-void	parce_syntax(char	*str, t_cmd	*strct, t_red	*tmp, int	i)
+void	parce_syntax(char *str, t_cmd *strct, t_red *tmp, int i)
 {
 	while (str[i])
 	{
@@ -68,7 +80,7 @@ void	parce_syntax(char	*str, t_cmd	*strct, t_red	*tmp, int	i)
 	}
 }
 
-int	parse_and_exec(char	*buf, t_node	*node)
+int	parse_and_exec(char *buf, t_node *node)
 {
 	char	*str;
 	t_cmd	*strct;
@@ -79,7 +91,7 @@ int	parse_and_exec(char	*buf, t_node	*node)
 	str = ft_strtrim(buf, " ");
 	parce_syntax(str, strct, NULL, 0);
 	data_proc(strct, node);
-	//rm_quotes(strct);
+	rm_quotes(strct);
 	print_strct(strct);
 	free_strct(strct, NULL, NULL, NULL);
 	free_null(str);

@@ -1,6 +1,18 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   parser_utils2.c                                    :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: milmi <milmi@student.42.fr>                +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/11/12 04:34:59 by milmi             #+#    #+#             */
+/*   Updated: 2021/11/12 04:36:14 by milmi            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minishell.h"
 
-void	sizelen_norm(int	*i, int	*ret, char	*str)
+void	sizelen_norm(int *i, int *ret, char *str)
 {
 	int	trig;
 
@@ -28,7 +40,7 @@ void	sizelen_norm(int	*i, int	*ret, char	*str)
 	}
 }
 
-int	sizelen(char	*str, int	ret, int	i, int	trig)
+int	sizelen(char *str, int ret, int i, int trig)
 {
 	while (str[i])
 	{
@@ -56,7 +68,7 @@ int	sizelen(char	*str, int	ret, int	i, int	trig)
 	return (ret);
 }
 
-char	*singlequote(char	*str, int	*s, int	i)
+char	*singlequote(char *str, int *s, int i)
 {
 	char	*ret;
 	int		trig;
@@ -76,7 +88,7 @@ char	*singlequote(char	*str, int	*s, int	i)
 	return (ret);
 }
 
-char	*doublequote(char	*str, int	*s, int	i)
+char	*doublequote(char *str, int *s, int i)
 {
 	char	*ret;
 	int		trig;
@@ -96,7 +108,7 @@ char	*doublequote(char	*str, int	*s, int	i)
 	return (ret);
 }
 
-char	*get_arg(char	*str, int	*r)
+char	*get_arg(char *str, int *r)
 {
 	int		i;
 	char	*ret;

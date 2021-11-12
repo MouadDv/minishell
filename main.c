@@ -1,6 +1,18 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   main.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: milmi <milmi@student.42.fr>                +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/11/12 04:34:45 by milmi             #+#    #+#             */
+/*   Updated: 2021/11/12 04:36:31 by milmi            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minishell.h"
 
-void	sighandler(int	sig)
+void	sighandler(int sig)
 {
 	if (sig == SIGINT)
 	{
@@ -13,7 +25,7 @@ void	sighandler(int	sig)
 	}
 }
 
-void	get_line(t_node	*node)
+void	get_line(t_node *node)
 {
 	char	*buf;
 
@@ -35,7 +47,7 @@ void	get_line(t_node	*node)
 	free(buf);
 }
 
-int	main(int	argc, char	**argv, char	**env)
+int	main(int argc, char **argv, char **env)
 {
 	t_node	*node;
 	char	**newenv;

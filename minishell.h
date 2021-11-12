@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: milmi <marvin@42.fr>                       +#+  +:+       +#+        */
+/*   By: milmi <milmi@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/11/09 15:02:42 by milmi             #+#    #+#             */
-/*   Updated: 2021/06/04 19:52:37 by milmi            ###   ########.fr       */
+/*   Created: 2021/11/12 04:33:21 by milmi             #+#    #+#             */
+/*   Updated: 2021/11/12 04:41:50 by milmi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,5 +75,6 @@ char	*ft_strjoin1(char	*s1, char const	*s2);
 void	*ft_memcpy1(void *dest, const void *src, size_t n);
 char	*get_name(char	*str);
 void	print_strct(t_cmd	*strct);
+void	rm_quotes(t_cmd *srtct);
 
 #endif

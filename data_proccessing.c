@@ -1,6 +1,18 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   data_proccessing.c                                 :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: milmi <marvin@42.fr>                       +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/11/12 04:33:40 by milmi             #+#    #+#             */
+/*   Updated: 2021/11/12 04:33:42 by milmi            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minishell.h"
 
-void	flagging(char	c, int	*flag)
+void	flagging(char c, int *flag)
 {
 	if (c == '"' && *flag == 0)
 		*flag = 2;
@@ -12,7 +24,7 @@ void	flagging(char	c, int	*flag)
 		*flag = 0;
 }
 
-int	replace_env_norm(int	flag, char	*lct, int	i)
+int	replace_env_norm(int flag, char	*lct, int i)
 {
 	if ((flag == 0 || flag == 2) && lct[i] == '$'
 		&& ((lct[i + 1] >= 'a' && lct[i + 1] <= 'z')
@@ -26,13 +38,13 @@ int	replace_env_norm(int	flag, char	*lct, int	i)
 		return (0);
 }
 
-void	replace_env_norm2(char	*val, char	*name)
+void	replace_env_norm2(char *val, char *name)
 {
 	free_null(val);
 	free_null(name);
 }
 
-char	*replace_env(char	*lct, char	*tmp, t_node	*node, int	flag)
+char	*replace_env(char *lct, char *tmp, t_node *node, int flag)
 {
 	s_rp	rp;
 
