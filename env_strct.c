@@ -58,9 +58,9 @@ void	init_struct(char	**envp, t_node	**head)
 		if (s)
 		{
 			*s = '\0';
-			key = ft_strjoin1("=\"", (s + 1));
+			key = ft_strjoin("=\"", (s + 1));
 			tmp = key;
-			key = ft_strjoin1(key, "\"");
+			key = ft_strjoin(key, "\"");
 			free_null(tmp);
 			test_add(head, envp[i], key);
 			free_null(key);

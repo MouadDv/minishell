@@ -1,10 +1,7 @@
 #include "minishell.h"
 
-int	ft_scan_b(char *str, int *i)
+int	ft_scan_b(char *str, int *i, int	j)
 {
-	int	j;
-
-	j = *i;
 	if (str[j] == '<' || str[j] == '>')
 	{
 		if (str[j] == str[j + 1])
@@ -18,10 +15,15 @@ int	ft_scan_b(char *str, int *i)
 			return (0);
 		}
 	}
-	if (str[j] == '|' && str[j + 1] == '|')
+	if (str[j] == '|')
 	{
-		*i = j;
-		return (0);
+		while (str[j + 1] && str[j + 1] == ' ')
+			j++;
+		if (str[j + 1] == '|' || str[j + 1] == '\0')
+		{
+			*i = j;
+			return (0);
+		}
 	}
 	*i = j;
 	return (1);
@@ -46,7 +48,7 @@ int	scan(char *str)
 			if (str[i] == '\0')
 				break ;
 		}
-		ret = ft_scan_b(str, &i);
+		ret = ft_scan_b(str, &i, i);
 		if (ret == 0)
 			return (0);
 		i++;

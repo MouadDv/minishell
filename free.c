@@ -22,6 +22,7 @@ void	free_strct(t_cmd	*strct, t_red	*tmp, t_red	*tmp2, t_cmd	*tmp3)
 			free_null(strct->args[i]);
 			i++;
 		}
+		free_null(strct->args);
 		while (tmp2)
 		{
 			tmp = tmp2;

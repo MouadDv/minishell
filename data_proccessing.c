@@ -1,62 +1,67 @@
 #include "minishell.h"
 
-char	*get_name(char	*str)
+void	flagging(char	c, int	*flag)
 {
-	char	*ret;
-	int		i;
-
-	i = 0;
-	while (str[i] && str[i] != '$' && str[i] != '"' && str[i] != ' ')
-		i++;
-	ret = ft_substr(str, 0, i);
-	return (ret);
+	if (c == '"' && *flag == 0)
+		*flag = 2;
+	else if (c == '"' && *flag == 2)
+		*flag = 0;
+	if (c == '\'' && *flag == 0)
+		*flag = 1;
+	else if (c == '\'' && *flag == 1)
+		*flag = 0;
 }
 
-char	*replace_env(char	*locat, char	*tmp, t_node	*node, int	flag)
+int	replace_env_norm(int	flag, char	*lct, int	i)
 {
-	char	*fre;
-	int		i;
-	char	*ret;
-	char	*name;
-	char	*val;
-
-	i = 0;
-	tmp = locat;
-	ret = ft_strdup("");
-	while (locat[i])
+	if ((flag == 0 || flag == 2) && lct[i] == '$'
+		&& ((lct[i + 1] >= 'a' && lct[i + 1] <= 'z')
+			|| (lct[i + 1] >= 'A' && lct[i + 1] <= 'Z')
+			|| lct[i + 1] == '_'))
 	{
-		if (locat[i] == '\'' && flag == 0)
-			flag = 1;
-		else if (locat[i] == '\'' && flag == 1)
-			flag = 0;
-		if (flag == 0 && locat[i] == '$' && locat[i + 1] != '"'
-			&& locat[i + 1] != '$' && locat[i + 1] != '\0' && locat[i + 1] != ' ')
-		{
-			locat[i] = '\0';
-			fre = ret;
-			ret = ft_strjoin(ret, tmp);
-			free_null(fre);
-			name = get_name(locat + i + 1);
-			tmp = locat + i + 1 + ft_strlen(name);
-			val = env_val(name, node);
-			if (ft_strlen(val) > 0)
-			{
-				fre = ret;
-				ret = ft_strjoin(ret, ft_substr(val, 2, ft_strlen(val) - 3));
-				free_null(fre);
-			}
-			free_null(name);
-			free_null(val);
-		}
-		i++;
+		*(lct + i) = '\0';
+		return (1);
 	}
-	fre = ret;
-	ret = ft_strjoin(ret, tmp);
-	free_null(fre);
-	return (ret);
+	else
+		return (0);
 }
 
-int	data_proc(t_cmd	*strct, t_node	*node)
+void	replace_env_norm2(char	*val, char	*name)
+{
+	free_null(val);
+	free_null(name);
+}
+
+char	*replace_env(char	*lct, char	*tmp, t_node	*node, int	flag)
+{
+	s_rp	rp;
+
+	rp.i = 0;
+	rp.ret = ft_strdup("");
+	while (lct[rp.i])
+	{
+		flagging(lct[rp.i], &flag);
+		if (replace_env_norm(flag, lct, rp.i))
+		{
+			rp.ret = ft_strjoin1(rp.ret, tmp);
+			rp.name = get_name(lct + rp.i + 1);
+			tmp = lct + rp.i + 1 + ft_strlen(rp.name);
+			rp.val = env_val(rp.name, node);
+			if (ft_strlen(rp.val) > 0)
+			{
+				rp.val2 = ft_substr(rp.val, 2, ft_strlen(rp.val) - 3);
+				rp.ret = ft_strjoin1(rp.ret, rp.val2);
+				free_null(rp.val2);
+			}
+			replace_env_norm2(rp.val, rp.name);
+		}
+		rp.i++;
+	}
+	rp.ret = ft_strjoin1(rp.ret, tmp);
+	return (rp.ret);
+}
+
+void	data_proc(t_cmd	*strct, t_node	*node)
 {
 	int		i;
 	t_red	*tmp2;
@@ -82,5 +87,4 @@ int	data_proc(t_cmd	*strct, t_node	*node)
 		}
 		strct = strct->next;
 	}
-	return (1);
 }

@@ -59,3 +59,18 @@ int	main(int	argc, char	**argv, char	**env)
 	}
 	return (1);
 }
+
+char	*get_name(char	*str)
+{
+	char	*ret;
+	int		i;
+
+	i = 0;
+	while (str[i] && ((str[i] >= '0' && str[i] <= '9')
+			|| (str[i] >= 'a' && str[i] <= 'z')
+			|| (str[i] >= 'A' && str[i] <= 'Z')
+			|| str[i] == '_'))
+		i++;
+	ret = ft_substr(str, 0, i);
+	return (ret);
+}

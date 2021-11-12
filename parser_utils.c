@@ -22,7 +22,7 @@ void	subarg(int	*r, int	i, char	*str, t_red	*red)
 	*r = *r + i + end - 1;
 }
 
-char	*ft_strjoin1(char const	*s1, char const	*s2)
+char	*ft_strjoin1(char	*s1, char const	*s2)
 {
 	int		lens1;
 	int		lens2;
@@ -37,26 +37,8 @@ char	*ft_strjoin1(char const	*s1, char const	*s2)
 	newstr = (char *)malloc(sum + 1);
 	if (newstr == NULL)
 		return (NULL);
-	ft_memcpy1(newstr, s1, lens1);
-	ft_memcpy1(newstr + lens1, s2, lens2 + 1);
+	ft_memcpy(newstr, s1, lens1);
+	ft_memcpy(newstr + lens1, s2, lens2 + 1);
+	free_null(s1);
 	return (newstr);
-}
-
-void	*ft_memcpy1(void	*dest, const void	*src, size_t	n)
-{
-	char	*psrc;
-	char	*pdest;
-	size_t	i;
-
-	if (!dest && !src)
-		return (NULL);
-	i = 0;
-	psrc = (char *)src;
-	pdest = (char *)dest;
-	while (i < n)
-	{
-		pdest[i] = psrc[i];
-		i++;
-	}
-	return (dest);
 }
