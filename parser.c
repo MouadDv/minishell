@@ -6,7 +6,7 @@
 /*   By: milmi <milmi@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/12 04:34:50 by milmi             #+#    #+#             */
-/*   Updated: 2021/11/12 04:58:54 by milmi            ###   ########.fr       */
+/*   Updated: 2021/11/12 06:34:10 by milmi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,7 +92,14 @@ int	parse_and_exec(char *buf, t_node *node)
 	parce_syntax(str, strct, NULL, 0);
 	data_proc(strct, node);
 	rm_quotes(strct);
-	print_strct(strct);
+
+	/*
+
+		execute here!
+
+	*/
+
+	//print_strct(strct);
 	free_strct(strct, NULL, NULL, NULL);
 	free_null(str);
 	return (1);
