@@ -60,17 +60,44 @@ typedef struct s_data {
 	
 }	t_data;
 
+typedef struct {
+	int		i;
+	char	*ret;
+	char	*name;
+	char	*val;
+	char	*val2;
+}	s_rp;
+
+typedef struct s_fr {
+	void		*name;
+	struct s_fr	*next;
+}	t_fr;
+
 t_data g_data;
 
 
 int		scan(char *str);
-int		parse_data(char *buf, t_node *node);
-t_cmd	*alloc_cmd_s();
-t_red	*alloc_red_s();
+int		parse_and_exec(char *buf, t_node	*node);
+t_cmd	*alloc_cmd_s(void);
+t_red	*alloc_red_s(void);
 int		end_of_delimiter(char *str);
-void	subarg(int   *r, int i, char *str, t_red *red);
-int		sizelen(char    *str);
-char	**splitargs(char    *str);
+void	subarg(int	*r, int i, char *str, t_red *red);
+int		sizelen(char	*str, int	ret, int	i, int	trig);
+char	**splitargs(char	*str);
+void	data_proc(t_cmd	*strct, t_node	*node);
+char	*env_val(char	*name, t_node	*node);
+void	free_null(void	*buff);
+void	free_strct(t_cmd	*strct, t_red	*tmp, t_red	*tmp2, t_cmd	*tmp3);
+void	free_node(t_node	*node);
+char	*get_arg(char	*str, int	*r);
+char	**copy_env(char	**env);
+void	test_add(t_node	**head, char	*name, char	*val);
+void	init_struct(char	**envp, t_node	**head);
+char	*ft_strjoin1(char	*s1, char const	*s2);
+void	*ft_memcpy1(void *dest, const void *src, size_t n);
+char	*get_name(char	*str);
+void	print_strct(t_cmd	*strct);
+void	rm_quotes(t_cmd *srtct);
 /* execution */
 void 	ft_execution(t_cmd   *strct, t_node *node);
 void	impli_cd(char *ptr, t_node *node);
@@ -129,17 +156,6 @@ void	ft_sort_list(t_node *head);
 t_node	*alloc_list(void);
 t_node	*copy_list(t_node *node);
 int		ft_check_valid_identifier(char *name);
-
-
-
-
-
-void 	print_strct(t_cmd *strct);
-
-
-
-char	*ft_strjoin1(char const *s1, char const *s2);
-void	*ft_memcpy1(void *dest, const void *src, size_t n);
 
 
 #endif

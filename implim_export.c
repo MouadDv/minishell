@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   implim_export.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sbensarg <sbensarg@student.42.fr>          +#+  +:+       +#+        */
+/*   By: milmi <milmi@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/03 16:38:33 by sbensarg          #+#    #+#             */
-/*   Updated: 2021/11/09 13:29:46 by sbensarg         ###   ########.fr       */
+/*   Updated: 2021/11/13 04:17:30 by milmi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,27 +81,6 @@ void	ft_global_export(char **ptr, t_node	*node)
 			printf ("bash: export: « %s » : identifiant non valable\n",
 				ptr[i]);
 			g_data.statuscode = 1;
-		}
-		i++;
-	}
-}
-
-void	init_struct(char **envp, t_node **head)
-{
-	int		i;
-	char	*s;
-	char	*key;
-
-	i = 0;
-	while (envp[i])
-	{
-		s = ft_strchr(envp[i], '=');
-		if (s)
-		{
-			*s = '\0';
-			key = ft_strjoin("=\"", (s + 1));
-			key = ft_strjoin(key, "\"");
-			test_add(head, envp[i], key);
 		}
 		i++;
 	}

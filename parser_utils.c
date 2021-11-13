@@ -1,53 +1,40 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   parser_utils.c                                     :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: milmi <milmi@student.42.fr>                +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/11/12 04:34:55 by milmi             #+#    #+#             */
+/*   Updated: 2021/11/12 04:37:28 by milmi            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minishell.h"
 
-t_cmd   *alloc_cmd_s()
+int	end_of_delimiter(char *str)
 {
-    t_cmd   *ret;
+	int	i;
 
-    ret = malloc(sizeof(t_cmd));
-    if (!ret)
-        return (0);
-    ret->args = NULL;
-    ret->cmd = NULL;
-    ret->next = NULL;
-    ret->redirections = NULL;
-    return (ret);
+	i = 0;
+	while (str[i] && str[i] != '|' && str[i] != '<'
+		&& str[i] != '>' && str[i] != ' ')
+		i++;
+	return (i);
 }
 
-t_red   *alloc_red_s()
+void	subarg(int *r, int i, char *str, t_red *red)
 {
-    t_red   *ret;
+	int	end;
 
-    ret = malloc(sizeof(t_red));
-    if (!ret)
-        return (0);
-    ret->arg = NULL;
-    ret->next = NULL;
-    ret->type = 0;
-    return (ret);
+	while (str[i] == ' ' && str[i])
+		i++;
+	end = end_of_delimiter(str + i);
+	red->arg = ft_substr(str, i, end);
+	*r = *r + i + end - 1;
 }
 
-int     end_of_delimiter(char *str)
-{
-    int i;
-
-    i = 0;
-    while (str[i] && str[i] != '|' && str[i] != '<' && str[i] != '>' && str[i] != ' ')
-        i++;
-    return (i);
-}
-
-void    subarg(int   *r, int i, char *str, t_red *red)
-{
-    int end;
-    while (str[i] == ' ' && str[i])
-            i++;
-    end = end_of_delimiter(str + i);
-    red->arg = ft_substr(str, i, end);
-    *r = *r + i + end - 1;
-}
-
-char	*ft_strjoin1(char const *s1, char const *s2)
+char	*ft_strjoin1(char *s1, char const *s2)
 {
 	int		lens1;
 	int		lens2;
@@ -62,26 +49,8 @@ char	*ft_strjoin1(char const *s1, char const *s2)
 	newstr = (char *)malloc(sum + 1);
 	if (newstr == NULL)
 		return (NULL);
-	ft_memcpy1(newstr, s1, lens1);
-	ft_memcpy1(newstr + lens1, s2, lens2 + 1);
+	ft_memcpy(newstr, s1, lens1);
+	ft_memcpy(newstr + lens1, s2, lens2 + 1);
+	free_null(s1);
 	return (newstr);
-}
-
-void	*ft_memcpy1(void *dest, const void *src, size_t n)
-{
-	char	*psrc;
-	char	*pdest;
-	size_t	i;
-
-	if (!dest && !src)
-		return (NULL);
-	i = 0;
-	psrc = (char*)src;
-	pdest = (char*)dest;
-	while (i < n)
-	{
-		pdest[i] = psrc[i];
-		i++;
-	}
-	return (dest);
 }
