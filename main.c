@@ -6,7 +6,7 @@
 /*   By: milmi <milmi@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/12 04:34:45 by milmi             #+#    #+#             */
-/*   Updated: 2021/11/13 04:28:01 by milmi            ###   ########.fr       */
+/*   Updated: 2021/11/13 19:34:57 by milmi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ void	sighandler(int sig)
 	if (sig == SIGINT)
 	{
 		rl_on_new_line();
-		write (1, "minishell>> ", 12);
+		write (1, "\033[32;1mminishell$ \033[0m", 23);
 		write (1, rl_line_buffer, ft_strlen(rl_line_buffer));
 		write (1, "  \b\b\n", 5);
 		rl_replace_line("", 1);
@@ -29,7 +29,7 @@ void	get_line(t_node *node)
 {
 	char	*buf;
 
-	buf = readline("minishell>> ");
+	buf = readline("\033[32;1mminishell$ \033[0m");
 	if (buf == NULL)
 	{
 		write(1, "exit\n", 5);
@@ -54,7 +54,7 @@ void	ft_init(t_node *head)
 	g_data.path = ft_path(head);
 	g_data.newpath = ft_strdup("");
 	g_data.cmderr = malloc(sizeof(tmp2->arg));
-	g_data.tab = malloc(sizeof(char) * 2);
+	g_data.tab = malloc(sizeof(int) * 3);
 	g_data.ptrs = malloc(sizeof(t_cmd));
 }
 
@@ -90,6 +90,8 @@ char	*get_name(char	*str)
 	int		i;
 
 	i = 0;
+	if (str[i] == '?')
+		return (ft_strdup("?"));
 	while (str[i] && ((str[i] >= '0' && str[i] <= '9')
 			|| (str[i] >= 'a' && str[i] <= 'z')
 			|| (str[i] >= 'A' && str[i] <= 'Z')

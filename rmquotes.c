@@ -6,19 +6,19 @@
 /*   By: milmi <milmi@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/12 04:39:14 by milmi             #+#    #+#             */
-/*   Updated: 2021/11/13 04:38:00 by milmi            ###   ########.fr       */
+/*   Updated: 2021/11/13 06:09:37 by milmi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	*quotes_index(char *str, int i)
+size_t	*quotes_index(char *str, int i)
 {
-	int		*ret;
+	size_t	*ret;
 	int		flag;
 	char	c;
 
-	ret = malloc(2 * sizeof(int ));
+	ret = malloc(2 * sizeof(size_t ));
 	flag = 0;
 	while (str[i])
 	{
@@ -41,17 +41,15 @@ int	*quotes_index(char *str, int i)
 
 char	*rm_quotes2(char *str)
 {
-	int		len;
 	char	*sub;
 	char	*ret;
-	int		*i;
+	size_t	*i;
 	int		tmp;
 
-	len = ft_strlen(str);
 	i = quotes_index(str, 0);
 	ret = ft_strdup("");
 	sub = NULL;
-	while (i[1] < len)
+	while (i[1] < ft_strlen(str))
 	{
 		sub = ft_substr(str, i[0] + 1, i[1] - i[0] - 1);
 		ret = ft_strjoin1(ret, sub);

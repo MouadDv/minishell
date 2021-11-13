@@ -7,13 +7,16 @@
 # include <string.h>
 # include <readline/readline.h>
 # include <readline/history.h>
-#include <limits.h>
-#include <sys/param.h>
-#include <fcntl.h>
-#include <errno.h>
-#include <sys/stat.h>
+# include <limits.h>
+# include <sys/param.h>
+# include <fcntl.h>
+# include <errno.h>
+# include <sys/stat.h>
 # include <signal.h>
-#include <sys/wait.h>
+# include <sys/wait.h>
+# define RED   "\x1B[31m"
+# define GRN   "\x1B[32m"
+# define RESET "\x1B[0m"
 
 typedef struct s_cmd
 {

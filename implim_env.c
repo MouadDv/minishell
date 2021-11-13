@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   implim_env.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sbensarg <sbensarg@student.42.fr>          +#+  +:+       +#+        */
+/*   By: milmi <milmi@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/16 23:19:17 by chicky            #+#    #+#             */
-/*   Updated: 2021/11/09 17:20:34 by sbensarg         ###   ########.fr       */
+/*   Updated: 2021/11/13 19:29:58 by milmi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 void	ft_env(t_node *head)
 {
 	t_node	*temp;
-	char	*ret;
+ 	char	*ret;
 	char	*value;
 	int		i;
 	
@@ -37,3 +37,7 @@ void	ft_env(t_node *head)
 		temp = temp->next;
 	}
 }
+
+
+
+

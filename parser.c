@@ -6,7 +6,7 @@
 /*   By: milmi <milmi@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/12 04:34:50 by milmi             #+#    #+#             */
-/*   Updated: 2021/11/13 04:19:14 by milmi            ###   ########.fr       */
+/*   Updated: 2021/11/13 19:54:15 by milmi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,12 +27,12 @@ void	get_redir(char *str, t_red *red, int *r)
 	else if (str[0] == '>')
 	{
 		red->type = 'o';
-		subarg(r, 2, str, red);
+		subarg(r, 1, str, red);
 	}
 	else if (str[0] == '<')
 	{
 		red->type = 'i';
-		subarg(r, 2, str, red);
+		subarg(r, 1, str, red);
 	}
 }
 

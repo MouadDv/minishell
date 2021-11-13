@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   call_exec_utils.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sbensarg <sbensarg@student.42.fr>          +#+  +:+       +#+        */
+/*   By: milmi <milmi@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/09 14:05:59 by sbensarg          #+#    #+#             */
-/*   Updated: 2021/11/09 14:09:16 by sbensarg         ###   ########.fr       */
+/*   Updated: 2021/11/13 06:29:25 by milmi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,8 +58,9 @@ char	*ft_check_absolute_path(char **cmd)
 
 char	**ft_find_path(char **path, char **ptrs)
 {
-	if (ptrs[0] == '\0')
+	if (ptrs[0][0] == '\0')
 	{
+		
 		write(2, "invalid cmd\n", 12);
 		g_data.statuscode = 127;
 	}
@@ -74,10 +75,10 @@ char	**ft_find_path(char **path, char **ptrs)
 			g_data.statuscode = 127;
 		}
 	}
-	if (ptrs[0] != '\0')
+	if (ptrs[0][0] != '\0' && g_data.newpath != NULL)
 	{
 		free(ptrs[0]);
-		ptrs[0] = g_data.newpath;
+		ptrs[0] = ft_strdup(g_data.newpath);
 	}
 	return (ptrs);
 }
