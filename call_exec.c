@@ -6,7 +6,7 @@
 /*   By: sbensarg <sbensarg@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/24 16:06:52 by chicky            #+#    #+#             */
-/*   Updated: 2021/11/09 16:59:54 by sbensarg         ###   ########.fr       */
+/*   Updated: 2021/11/14 04:05:36 by sbensarg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,6 @@ void	call_exec(char **cmd)
 	else if (p == 0)
 	{
 		execve(cmd[0], cmd, NULL);
-		
 		exit(g_data.statuscode);
 	}
 	else

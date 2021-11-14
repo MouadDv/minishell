@@ -3,20 +3,29 @@
 /*                                                        :::      ::::::::   */
 /*   ft_atoi.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: milmi <milmi@student.42.fr>                +#+  +:+       +#+        */
+/*   By: sbensarg <sbensarg@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/09 15:01:59 by milmi             #+#    #+#             */
-/*   Updated: 2021/11/13 07:08:51 by milmi            ###   ########.fr       */
+/*   Updated: 2021/11/14 04:03:42 by sbensarg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int	ft_atoi(const char *str)
+int	max_long(int f)
 {
-	int	j;
-	int	c;
-	int	f;
+	if (f == -1)
+		return (0);
+	else if (f == 1)
+		return (-1);
+	return (1);
+}
+
+long long	ft_atoi(const char *str)
+{
+	int				j;
+	unsigned long	c;
+	int				f;
 
 	j = 0;
 	f = 1;
@@ -34,8 +43,9 @@ int	ft_atoi(const char *str)
 	}
 	while (str[j] >= '0' && str[j] <= '9')
 	{
-		c = c * 10 + str[j] - '0';
-		j++;
+		c = c * 10 + str[j++] - '0';
+		if (c > 9223372036854775807)
+			return (max_long(f));
 	}
 	return (c * f);
 }

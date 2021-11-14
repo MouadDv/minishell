@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   call_exec_utils.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: milmi <milmi@student.42.fr>                +#+  +:+       +#+        */
+/*   By: sbensarg <sbensarg@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/09 14:05:59 by sbensarg          #+#    #+#             */
-/*   Updated: 2021/11/13 06:29:25 by milmi            ###   ########.fr       */
+/*   Updated: 2021/11/14 03:38:51 by sbensarg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,9 @@ char	*ft_check_absolute_path(char **cmd)
 	}
 	else if (g_data.newpath == NULL)
 	{
-		write(2, "invalid cmd\n", 12);
+		write(2, "bash: ", 7);
+		write(2, cmd[0], ft_strlen(cmd[0]));
+		write(2, ": command not found\n", 21);
 		g_data.statuscode = 127;
 	}
 	return (g_data.newpath);
@@ -60,8 +62,8 @@ char	**ft_find_path(char **path, char **ptrs)
 {
 	if (ptrs[0][0] == '\0')
 	{
-		
-		write(2, "invalid cmd\n", 12);
+		write(2, "bash: ", 7);
+		write(2, ": command not found\n", 21);
 		g_data.statuscode = 127;
 	}
 	else if (ft_strncmp(ptrs[0], "/", 1) == 0)
@@ -71,7 +73,9 @@ char	**ft_find_path(char **path, char **ptrs)
 		g_data.newpath = ft_check_path(path, ptrs);
 		if (g_data.newpath == NULL)
 		{
-			write(2, "invalid cmd\n", 12);
+			write(2, "bash: ", 7);
+			write(2, ptrs[0], ft_strlen(ptrs[0]));
+			write(2, ": command not found\n", 21);
 			g_data.statuscode = 127;
 		}
 	}
