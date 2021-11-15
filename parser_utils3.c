@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser_utils3.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: milmi <marvin@42.fr>                       +#+  +:+       +#+        */
+/*   By: milmi <milmi@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/12 04:35:05 by milmi             #+#    #+#             */
-/*   Updated: 2021/11/12 04:35:11 by milmi            ###   ########.fr       */
+/*   Updated: 2021/11/15 03:45:18 by milmi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,5 +58,15 @@ t_red	*alloc_red_s(void)
 	ret->arg = NULL;
 	ret->next = NULL;
 	ret->type = 0;
+	return (ret);
+}
+
+int	sizeoftab(char	**tab)
+{
+	int	ret;
+
+	ret = 0;
+	while (tab[ret] != NULL)
+		ret++;
 	return (ret);
 }

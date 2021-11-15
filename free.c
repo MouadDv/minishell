@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   free.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: milmi <marvin@42.fr>                       +#+  +:+       +#+        */
+/*   By: milmi <milmi@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/12 04:34:41 by milmi             #+#    #+#             */
-/*   Updated: 2021/11/12 04:34:42 by milmi            ###   ########.fr       */
+/*   Updated: 2021/11/15 03:48:32 by milmi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,4 +59,10 @@ void	free_node(t_node	*node)
 		node = node->next;
 		free_null(tmp);
 	}
+}
+
+void	protection(t_cmd *strct)
+{
+	free_strct(strct, NULL, NULL, NULL);
+	exit(1);
 }

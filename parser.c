@@ -6,7 +6,7 @@
 /*   By: milmi <milmi@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/12 04:34:50 by milmi             #+#    #+#             */
-/*   Updated: 2021/11/12 06:34:10 by milmi            ###   ########.fr       */
+/*   Updated: 2021/11/15 03:50:19 by milmi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,13 +27,42 @@ void	get_redir(char *str, t_red *red, int *r)
 	else if (str[0] == '>')
 	{
 		red->type = 'o';
-		subarg(r, 2, str, red);
+		subarg(r, 1, str, red);
 	}
 	else if (str[0] == '<')
 	{
 		red->type = 'i';
-		subarg(r, 2, str, red);
+		subarg(r, 1, str, red);
 	}
+}
+
+void	add_to_args(t_cmd *strct, char *str, int size, int size2)
+{
+	char	**tmp;
+	char	**ret;
+
+	size = sizeoftab(strct->args);
+	tmp = splitargs(str);
+	size2 = sizeoftab(tmp);
+	ret = malloc((size + size2 + 1) * sizeof(char *));
+	if (ret == NULL)
+		protection(strct);
+	ret[size + size2] = NULL;
+	size = 0;
+	size2 = 0;
+	while (strct->args[size] != NULL)
+	{
+		ret[size] = strct->args[size];
+		size++;
+	}
+	while (tmp[size2] != NULL)
+	{
+		ret[size + size2] = tmp[size2];
+		size2++;
+	}
+	free(strct->args);
+	strct->args = ret;
+	free(tmp);
 }
 
 void	get_cmd(char *str, t_cmd *strct, int *r)
@@ -45,10 +74,15 @@ void	get_cmd(char *str, t_cmd *strct, int *r)
 	{
 		while (str[i] && str[i] != '<' && str[i] != '>' && str[i] != '|')
 			i++;
+		if (strct->cmd != NULL)
+			free(strct->cmd);
 		strct->cmd = ft_substr(str, 0, i);
 		*r = *r + i - 1;
 	}
-	strct->args = splitargs(strct->cmd);
+	if (strct->args == NULL)
+		strct->args = splitargs(strct->cmd);
+	else
+		add_to_args(strct, strct->cmd, 0, 0);
 }
 
 void	parce_syntax(char *str, t_cmd *strct, t_red *tmp, int i)
@@ -95,11 +129,11 @@ int	parse_and_exec(char *buf, t_node *node)
 
 	/*
 
-		execute here!
+	ft_execution(strct, node);
 
 	*/
 
-	//print_strct(strct);
+	print_strct(strct);
 	free_strct(strct, NULL, NULL, NULL);
 	free_null(str);
 	return (1);

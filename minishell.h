@@ -6,7 +6,7 @@
 /*   By: milmi <milmi@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/12 04:33:21 by milmi             #+#    #+#             */
-/*   Updated: 2021/11/12 04:41:50 by milmi            ###   ########.fr       */
+/*   Updated: 2021/11/15 03:50:08 by milmi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,5 +76,7 @@ void	*ft_memcpy1(void *dest, const void *src, size_t n);
 char	*get_name(char	*str);
 void	print_strct(t_cmd	*strct);
 void	rm_quotes(t_cmd *srtct);
+void	protection(t_cmd *node);
+int		sizeoftab(char	**tab);
 
 #endif

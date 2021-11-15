@@ -6,7 +6,7 @@
 /*   By: milmi <milmi@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/12 04:39:14 by milmi             #+#    #+#             */
-/*   Updated: 2021/11/12 06:31:18 by milmi            ###   ########.fr       */
+/*   Updated: 2021/11/15 03:50:46 by milmi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,11 +39,8 @@ int	*quotes_index(char *str, int i)
 	return (ret);
 }
 
-char	*rm_quotes2(char *str)
+char	*rm_quotes2(char *str, int len, char *sub, char *ret)
 {
-	int		len;
-	char	*sub;
-	char	*ret;
 	int		*i;
 	int		tmp;
 
@@ -62,7 +59,10 @@ char	*rm_quotes2(char *str)
 	}
 	free(i);
 	if (sub == NULL)
+	{
+		free (ret);
 		ret = str;
+	}
 	else
 		free(str);
 	return (ret);
@@ -79,12 +79,12 @@ void	rm_quotes(t_cmd *strct)
 		i = 0;
 		while (strct->args[i])
 		{
-			strct->args[i] = rm_quotes2(strct->args[i]);
+			strct->args[i] = rm_quotes2(strct->args[i], 0, NULL, NULL);
 			i++;
 		}
 		while (tmp2)
 		{
-			tmp2->arg = rm_quotes2(tmp2->arg);
+			tmp2->arg = rm_quotes2(tmp2->arg, 0, NULL, NULL);
 			tmp2 = tmp2->next;
 		}
 		strct = strct->next;
