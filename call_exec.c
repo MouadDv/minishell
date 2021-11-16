@@ -6,7 +6,7 @@
 /*   By: sbensarg <sbensarg@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/24 16:06:52 by chicky            #+#    #+#             */
-/*   Updated: 2021/11/14 04:05:36 by sbensarg         ###   ########.fr       */
+/*   Updated: 2021/11/16 04:35:20 by sbensarg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,7 @@ void	call_exec(char **cmd)
 
 	i = 0;
 	cmd = ft_find_path(g_data.path, cmd);
+	//fprintf(stderr, "cmd ==> %s\n",cmd[0]);
 	p = fork();
 	if (p == -1)
 		exit (EXIT_FAILURE);
@@ -47,6 +48,8 @@ void	call_exec(char **cmd)
 		exit(g_data.statuscode);
 	}
 	else
+	{
 		waitpid(p, &g_data.statuscode, 0);
+	}
 	g_data.statuscode = WEXITSTATUS(g_data.statuscode);
 }

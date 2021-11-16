@@ -6,7 +6,7 @@
 /*   By: sbensarg <sbensarg@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/06 13:31:51 by sbensarg          #+#    #+#             */
-/*   Updated: 2021/11/09 14:03:14 by sbensarg         ###   ########.fr       */
+/*   Updated: 2021/11/14 04:50:26 by sbensarg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,7 @@ void	ft_check_err_piped_redir(void)
 	{
 		ft_check_err_redir();
 		g_data.statuscode = 1;
+		free(g_data.cmderr);
 		exit(g_data.statuscode);
 	}
 }

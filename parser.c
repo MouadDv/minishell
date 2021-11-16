@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: milmi <milmi@student.42.fr>                +#+  +:+       +#+        */
+/*   By: sbensarg <sbensarg@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/12 04:34:50 by milmi             #+#    #+#             */
-/*   Updated: 2021/11/13 19:54:15 by milmi            ###   ########.fr       */
+/*   Updated: 2021/11/15 19:12:31 by sbensarg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,6 +78,19 @@ void	parce_syntax(char *str, t_cmd *strct, t_red *tmp, int i)
 			get_cmd(str + i, strct, &i);
 		i++;
 	}
+}
+
+void	free_ptrs(char **ptrs)
+{
+	int i;
+
+	i = 0;
+	while (ptrs[i])
+	{
+		free(ptrs[i]);
+		i++;
+	}
+	free(ptrs);
 }
 
 int	parse_and_exec(char *buf, t_node *node)
