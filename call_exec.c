@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   call_exec.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: milmi <milmi@student.42.fr>                +#+  +:+       +#+        */
+/*   By: sbensarg <sbensarg@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/24 16:06:52 by chicky            #+#    #+#             */
-/*   Updated: 2021/11/16 08:51:42 by milmi            ###   ########.fr       */
+/*   Updated: 2021/11/16 21:40:29 by sbensarg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,18 +33,18 @@ char	*ft_check_path(char **path, char **cmd)
 
 void	call_exec(char **cmd)
 {
-	int		i;
 	pid_t	p;
-	int		ret;
+	char	**envp;
 
-	i = 0;
 	g_data.ptrs = ft_find_path(g_data.path, cmd);
+	envp = env_gen(g_data.node);
 	p = fork();
 	if (p == -1)
 		exit (EXIT_FAILURE);
 	else if (p == 0)
 	{
-		ret = execve(g_data.ptrs[0], g_data.ptrs, NULL);
+		execve(g_data.ptrs[0], g_data.ptrs, envp);
+		exit(g_data.statuscode);
 	}
 	else
 		waitpid(p, &g_data.statuscode, 0);

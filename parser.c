@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: milmi <milmi@student.42.fr>                +#+  +:+       +#+        */
+/*   By: sbensarg <sbensarg@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/12 04:34:50 by milmi             #+#    #+#             */
-/*   Updated: 2021/11/16 06:05:44 by milmi            ###   ########.fr       */
+/*   Updated: 2021/11/16 20:22:56 by sbensarg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ void	add_to_args(t_cmd *strct, char *str, int size, int size2)
 	size2 = sizeoftab(tmp);
 	ret = malloc((size + size2 + 1) * sizeof(char *));
 	if (ret == NULL)
-		protection(strct);
+		protection();
 	ret[size + size2] = NULL;
 	size = 0;
 	size2 = 0;
@@ -128,7 +128,6 @@ int	parse_and_exec(char *buf, t_node *node)
 	data_proc(strct, node);
 	rm_quotes(strct);
 	ft_execution(strct, node);
-	//print_strct(strct);
 	free_strct(strct, NULL, NULL, NULL);
 	free_null(str);
 	return (1);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env_strct.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: milmi <milmi@student.42.fr>                +#+  +:+       +#+        */
+/*   By: sbensarg <sbensarg@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/12 04:34:36 by milmi             #+#    #+#             */
-/*   Updated: 2021/11/16 08:51:31 by milmi            ###   ########.fr       */
+/*   Updated: 2021/11/16 19:58:44 by sbensarg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,33 +83,27 @@ void	init_struct(char	**envp, t_node	**head)
 
 char	**env_gen(t_node *node)
 {
-	char	**ret;
-	char	*sub;
-	char	*equal;
 	int		i;
+	int		len;
 	t_node	*tmp;
 
 	tmp = node;
-	i = 0;
-	while (tmp)
-	{
-		i++;
-		tmp = tmp->next;
-	}
-	ret = malloc((i + 1) * sizeof(char *));
-	if (!ret)
+	len = len_list(node);
+	g_data.ret = malloc((len + 1) * sizeof(char *));
+	if (!g_data.ret)
 		protection();
-	ret[i] = NULL;
+	g_data.ret[len] = NULL;
 	tmp = node;
 	i = 0;
 	while (tmp)
 	{
-		sub = ft_substr(tmp->val, 2, ft_strlen(tmp->val - 3));
-		equal = ft_strjoin("=", sub);
-		ret[i] = ft_strjoin(tmp->name, equal);
-		free (sub);
-		free (equal);
+		g_data.sub = ft_substr(tmp->val, 2, (ft_strlen(tmp->val) - 3));
+		g_data.equal = ft_strjoin("=", g_data.sub);
+		g_data.ret[i] = ft_strjoin(tmp->name, g_data.equal);
+		free (g_data.sub);
+		free (g_data.equal);
 		tmp = tmp->next;
+		i++;
 	}
-	return (ret);
+	return (g_data.ret);
 }

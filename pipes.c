@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipes.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: milmi <milmi@student.42.fr>                +#+  +:+       +#+        */
+/*   By: sbensarg <sbensarg@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/09 16:27:13 by sbensarg          #+#    #+#             */
-/*   Updated: 2021/11/16 07:30:47 by milmi            ###   ########.fr       */
+/*   Updated: 2021/11/16 21:57:26 by sbensarg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,12 +28,16 @@ void	ft_dup_multiple_pipe(t_cmd	*tmp)
 void	ft_exec_pipe(t_node *node, t_cmd *tmp)
 {
 	int		flag;
+	char	**envp;
 
 	flag = 0;
+	envp = env_gen(node);
 	ft_builtins(tmp->args, node, &flag);
 	if (flag == 1)
+	{
 		g_data.ptrs = ft_find_path(g_data.path, tmp->args);
-	execve(g_data.ptrs[0], g_data.ptrs, NULL);
+		execve(g_data.ptrs[0], g_data.ptrs, envp);
+	}
 	exit(g_data.statuscode);
 }
 

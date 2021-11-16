@@ -6,7 +6,7 @@
 /*   By: sbensarg <sbensarg@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/09 11:07:49 by sbensarg          #+#    #+#             */
-/*   Updated: 2021/11/09 11:08:02 by sbensarg         ###   ########.fr       */
+/*   Updated: 2021/11/16 20:02:07 by sbensarg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,7 +91,16 @@ t_node	*copy_list(t_node *node)
 
 int	ft_check_valid_identifier(char *name)
 {
-	if (!((*name >= 'a' && *name <= 'z') || (*name >= 'A' && *name <= 'Z')))
-		return (1);
+	int	i;
+
+	i = 0;
+	while (name[i])
+	{
+		if (!((name[i] >= 'a' && name[i] <= 'z')
+				|| (name[i] >= 'A' && name[i] <= 'Z')
+				|| name[i] == '_'))
+			return (1);
+		i++;
+	}
 	return (0);
 }

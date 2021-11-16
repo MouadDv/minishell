@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_redir.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: milmi <milmi@student.42.fr>                +#+  +:+       +#+        */
+/*   By: sbensarg <sbensarg@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/29 18:10:16 by chicky            #+#    #+#             */
-/*   Updated: 2021/11/16 06:29:30 by milmi            ###   ########.fr       */
+/*   Updated: 2021/11/16 19:41:46 by sbensarg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,10 +53,12 @@ int	ft_dup_redir(t_red *redir)
 void	ft_exec_cmd_redir(char **cmd, t_node *node)
 {
 	int		flag;
+	char	**envp;
 
 	ft_builtins(cmd, node, &flag);
 	if (flag == 1)
 		g_data.ptrs = ft_find_path(g_data.path, cmd);
+	envp = env_gen(g_data.node);
 	if (g_data.ptrs != NULL)
 	{
 		g_data.p1 = fork();
@@ -64,7 +66,7 @@ void	ft_exec_cmd_redir(char **cmd, t_node *node)
 			exit (EXIT_FAILURE);
 		else if (g_data.p1 == 0)
 		{
-			execve(g_data.ptrs[0], g_data.ptrs, NULL);
+			execve(g_data.ptrs[0], g_data.ptrs, envp);
 			exit(g_data.statuscode);
 		}
 		else

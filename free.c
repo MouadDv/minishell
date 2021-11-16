@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   free.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: milmi <milmi@student.42.fr>                +#+  +:+       +#+        */
+/*   By: sbensarg <sbensarg@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/12 04:34:41 by milmi             #+#    #+#             */
-/*   Updated: 2021/11/16 06:03:49 by milmi            ###   ########.fr       */
+/*   Updated: 2021/11/16 20:22:33 by sbensarg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,9 +61,17 @@ void	free_node(t_node	*node)
 	}
 }
 
-void	protection()
+void	protection(void)
 {
 	free_strct(g_data.strct, NULL, NULL, NULL);
 	free_node(g_data.node);
 	exit(1);
+}
+
+void	print_invalid_cmd(char *cmd)
+{
+	write(2, "bash: ", 7);
+	write(2, cmd, ft_strlen(cmd));
+	write(2, ": command not found\n", 21);
+	g_data.statuscode = 127;
 }
