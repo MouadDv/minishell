@@ -133,7 +133,7 @@ void	ft_exec_redirections(char **cmd, t_red *redir, t_node *node);
 void	ft_dup_redir_in_pipes(t_red	*redir);
 void	ft_check_err_piped_redir(void);
 void	ft_check_err_redir(void);
-
+char	**env_gen(t_node *node);
 int		ft_ret_input_fd(t_red *tmp2);
 int		ft_ret_heredoc_fd(t_red *tmp2);
 int		ft_ret_outputfd(t_red *tmp2);

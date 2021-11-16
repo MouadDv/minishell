@@ -6,7 +6,7 @@
 /*   By: milmi <milmi@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/12 04:34:45 by milmi             #+#    #+#             */
-/*   Updated: 2021/11/16 06:23:08 by milmi            ###   ########.fr       */
+/*   Updated: 2021/11/16 08:45:29 by milmi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,6 +72,7 @@ int	main(int argc, char **argv, char **env)
 		newenv = copy_env(env);
 		init_struct(newenv, &node);
 		g_data.node = node;
+		fprintf (stderr, "%s = %s = %s\n", env[0], node->name, node->val);
 		ft_init(node);
 		while (newenv[i++])
 			free_null(newenv[i - 1]);
