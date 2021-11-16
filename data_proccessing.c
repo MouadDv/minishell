@@ -6,7 +6,7 @@
 /*   By: milmi <milmi@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/12 04:33:40 by milmi             #+#    #+#             */
-/*   Updated: 2021/11/13 19:40:56 by milmi            ###   ########.fr       */
+/*   Updated: 2021/11/16 06:06:39 by milmi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ void	replace_env_norm2(char *val, char *name)
 
 char	*replace_env(char *lct, char *tmp, t_node *node, int flag)
 {
-	s_rp	rp;
+	t_rp	rp;
 
 	rp.i = 0;
 	rp.ret = ft_strdup("");

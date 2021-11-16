@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sbensarg <sbensarg@student.42.fr>          +#+  +:+       +#+        */
+/*   By: milmi <milmi@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/12 04:34:50 by milmi             #+#    #+#             */
-/*   Updated: 2021/11/15 19:12:31 by sbensarg         ###   ########.fr       */
+/*   Updated: 2021/11/16 06:05:44 by milmi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,35 @@ void	get_redir(char *str, t_red *red, int *r)
 	}
 }
 
+void	add_to_args(t_cmd *strct, char *str, int size, int size2)
+{
+	char	**tmp;
+	char	**ret;
+
+	size = sizeoftab(strct->args);
+	tmp = splitargs(str);
+	size2 = sizeoftab(tmp);
+	ret = malloc((size + size2 + 1) * sizeof(char *));
+	if (ret == NULL)
+		protection(strct);
+	ret[size + size2] = NULL;
+	size = 0;
+	size2 = 0;
+	while (strct->args[size] != NULL)
+	{
+		ret[size] = strct->args[size];
+		size++;
+	}
+	while (tmp[size2] != NULL)
+	{
+		ret[size + size2] = tmp[size2];
+		size2++;
+	}
+	free(strct->args);
+	strct->args = ret;
+	free(tmp);
+}
+
 void	get_cmd(char *str, t_cmd *strct, int *r)
 {
 	int	i;
@@ -45,10 +74,15 @@ void	get_cmd(char *str, t_cmd *strct, int *r)
 	{
 		while (str[i] && str[i] != '<' && str[i] != '>' && str[i] != '|')
 			i++;
+		if (strct->cmd != NULL)
+			free(strct->cmd);
 		strct->cmd = ft_substr(str, 0, i);
 		*r = *r + i - 1;
 	}
-	strct->args = splitargs(strct->cmd);
+	if (strct->args == NULL)
+		strct->args = splitargs(strct->cmd);
+	else
+		add_to_args(strct, strct->cmd, 0, 0);
 }
 
 void	parce_syntax(char *str, t_cmd *strct, t_red *tmp, int i)
@@ -80,25 +114,13 @@ void	parce_syntax(char *str, t_cmd *strct, t_red *tmp, int i)
 	}
 }
 
-void	free_ptrs(char **ptrs)
-{
-	int i;
-
-	i = 0;
-	while (ptrs[i])
-	{
-		free(ptrs[i]);
-		i++;
-	}
-	free(ptrs);
-}
-
 int	parse_and_exec(char *buf, t_node *node)
 {
 	char	*str;
 	t_cmd	*strct;
 
 	strct = alloc_cmd_s();
+	g_data.strct = strct;
 	if (!strct)
 		return (0);
 	str = ft_strtrim(buf, " ");

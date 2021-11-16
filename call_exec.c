@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   call_exec.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sbensarg <sbensarg@student.42.fr>          +#+  +:+       +#+        */
+/*   By: milmi <milmi@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/24 16:06:52 by chicky            #+#    #+#             */
-/*   Updated: 2021/11/16 04:35:20 by sbensarg         ###   ########.fr       */
+/*   Updated: 2021/11/16 07:27:57 by milmi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,21 +35,18 @@ void	call_exec(char **cmd)
 {
 	int		i;
 	pid_t	p;
+	int		ret;
 
 	i = 0;
-	cmd = ft_find_path(g_data.path, cmd);
-	//fprintf(stderr, "cmd ==> %s\n",cmd[0]);
+	g_data.ptrs = ft_find_path(g_data.path, cmd);
 	p = fork();
 	if (p == -1)
 		exit (EXIT_FAILURE);
 	else if (p == 0)
 	{
-		execve(cmd[0], cmd, NULL);
-		exit(g_data.statuscode);
+		ret = execve(g_data.ptrs[0], g_data.ptrs, NULL);
 	}
 	else
-	{
 		waitpid(p, &g_data.statuscode, 0);
-	}
 	g_data.statuscode = WEXITSTATUS(g_data.statuscode);
 }

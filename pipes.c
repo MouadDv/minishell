@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipes.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sbensarg <sbensarg@student.42.fr>          +#+  +:+       +#+        */
+/*   By: milmi <milmi@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/09 16:27:13 by sbensarg          #+#    #+#             */
-/*   Updated: 2021/11/15 19:10:52 by sbensarg         ###   ########.fr       */
+/*   Updated: 2021/11/16 07:30:47 by milmi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,10 +32,8 @@ void	ft_exec_pipe(t_node *node, t_cmd *tmp)
 	flag = 0;
 	ft_builtins(tmp->args, node, &flag);
 	if (flag == 1)
-	{
 		g_data.ptrs = ft_find_path(g_data.path, tmp->args);
-		execve(g_data.ptrs[0], g_data.ptrs, NULL);
-	}
+	execve(g_data.ptrs[0], g_data.ptrs, NULL);
 	exit(g_data.statuscode);
 }
 
@@ -58,7 +56,6 @@ void	ft_child_pipe(t_cmd	*tmp, t_red	*tmp2, t_node *node)
 	g_data.fdout = 1024;
 	if (tmp2)
 		ft_dup_redir_in_pipes(tmp2);
-	free(g_data.tab);
 	ft_dup_multiple_pipe(tmp);
 	ft_exec_pipe(node, tmp);
 }

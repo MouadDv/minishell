@@ -6,7 +6,7 @@
 /*   By: sbensarg <sbensarg@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/08 12:22:54 by sbensarg          #+#    #+#             */
-/*   Updated: 2021/11/14 06:37:06 by sbensarg         ###   ########.fr       */
+/*   Updated: 2021/11/09 20:28:53 by sbensarg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,10 +52,7 @@ int	ft_ret_heredoc_fd(t_red *tmp2)
 		if (line == NULL)
 			break ;
 		if (ft_strncmp(line, tmp2->arg, ft_strlen(tmp2->arg) + 1) == 0)
-		{
-			free(line);
 			break ;
-		}
 		write(fd[1], line, ft_strlen(line));
 		write(fd[1], "\n", 1);
 		free(line);

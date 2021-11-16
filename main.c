@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sbensarg <sbensarg@student.42.fr>          +#+  +:+       +#+        */
+/*   By: milmi <milmi@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/12 04:34:45 by milmi             #+#    #+#             */
-/*   Updated: 2021/11/15 18:37:04 by sbensarg         ###   ########.fr       */
+/*   Updated: 2021/11/16 06:23:08 by milmi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,13 +34,7 @@ void	get_line(t_node *node)
 	{
 		write(1, "exit\n", 5);
 		free_node(node);
-		// if (g_data.path != NULL)
-		// 	free_ptrs(g_data.path);
-		// if(g_data.newpath != NULL)
-		// 	free(g_data.newpath);
-		// //free(g_data.cmderr);
-		// free(g_data.tab);
-		// free_ptrs(g_data.ptrs);
+		free(g_data.tab);
 		exit(0);
 	}
 	if (ft_strlen(buf) > 0)
@@ -56,19 +50,12 @@ void	get_line(t_node *node)
 
 void	ft_init(t_node *head)
 {
-	t_red *tmp2;
-
 	g_data.path = ft_path(head);
 	g_data.newpath = NULL;
-	g_data.cmderr = malloc(sizeof(tmp2->arg));
-	if (!g_data.cmderr)
-		return ;
+	g_data.cmderr = NULL;
 	g_data.tab = malloc(sizeof(int) * 3);
 	if (!g_data.tab)
-		return ;
-	g_data.ptrs = malloc(sizeof(t_cmd));
-	if (!g_data.ptrs)
-		return ;
+		protection();
 }
 
 int	main(int argc, char **argv, char **env)
@@ -84,6 +71,7 @@ int	main(int argc, char **argv, char **env)
 		ft_strlen(argv[0]);
 		newenv = copy_env(env);
 		init_struct(newenv, &node);
+		g_data.node = node;
 		ft_init(node);
 		while (newenv[i++])
 			free_null(newenv[i - 1]);

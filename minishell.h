@@ -1,17 +1,5 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   minishell.h                                        :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: sbensarg <sbensarg@student.42.fr>          +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/11/16 04:03:46 by sbensarg          #+#    #+#             */
-/*   Updated: 2021/11/16 04:08:21 by sbensarg         ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
-#ifndef MINISHELL_H
-# define MINISHELL_H
+#ifndef MINI_SHELL_H
+# define MINI_SHELL_H
 # include <unistd.h>
 # include "libft/libft.h"
 # include <stdlib.h>
@@ -32,33 +20,34 @@
 
 typedef struct s_cmd
 {
-	char			*cmd;
-	char			**args;
-	struct s_red	*redirections;
-	struct s_cmd	*next;
+	char    *cmd;
+    char    **args;
+    struct s_red   *redirections;
+	struct s_cmd   *next;
 }				t_cmd;
 
 typedef struct s_red
 {
-	char			type;
-	char			*arg;
-	struct s_red	*next;
+	char    type;
+    char    *arg;
+	struct s_red   *next;
 }				t_red;
 
 typedef struct s_node {
-	char			*name;
-	char			*val;
-	struct s_node	*next;
-}				t_node;
+    char    *name;
+    char    *val;
+    struct s_node *next;
+} t_node;
 
 typedef struct s_data {
+	int		f;
 	int		statuscode;
 	int		saved[2];
 	char	*cmderr;
 	int		flagerr;
 	char	*newpath;
 	char	**path;
-	int		fd_in;
+	int  	fd_in;
 	int		fd_old;
 	int		fd[2];
 	int		p[2];
@@ -69,21 +58,18 @@ typedef struct s_data {
 	int		fdin;
 	int		fdout;
 	char	*wrd;
-	char	*val;
-}			t_data;
+    char	*val;
+	t_node	*node;
+	t_cmd	*strct;
+}	t_data;
 
-typedef struct {
+typedef struct s_rp{
 	int		i;
 	char	*ret;
 	char	*name;
 	char	*val;
 	char	*val2;
-}	s_rp;
-
-typedef struct s_fr {
-	void		*name;
-	struct s_fr	*next;
-}	t_fr;
+}	t_rp;
 
 t_data g_data;
 
@@ -110,6 +96,8 @@ void	*ft_memcpy1(void *dest, const void *src, size_t n);
 char	*get_name(char	*str);
 void	print_strct(t_cmd	*strct);
 void	rm_quotes(t_cmd *srtct);
+void	protection();
+int		sizeoftab(char	**tab);
 /* execution */
 void 	ft_execution(t_cmd   *strct, t_node *node);
 void	impli_cd(char *ptr, t_node *node);
@@ -168,7 +156,6 @@ void	ft_sort_list(t_node *head);
 t_node	*alloc_list(void);
 t_node	*copy_list(t_node *node);
 int		ft_check_valid_identifier(char *name);
-void	free_ptrs(char **ptrs);
 
 
 #endif
