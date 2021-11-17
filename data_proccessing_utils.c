@@ -3,19 +3,32 @@
 /*                                                        :::      ::::::::   */
 /*   data_proccessing_utils.c                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: milmi <milmi@student.42.fr>                +#+  +:+       +#+        */
+/*   By: sbensarg <sbensarg@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/12 04:33:47 by milmi             #+#    #+#             */
-/*   Updated: 2021/11/13 19:53:55 by milmi            ###   ########.fr       */
+/*   Updated: 2021/11/17 07:59:51 by sbensarg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-char	*env_val(char	*name, t_node	*node)
+char	*statuschar(void)
 {
 	char	*tmp;
 	char	*tmp2;
+
+	tmp = ft_itoa(g_data.statuscode);
+	tmp2 = tmp;
+	tmp = ft_strjoin("=\"", tmp);
+	free(tmp2);
+	tmp2 = tmp;
+	tmp = ft_strjoin(tmp, "\"");
+	free(tmp2);
+	return (tmp);
+}
+
+char	*env_val(char *name, t_node *node)
+{
 	char	*ret;
 	int		i;
 
@@ -23,14 +36,8 @@ char	*env_val(char	*name, t_node	*node)
 	ret = NULL;
 	if (!ft_strncmp(name, "?", 2))
 	{
-		tmp = ft_itoa(g_data.statuscode);
-		tmp2 = tmp;
-		tmp = ft_strjoin("=\"", tmp);
-		free(tmp2);
-		tmp2 = tmp;
-		tmp = ft_strjoin(tmp, "\"");
-		free(tmp2);
-		return (tmp);
+		ret = statuschar();
+		return (ret);
 	}
 	while (node != NULL)
 	{

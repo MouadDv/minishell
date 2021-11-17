@@ -6,7 +6,7 @@
 /*   By: sbensarg <sbensarg@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/16 20:03:10 by sbensarg          #+#    #+#             */
-/*   Updated: 2021/11/16 20:19:33 by sbensarg         ###   ########.fr       */
+/*   Updated: 2021/11/17 07:53:43 by sbensarg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -167,5 +167,6 @@ t_node	*alloc_list(void);
 t_node	*copy_list(t_node *node);
 int		ft_check_valid_identifier(char *name);
 void	print_invalid_cmd(char *cmd);
+void 	free_envp(char **envp);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: sbensarg <sbensarg@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/14 20:49:09 by chicky            #+#    #+#             */
-/*   Updated: 2021/11/09 20:17:58 by sbensarg         ###   ########.fr       */
+/*   Updated: 2021/11/17 07:18:34 by sbensarg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,7 @@ void	ft_unset(t_node **head, char *name)
 				tmp = cur->next;
 				cur->next = cur->next->next;
 				free(tmp);
+				break ;
 			}
 				cur = cur->next;
 		}

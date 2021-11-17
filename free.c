@@ -6,7 +6,7 @@
 /*   By: sbensarg <sbensarg@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/12 04:34:41 by milmi             #+#    #+#             */
-/*   Updated: 2021/11/16 20:22:33 by sbensarg         ###   ########.fr       */
+/*   Updated: 2021/11/17 04:25:37 by sbensarg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,19 @@ void	protection(void)
 	free_strct(g_data.strct, NULL, NULL, NULL);
 	free_node(g_data.node);
 	exit(1);
+}
+
+void 	free_envp(char **envp)
+{
+	int i;
+
+	i = 0;
+	while (envp[i])
+	{
+		free(envp[i]);
+		i++;
+	}
+	free(envp);
 }
 
 void	print_invalid_cmd(char *cmd)

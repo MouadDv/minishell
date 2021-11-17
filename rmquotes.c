@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   rmquotes.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: milmi <milmi@student.42.fr>                +#+  +:+       +#+        */
+/*   By: sbensarg <sbensarg@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/12 04:39:14 by milmi             #+#    #+#             */
-/*   Updated: 2021/11/13 06:09:37 by milmi            ###   ########.fr       */
+/*   Updated: 2021/11/17 07:45:43 by sbensarg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ size_t	*quotes_index(char *str, int i)
 	int		flag;
 	char	c;
 
-	ret = malloc(2 * sizeof(size_t ));
+	ret = malloc(2 * sizeof(size_t));
 	flag = 0;
 	while (str[i])
 	{
@@ -39,12 +39,11 @@ size_t	*quotes_index(char *str, int i)
 	return (ret);
 }
 
-char	*rm_quotes2(char *str)
+char	*rm_quotes2(char *str, int tmp)
 {
 	char	*sub;
 	char	*ret;
 	size_t	*i;
-	int		tmp;
 
 	i = quotes_index(str, 0);
 	ret = ft_strdup("");
@@ -80,12 +79,12 @@ void	rm_quotes(t_cmd *strct)
 		i = 0;
 		while (strct->args[i])
 		{
-			strct->args[i] = rm_quotes2(strct->args[i]);
+			strct->args[i] = rm_quotes2(strct->args[i], 0);
 			i++;
 		}
 		while (tmp2)
 		{
-			tmp2->arg = rm_quotes2(tmp2->arg);
+			tmp2->arg = rm_quotes2(tmp2->arg, 0);
 			tmp2 = tmp2->next;
 		}
 		strct = strct->next;

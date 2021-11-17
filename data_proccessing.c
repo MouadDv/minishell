@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   data_proccessing.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: milmi <milmi@student.42.fr>                +#+  +:+       +#+        */
+/*   By: sbensarg <sbensarg@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/12 04:33:40 by milmi             #+#    #+#             */
-/*   Updated: 2021/11/16 06:06:39 by milmi            ###   ########.fr       */
+/*   Updated: 2021/11/17 08:00:25 by sbensarg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,10 +57,8 @@ char	*replace_env(char *lct, char *tmp, t_node *node, int flag)
 		{
 			rp.ret = ft_strjoin1(rp.ret, tmp);
 			rp.name = get_name(lct + rp.i + 1);
-
 			tmp = lct + rp.i + 1 + ft_strlen(rp.name);
 			rp.val = env_val(rp.name, node);
-			//fprintf(stderr, "[%s]\n", rp.val);
 			if (ft_strlen(rp.val) > 0)
 			{
 				rp.val2 = ft_substr(rp.val, 2, ft_strlen(rp.val) - 3);

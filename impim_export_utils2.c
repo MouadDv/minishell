@@ -6,7 +6,7 @@
 /*   By: sbensarg <sbensarg@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/09 11:07:49 by sbensarg          #+#    #+#             */
-/*   Updated: 2021/11/16 20:02:07 by sbensarg         ###   ########.fr       */
+/*   Updated: 2021/11/17 08:34:02 by sbensarg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,10 +94,16 @@ int	ft_check_valid_identifier(char *name)
 	int	i;
 
 	i = 0;
+	if (!((name[i] >= 'a' && name[i] <= 'z')
+				|| (name[i] >= 'A' && name[i] <= 'Z')
+				|| name[i] == '_'))
+			return (1);
+	i++;
 	while (name[i])
 	{
 		if (!((name[i] >= 'a' && name[i] <= 'z')
 				|| (name[i] >= 'A' && name[i] <= 'Z')
+				|| (name[i] >= '0' && name[i] <= '9')
 				|| name[i] == '_'))
 			return (1);
 		i++;

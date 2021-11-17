@@ -6,7 +6,7 @@
 /*   By: sbensarg <sbensarg@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/29 18:10:16 by chicky            #+#    #+#             */
-/*   Updated: 2021/11/16 19:41:46 by sbensarg         ###   ########.fr       */
+/*   Updated: 2021/11/17 04:27:13 by sbensarg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +71,7 @@ void	ft_exec_cmd_redir(char **cmd, t_node *node)
 		}
 		else
 			waitpid(g_data.p1, &g_data.statuscode, 0);
+		free_envp(envp);
 	}
 	g_data.statuscode = WEXITSTATUS(g_data.statuscode);
 }
