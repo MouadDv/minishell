@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   implim_export_utils.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: milmi <milmi@student.42.fr>                +#+  +:+       +#+        */
+/*   By: sbensarg <sbensarg@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/08 14:38:08 by sbensarg          #+#    #+#             */
-/*   Updated: 2021/11/13 04:16:59 by milmi            ###   ########.fr       */
+/*   Updated: 2021/11/19 19:38:55 by sbensarg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ int	ft_check(t_node **head, char *name, char *val, int *flag)
 	cur = *head;
 	while (cur != NULL)
 	{
-		if (ft_strncmp(cur->name, name, strlen(name)) == 0)
+		if (ft_strncmp(cur->name, name, ft_strlen(cur->name)) == 0)
 		{
 			*flag = 2;
 			if (cur->val != NULL && *val != '\0')

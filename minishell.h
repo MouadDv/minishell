@@ -6,7 +6,7 @@
 /*   By: sbensarg <sbensarg@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/16 20:03:10 by sbensarg          #+#    #+#             */
-/*   Updated: 2021/11/17 07:53:43 by sbensarg         ###   ########.fr       */
+/*   Updated: 2021/11/19 23:19:39 by sbensarg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,6 @@ typedef struct s_data {
 	t_cmd	*strct;
 	char	**ret;
 	char	*sub;
-	char	*equal;
 }			t_data;
 
 typedef struct s_rp{
@@ -167,6 +166,9 @@ t_node	*alloc_list(void);
 t_node	*copy_list(t_node *node);
 int		ft_check_valid_identifier(char *name);
 void	print_invalid_cmd(char *cmd);
-void 	free_envp(char **envp);
+void	free_envp(char **envp);
+void	ft_check_var_input(t_red *tmp2, int *var);
+void	ft_check_var_output(t_red *tmp2, int *var);
+void	ft_check_var_append(t_red *tmp2, int *var);
 
 #endif

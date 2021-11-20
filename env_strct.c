@@ -6,7 +6,7 @@
 /*   By: sbensarg <sbensarg@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/12 04:34:36 by milmi             #+#    #+#             */
-/*   Updated: 2021/11/16 19:58:44 by sbensarg         ###   ########.fr       */
+/*   Updated: 2021/11/19 23:18:59 by sbensarg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ char	**copy_env(char	**env)
 	return (newenv);
 }
 
-void	test_add(t_node	**head, char	*name, char	*val)
+void	test_add(t_node	**head, char *name, char	*val)
 {
 	t_node	*newnode;
 	t_node	*lastnode;
@@ -86,6 +86,7 @@ char	**env_gen(t_node *node)
 	int		i;
 	int		len;
 	t_node	*tmp;
+	char	*tmp2;
 
 	tmp = node;
 	len = len_list(node);
@@ -97,11 +98,20 @@ char	**env_gen(t_node *node)
 	i = 0;
 	while (tmp)
 	{
-		g_data.sub = ft_substr(tmp->val, 2, (ft_strlen(tmp->val) - 3));
-		g_data.equal = ft_strjoin("=", g_data.sub);
-		g_data.ret[i] = ft_strjoin(tmp->name, g_data.equal);
-		free (g_data.sub);
-		free (g_data.equal);
+		if (ft_strlen(tmp->val) == 0)
+			g_data.sub = ft_strdup("");
+		else
+			g_data.sub = ft_substr(tmp->val, 2, (ft_strlen(tmp->val) - 3));
+		tmp2 = g_data.sub;
+		if (ft_strlen(g_data.sub) != 0)
+		{
+			g_data.sub = ft_strjoin("=", g_data.sub);
+			g_data.ret[i] = ft_strjoin(tmp->name, g_data.sub);
+			free_null(g_data.sub);
+		}
+		else
+			g_data.ret[i] = ft_strdup(tmp->name);
+			free_null(tmp2);
 		tmp = tmp->next;
 		i++;
 	}

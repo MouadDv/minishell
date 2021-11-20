@@ -6,7 +6,7 @@
 /*   By: sbensarg <sbensarg@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/12 04:34:41 by milmi             #+#    #+#             */
-/*   Updated: 2021/11/17 04:25:37 by sbensarg         ###   ########.fr       */
+/*   Updated: 2021/11/19 19:04:33 by sbensarg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,9 +68,9 @@ void	protection(void)
 	exit(1);
 }
 
-void 	free_envp(char **envp)
+void	free_envp(char **envp)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (envp[i])
@@ -79,12 +79,4 @@ void 	free_envp(char **envp)
 		i++;
 	}
 	free(envp);
-}
-
-void	print_invalid_cmd(char *cmd)
-{
-	write(2, "bash: ", 7);
-	write(2, cmd, ft_strlen(cmd));
-	write(2, ": command not found\n", 21);
-	g_data.statuscode = 127;
 }

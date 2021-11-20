@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   implim_export.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: milmi <milmi@student.42.fr>                +#+  +:+       +#+        */
+/*   By: sbensarg <sbensarg@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/03 16:38:33 by sbensarg          #+#    #+#             */
-/*   Updated: 2021/11/13 04:17:30 by milmi            ###   ########.fr       */
+/*   Updated: 2021/11/19 22:37:47 by sbensarg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,17 +17,23 @@ void	ft_global_export_norm1(char *s, int *i, t_node *node, char **ptr)
 	int		flag;
 	char	*value;
 	int		ret;
+	char	*tmp;
 
 	flag = 0;
 	*s = '\0';
 	value = ft_strjoin("=\"", (s + 1));
+	tmp = value;
 	value = ft_strjoin(value, "\"");
 	ft_check(&node, ptr[*i], value, &flag);
 	if (flag != 2)
 	{
 		ret = ft_check_valid_identifier(ptr[*i]);
 		if (ret != 1)
+		{
+			free_null(tmp);
 			test_add(&node, ptr[*i], value);
+			free_null(value);
+		}
 		else
 		{
 			printf ("bash: export: « %s%s» : identifiant non valable\n",
@@ -50,7 +56,10 @@ void	ft_global_export_norm2(int *i, t_node *node, char **ptr)
 	{
 		ret = ft_check_valid_identifier(ptr[*i]);
 		if (ret != 1)
+		{
 			test_add(&node, ptr[*i], value);
+			free_null(value);
+		}
 		else
 		{
 			printf ("bash: export: « %s » : identifiant non valable\n",

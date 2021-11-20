@@ -1,31 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strdup.c                                        :+:      :+:    :+:   */
+/*   exec_redir_norm3.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sbensarg <sbensarg@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/11/09 15:08:47 by milmi             #+#    #+#             */
-/*   Updated: 2021/11/19 20:17:13 by sbensarg         ###   ########.fr       */
+/*   Created: 2021/11/19 18:48:26 by sbensarg          #+#    #+#             */
+/*   Updated: 2021/11/19 18:48:47 by sbensarg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "minishell.h"
 
-char	*ft_strdup(const char *s1)
+void	ft_check_var_input(t_red *tmp2, int *var)
 {
-	char	*ret;
-	size_t	j;
+	g_data.fdin = ft_ret_input_fd(tmp2);
+	if (g_data.fdin < 0)
+		*var = 1;
+}
 
-	j = 0;
-	ret = malloc(ft_strlen((char *)s1) + 1);
-	if (ret == NULL)
-		return (0);
-	while (s1[j] != '\0')
-	{
-		ret[j] = s1[j];
-		j++;
-	}
-	ret[j] = '\0';
-	return (ret);
+void	ft_check_var_output(t_red *tmp2, int *var)
+{
+	g_data.fdout = ft_ret_outputfd(tmp2);
+	if (g_data.fdout < 0)
+		*var = 1;
+}
+
+void	ft_check_var_append(t_red *tmp2, int *var)
+{
+	g_data.fdout = ft_ret_appendfd(tmp2);
+	if (g_data.fdout < 0)
+		*var = 1;
 }

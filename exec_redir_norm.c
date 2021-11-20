@@ -6,7 +6,7 @@
 /*   By: sbensarg <sbensarg@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/08 12:22:54 by sbensarg          #+#    #+#             */
-/*   Updated: 2021/11/16 21:55:10 by sbensarg         ###   ########.fr       */
+/*   Updated: 2021/11/19 18:50:45 by sbensarg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,28 +91,28 @@ int	ft_ret_appendfd(t_red *tmp2)
 }
 
 void	ft_tab_of_in_out_norm(t_red *tmp2)
-{
+{	
+	int	var;
+
+	var = 0;
 	while (tmp2 != NULL)
 	{
 		if (tmp2->type == 'i')
 		{
-			g_data.fdin = ft_ret_input_fd(tmp2);
-			// if (g_data.fdin < 0)
-			// 	break ;
+			if (var == 0)
+				ft_check_var_input(tmp2, &var);
 		}
 		if (tmp2->type == 'h')
 			g_data.fdin = ft_ret_heredoc_fd(tmp2);
 		if (tmp2->type == 'o')
 		{
-			g_data.fdout = ft_ret_outputfd(tmp2);
-			if (g_data.fdout < 0)
-				break ;
+			if (var == 0)
+				ft_check_var_output(tmp2, &var);
 		}
 		if (tmp2->type == 'a')
 		{
-			g_data.fdout = ft_ret_appendfd(tmp2);
-			if (g_data.fdout < 0)
-				break ;
+			if (var == 0)
+				ft_check_var_append(tmp2, &var);
 		}
 		tmp2 = tmp2->next;
 	}

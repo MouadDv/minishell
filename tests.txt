@@ -1,3 +1,56 @@
+====> cd tests <=====
+- test cd empty home:
+	pwd ; export HOME= ; cd ; pwd
+- test cd error home var:
+	unset HOME ; cd
+cd ../../../../../../../../../..
+
+====> env tests <=====
+- test env just name
+	export test
+	env | grep test
+- test env simple import
+	export TEST="52"
+	env | grep TEST
+- test env no args
+	env
+
+====> export tests <=====
+- test export multiple join affect
+	export TEST=TEST=TEST=TEST=TEST=TEST=TEST=TEST=TEST
+- export s1=s1 ; export | grep s1 ;export s1;  export | grep s1; export s1=s3; export | grep s1
+- export sara;  export | grep sara ; export sara=123; export | grep sara
+- test export with invalid identifier
+	export 3wer
+	export =test
+- test export with multiple args
+	export s1=s1 s2=s2 s3=s3 s4=s4
+
+====> echo tests <=====
+- test echo -
+	echo -
+- test echo -n no args
+	echo -n
+- test echo multiple n args
+	echo -n -n -nnnn -nnnnm
+	echo -n -nm -nnnnn -n test
+	echo make -n dogs
+- test echo no args
+	echo
+
+
+=====> pas encore traiter <====
+-export modif la valeur de name deja ajouter + multiple args
+-echo sans param
+
+===>bugs<=====
+cat << g < tests.txt <ttt
+heredoc>dfgdgf
+heredoc>dfgdfg
+heredoc>g
+bash: tt: No such file or directory
+===================================
+
 export kkkkkkkkk=4
 export k=1
 --------------
@@ -18,3 +71,4 @@ signals and statiscodes
 --------------
 signales in child process
 --------------
+cat << h | fgh | cat << l

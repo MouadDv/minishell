@@ -6,7 +6,7 @@
 /*   By: sbensarg <sbensarg@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/24 16:06:52 by chicky            #+#    #+#             */
-/*   Updated: 2021/11/17 08:48:10 by sbensarg         ###   ########.fr       */
+/*   Updated: 2021/11/19 19:05:01 by sbensarg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,4 +50,12 @@ void	call_exec(char **cmd)
 		waitpid(p, &g_data.statuscode, 0);
 	g_data.statuscode = WEXITSTATUS(g_data.statuscode);
 	free_envp(envp);
+}
+
+void	print_invalid_cmd(char *cmd)
+{
+	write(2, "bash: ", 7);
+	write(2, cmd, ft_strlen(cmd));
+	write(2, ": command not found\n", 21);
+	g_data.statuscode = 127;
 }

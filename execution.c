@@ -6,7 +6,7 @@
 /*   By: sbensarg <sbensarg@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/06 12:34:40 by sbensarg          #+#    #+#             */
-/*   Updated: 2021/11/16 18:04:40 by sbensarg         ###   ########.fr       */
+/*   Updated: 2021/11/19 22:01:56 by sbensarg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ void	ft_b_in_export_norm(char **ptr, t_node *node)
 		temp = copy_list(node);
 		ft_sort_list(temp);
 		ft_export(temp);
+		
 	}
 }
 

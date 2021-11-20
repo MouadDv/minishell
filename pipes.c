@@ -6,7 +6,7 @@
 /*   By: sbensarg <sbensarg@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/09 16:27:13 by sbensarg          #+#    #+#             */
-/*   Updated: 2021/11/17 04:28:39 by sbensarg         ###   ########.fr       */
+/*   Updated: 2021/11/20 01:11:12 by sbensarg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,9 @@ void	ft_pipes(t_node *node, t_cmd *strct)
 		if (g_data.pid == -1)
 			exit (EXIT_FAILURE);
 		else if (g_data.pid == 0)
+		{
 			ft_child_pipe(tmp, tmp2, node);
+		}
 		else
 			ft_save_input_for_next_cmd();
 		tmp = tmp->next;
