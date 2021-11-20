@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sbensarg <sbensarg@student.42.fr>          +#+  +:+       +#+        */
+/*   By: milmi <milmi@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/12 04:34:45 by milmi             #+#    #+#             */
-/*   Updated: 2021/11/16 19:02:26 by sbensarg         ###   ########.fr       */
+/*   Updated: 2021/11/20 15:57:40 by milmi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@ void	get_line(t_node *node)
 {
 	char	*buf;
 
+	signal(SIGINT, sighandler);
 	buf = readline("\033[32;1mminishell$ \033[0m");
 	if (buf == NULL)
 	{
@@ -76,8 +77,6 @@ int	main(int argc, char **argv, char **env)
 		while (newenv[i++])
 			free_null(newenv[i - 1]);
 		free_null(newenv);
-		signal(SIGQUIT, SIG_IGN);
-		signal(SIGINT, sighandler);
 		while (1)
 			get_line(node);
 		return (0);

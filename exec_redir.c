@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_redir.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sbensarg <sbensarg@student.42.fr>          +#+  +:+       +#+        */
+/*   By: milmi <milmi@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/29 18:10:16 by chicky            #+#    #+#             */
-/*   Updated: 2021/11/19 19:03:49 by sbensarg         ###   ########.fr       */
+/*   Updated: 2021/11/20 16:00:36 by milmi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,7 @@ void	ft_exec_cmd_redir(char **cmd, t_node *node)
 	char	**envp;
 
 	ft_builtins(cmd, node, &flag);
+	g_data.ptrs = NULL;
 	if (flag == 1)
 		g_data.ptrs = ft_find_path(g_data.path, cmd);
 	envp = env_gen(g_data.node);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sbensarg <sbensarg@student.42.fr>          +#+  +:+       +#+        */
+/*   By: milmi <milmi@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/16 20:03:10 by sbensarg          #+#    #+#             */
-/*   Updated: 2021/11/19 23:19:39 by sbensarg         ###   ########.fr       */
+/*   Updated: 2021/11/20 16:47:29 by milmi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,6 +72,7 @@ typedef struct s_data {
 	t_cmd	*strct;
 	char	**ret;
 	char	*sub;
+	int		abort;
 }			t_data;
 
 typedef struct s_rp{

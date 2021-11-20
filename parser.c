@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sbensarg <sbensarg@student.42.fr>          +#+  +:+       +#+        */
+/*   By: milmi <milmi@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/12 04:34:50 by milmi             #+#    #+#             */
-/*   Updated: 2021/11/17 07:46:13 by sbensarg         ###   ########.fr       */
+/*   Updated: 2021/11/20 16:47:38 by milmi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -127,6 +127,8 @@ int	parse_and_exec(char *buf, t_node *node)
 	parce_syntax(str, strct, NULL, 0);
 	data_proc(strct, node);
 	rm_quotes(strct);
+	g_data.statuscode = 0;
+	g_data.abort = 0;
 	ft_execution(strct, node);
 	free_strct(strct, NULL, NULL, NULL);
 	free_null(str);
