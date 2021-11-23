@@ -24,7 +24,7 @@ CC = gcc
 all : $(NAME)
 #  $(LINUXFLAGS)
 $(NAME) : $(LIBFT)
-	$(CC) $(LIBFT) $(SRCS) $(LIBFT) $(FLAGS) -o $(NAME)
+	$(CC) $(LIBFT) $(SRCS) $(HOMEENVFLAGS) -o $(NAME)
 
 # $(LINUXFLAGS):
 # 	make -C readline

@@ -64,13 +64,6 @@ void	ft_child_pipe(t_cmd	*tmp, t_red	*tmp2, t_node *node)
 	ft_exec_pipe(node, tmp);
 }
 
-void	sighandle(int sig)
-{
-	if (sig == SIGINT)
-	{
-		g_data.abort = 1;
-	}
-}
 int		ft_search(t_red	*tmp2, char c)
 {
 	while (tmp2)
@@ -94,8 +87,7 @@ void	ft_pipes(t_node *node, t_cmd *strct)
 	i = 0;
 	g_data.fd_in = 0;
 	tmp2 = tmp->redirections;
-	signal(SIGINT, sighandle);
-	while (tmp && !g_data.abort)
+	while (tmp)
 	{
 		pipe(g_data.p);
 		g_data.pid = fork();

@@ -72,7 +72,6 @@ typedef struct s_data {
 	t_cmd	*strct;
 	char	**ret;
 	char	*sub;
-	int		abort;
 }			t_data;
 
 typedef struct s_rp{

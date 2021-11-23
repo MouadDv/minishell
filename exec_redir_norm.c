@@ -36,19 +36,6 @@ int	ft_ret_input_fd(t_red *tmp2)
 	return (fdin);
 }
 
-void	heredocsig(int	sig)
-{
-	if (sig == SIGINT)
-	{
-		rl_on_new_line();
-		write (1, "heredoc>", 8);
-		write (1, rl_line_buffer, ft_strlen(rl_line_buffer));
-		write (1, "  \b\b\n", 5);
-		rl_replace_line("", 1);
-		exit(1);
-	}
-}
-
 int	ft_ret_heredoc_fd(t_red *tmp2)
 {
 	int		fd[2];
@@ -61,31 +48,21 @@ int	ft_ret_heredoc_fd(t_red *tmp2)
 		exit (EXIT_FAILURE);
 	}
 	f = fork();
-	signal(SIGINT, SIG_IGN);
 	if (f == 0)
 	{
 		while (1)
 		{
-			signal(SIGQUIT, SIG_IGN);
-			signal(SIGINT, heredocsig);
 			line = readline("heredoc>");
 			if (line == NULL)
-				exit (0);
+				break ;
 			if (ft_strncmp(line, tmp2->arg, ft_strlen(tmp2->arg) + 1) == 0)
-				exit (0);
+				break ;
 			write(fd[1], line, ft_strlen(line));
 			write(fd[1], "\n", 1);
 			free(line);
 		}
 	}
-	else
-	{
-		waitpid(f, &g_data.statuscode, 0);
-		g_data.statuscode = WEXITSTATUS(g_data.statuscode);
-	}
 	close(fd[1]);
-	if (g_data.statuscode == 1)
-		exit(1);
 	fdin = fd[0];
 	return (fdin);
 }
