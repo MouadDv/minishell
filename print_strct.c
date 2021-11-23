@@ -27,7 +27,7 @@ void	print_strct(t_cmd *strct)
 		fprintf(stderr, "[cmd] == > %s\n", tmp->cmd);
 		while (tmp->args[i])
 		{
-			printf("Arg[%d]. ========> %s\n", i, tmp->args[i]);
+			fprintf(stderr, "Arg[%d]. ========> %s\n", i, tmp->args[i]);
 			i++;
 		}
 		i = 0;

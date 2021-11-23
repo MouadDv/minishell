@@ -35,7 +35,7 @@ void	impli_cd_norm(t_node *tmp)
 	}
 	if (flag != 1)
 	{
-		printf ("bash: cd: « HOME » non défini\n");
+		write(2, "bash: cd: « HOME » non défini\n", 33);
 		g_data.statuscode = 1;
 	}
 }

@@ -36,8 +36,10 @@ void	ft_global_export_norm1(char *s, int *i, t_node *node, char **ptr)
 		}
 		else
 		{
-			printf ("bash: export: « %s%s» : identifiant non valable\n",
-				ptr[*i], value);
+			write(2, "bash: export: « ", 17);
+			write(2, ptr[*i], ft_strlen(ptr[*i]));
+			write(2, value, ft_strlen(value));
+			write(2, " » : identifiant non valable\n", 31);
 			g_data.statuscode = 1;
 		}
 	}
@@ -62,8 +64,9 @@ void	ft_global_export_norm2(int *i, t_node *node, char **ptr)
 		}
 		else
 		{
-			printf ("bash: export: « %s » : identifiant non valable\n",
-				ptr[*i]);
+			write(2, "bash: export: « ", 17);
+			write(2, ptr[*i], ft_strlen(ptr[*i]));
+			write(2, " » : identifiant non valable\n", 30);
 			g_data.statuscode = 1;
 		}
 	}
@@ -87,8 +90,9 @@ void	ft_global_export(char **ptr, t_node	*node)
 		}
 		else
 		{
-			printf ("bash: export: « %s » : identifiant non valable\n",
-				ptr[i]);
+			write(2, "bash: export: « ", 17);
+			write(2, ptr[i], ft_strlen(ptr[i]));
+			write(2, " » : identifiant non valable\n", 30);
 			g_data.statuscode = 1;
 		}
 		i++;
