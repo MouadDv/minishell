@@ -12,6 +12,7 @@
 
 #ifndef MINISHELL_H
 # define MINISHELL_H
+# include "GNL/get_next_line.h"
 # include <unistd.h>
 # include "libft/libft.h"
 # include <stdlib.h>
@@ -72,6 +73,9 @@ typedef struct s_data {
 	t_cmd	*strct;
 	char	**ret;
 	char	*sub;
+	int		thereishd;
+	int		j;
+	int		fdtmp;
 }			t_data;
 
 typedef struct s_rp{

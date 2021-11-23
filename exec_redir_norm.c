@@ -61,8 +61,13 @@ int	ft_ret_heredoc_fd(t_red *tmp2)
 			write(fd[1], "\n", 1);
 			free(line);
 		}
+		exit(1);
 	}
-	close(fd[1]);
+	else
+	{
+		waitpid(f, NULL, 0);
+		close(fd[1]);
+	}
 	fdin = fd[0];
 	return (fdin);
 }

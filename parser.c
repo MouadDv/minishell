@@ -128,6 +128,7 @@ int	parse_and_exec(char *buf, t_node *node)
 	data_proc(strct, node);
 	rm_quotes(strct);
 	g_data.statuscode = 0;
+	g_data.thereishd = 0;
 	ft_execution(strct, node);
 	free_strct(strct, NULL, NULL, NULL);
 	free_null(str);
