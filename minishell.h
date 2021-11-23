@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: milmi <milmi@student.42.fr>                +#+  +:+       +#+        */
+/*   By: sbensarg <sbensarg@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/16 20:03:10 by sbensarg          #+#    #+#             */
-/*   Updated: 2021/11/20 16:47:29 by milmi            ###   ########.fr       */
+/*   Updated: 2021/11/23 12:27:31 by sbensarg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,6 +76,11 @@ typedef struct s_data {
 	int		thereishd;
 	int		j;
 	int		fdtmp;
+	char	*buff;
+	char	*filename;
+	int		nbr_cmd;
+	int		i;
+	pid_t	*tab_pids;
 }			t_data;
 
 typedef struct s_rp{
@@ -174,5 +179,15 @@ void	free_envp(char **envp);
 void	ft_check_var_input(t_red *tmp2, int *var);
 void	ft_check_var_output(t_red *tmp2, int *var);
 void	ft_check_var_append(t_red *tmp2, int *var);
+int		if_heredoc(t_cmd *strct);
+int		ft_search(t_red	*tmp2, char c);
+void	ft_thereishd(t_cmd *tmp);
+void	ft_count_nbrcmd(t_cmd *strct);
+void	loop_pids(void);
+void	ft_child_pipe(t_cmd	*tmp, t_red	*tmp2, t_node *node, int j);
+void	ft_norm_pipes(t_cmd	*tmp, t_red	*tmp2, t_node *node);
+void	ft_save_input_for_next_cmd(void);
+void	ft_err_export(char *name, char *value);
+void	ft_child_heredoc(t_red *tmp2);
 
 #endif

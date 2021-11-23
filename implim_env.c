@@ -6,7 +6,7 @@
 /*   By: sbensarg <sbensarg@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/16 23:19:17 by chicky            #+#    #+#             */
-/*   Updated: 2021/11/19 21:29:14 by sbensarg         ###   ########.fr       */
+/*   Updated: 2021/11/23 12:19:59 by sbensarg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,5 +38,4 @@ void	ft_env(t_node *head)
 		temp = temp->next;
 		free(ret);
 	}
-
 }

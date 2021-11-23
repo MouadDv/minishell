@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: milmi <milmi@student.42.fr>                +#+  +:+       +#+        */
+/*   By: sbensarg <sbensarg@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/12 04:34:50 by milmi             #+#    #+#             */
-/*   Updated: 2021/11/20 16:47:38 by milmi            ###   ########.fr       */
+/*   Updated: 2021/11/23 11:36:04 by sbensarg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -129,8 +129,11 @@ int	parse_and_exec(char *buf, t_node *node)
 	rm_quotes(strct);
 	g_data.statuscode = 0;
 	g_data.thereishd = 0;
+	ft_count_nbrcmd(strct);
+	g_data.tab_pids = malloc(sizeof(pid_t) * g_data.nbr_cmd + 1);
 	ft_execution(strct, node);
 	free_strct(strct, NULL, NULL, NULL);
 	free_null(str);
+	free_null(g_data.tab_pids);
 	return (1);
 }

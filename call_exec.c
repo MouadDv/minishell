@@ -6,7 +6,7 @@
 /*   By: sbensarg <sbensarg@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/24 16:06:52 by chicky            #+#    #+#             */
-/*   Updated: 2021/11/19 19:05:01 by sbensarg         ###   ########.fr       */
+/*   Updated: 2021/11/23 12:34:51 by sbensarg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,4 +58,14 @@ void	print_invalid_cmd(char *cmd)
 	write(2, cmd, ft_strlen(cmd));
 	write(2, ": command not found\n", 20);
 	g_data.statuscode = 127;
+}
+
+void	ft_err_export(char *name, char *value)
+{
+	write(2, "bash: export: « ", 17);
+	write(2, name, ft_strlen(name));
+	if (value != NULL)
+		write(2, value, ft_strlen(value));
+	write(2, " » : identifiant non valable\n", 30);
+	g_data.statuscode = 1;
 }

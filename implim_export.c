@@ -6,7 +6,7 @@
 /*   By: sbensarg <sbensarg@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/03 16:38:33 by sbensarg          #+#    #+#             */
-/*   Updated: 2021/11/19 22:37:47 by sbensarg         ###   ########.fr       */
+/*   Updated: 2021/11/23 12:18:15 by sbensarg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,13 +35,7 @@ void	ft_global_export_norm1(char *s, int *i, t_node *node, char **ptr)
 			free_null(value);
 		}
 		else
-		{
-			write(2, "bash: export: « ", 17);
-			write(2, ptr[*i], ft_strlen(ptr[*i]));
-			write(2, value, ft_strlen(value));
-			write(2, " » : identifiant non valable\n", 31);
-			g_data.statuscode = 1;
-		}
+			ft_err_export(ptr[*i], value);
 	}
 }
 
@@ -63,12 +57,7 @@ void	ft_global_export_norm2(int *i, t_node *node, char **ptr)
 			free_null(value);
 		}
 		else
-		{
-			write(2, "bash: export: « ", 17);
-			write(2, ptr[*i], ft_strlen(ptr[*i]));
-			write(2, " » : identifiant non valable\n", 30);
-			g_data.statuscode = 1;
-		}
+			ft_err_export(ptr[*i], NULL);
 	}
 }
 
@@ -89,12 +78,7 @@ void	ft_global_export(char **ptr, t_node	*node)
 				ft_global_export_norm2(&i, node, ptr);
 		}
 		else
-		{
-			write(2, "bash: export: « ", 17);
-			write(2, ptr[i], ft_strlen(ptr[i]));
-			write(2, " » : identifiant non valable\n", 30);
-			g_data.statuscode = 1;
-		}
+			ft_err_export(ptr[i], NULL);
 		i++;
 	}
 }

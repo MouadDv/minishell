@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_redir_norm.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: milmi <milmi@student.42.fr>                +#+  +:+       +#+        */
+/*   By: sbensarg <sbensarg@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/08 12:22:54 by sbensarg          #+#    #+#             */
-/*   Updated: 2021/11/20 17:03:28 by milmi            ###   ########.fr       */
+/*   Updated: 2021/11/23 12:27:15 by sbensarg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,37 +38,20 @@ int	ft_ret_input_fd(t_red *tmp2)
 
 int	ft_ret_heredoc_fd(t_red *tmp2)
 {
-	int		fd[2];
-	char	*line;
 	int		fdin;
 	pid_t	f;
 
-	if (pipe(fd) == -1)
-	{
+	if (pipe(g_data.fd) == -1)
 		exit (EXIT_FAILURE);
-	}
 	f = fork();
 	if (f == 0)
-	{
-		while (1)
-		{
-			line = readline("heredoc>");
-			if (line == NULL)
-				break ;
-			if (ft_strncmp(line, tmp2->arg, ft_strlen(tmp2->arg) + 1) == 0)
-				break ;
-			write(fd[1], line, ft_strlen(line));
-			write(fd[1], "\n", 1);
-			free(line);
-		}
-		exit(1);
-	}
+		ft_child_heredoc(tmp2);
 	else
 	{
 		waitpid(f, NULL, 0);
-		close(fd[1]);
+		close(g_data.fd[1]);
 	}
-	fdin = fd[0];
+	fdin = g_data.fd[0];
 	return (fdin);
 }
 

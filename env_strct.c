@@ -6,7 +6,7 @@
 /*   By: sbensarg <sbensarg@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/12 04:34:36 by milmi             #+#    #+#             */
-/*   Updated: 2021/11/19 23:18:59 by sbensarg         ###   ########.fr       */
+/*   Updated: 2021/11/23 12:34:27 by sbensarg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,20 +81,11 @@ void	init_struct(char	**envp, t_node	**head)
 	}
 }
 
-char	**env_gen(t_node *node)
+void	env_gen_norm(t_node	*tmp)
 {
-	int		i;
-	int		len;
-	t_node	*tmp;
 	char	*tmp2;
+	int		i;
 
-	tmp = node;
-	len = len_list(node);
-	g_data.ret = malloc((len + 1) * sizeof(char *));
-	if (!g_data.ret)
-		protection();
-	g_data.ret[len] = NULL;
-	tmp = node;
 	i = 0;
 	while (tmp)
 	{
@@ -111,9 +102,24 @@ char	**env_gen(t_node *node)
 		}
 		else
 			g_data.ret[i] = ft_strdup(tmp->name);
-			free_null(tmp2);
+		free_null(tmp2);
 		tmp = tmp->next;
 		i++;
-	}
+	}	
+}
+
+char	**env_gen(t_node *node)
+{
+	int		len;
+	t_node	*tmp;
+
+	tmp = node;
+	len = len_list(node);
+	g_data.ret = malloc((len + 1) * sizeof(char *));
+	if (!g_data.ret)
+		protection();
+	g_data.ret[len] = NULL;
+	tmp = node;
+	env_gen_norm(tmp);
 	return (g_data.ret);
 }

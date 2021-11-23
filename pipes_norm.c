@@ -6,7 +6,7 @@
 /*   By: sbensarg <sbensarg@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/06 13:31:51 by sbensarg          #+#    #+#             */
-/*   Updated: 2021/11/09 14:03:14 by sbensarg         ###   ########.fr       */
+/*   Updated: 2021/11/23 11:39:02 by sbensarg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,4 +60,32 @@ void	ft_dup_redir_in_pipes(t_red	*redir)
 	}
 	else
 		ft_check_err_piped_redir();
+}
+
+void	loop_pids(void)
+{
+	int	i;
+
+	i = 0;
+	while (i < g_data.nbr_cmd)
+	{
+		waitpid(g_data.tab_pids[i], &g_data.statuscode, 0);
+		i++;
+	}
+}
+
+void	ft_count_nbrcmd(t_cmd *strct)
+{
+	t_cmd	*tmp;
+	t_red	*tmp2;
+
+	tmp = strct;
+	g_data.nbr_cmd = 0;
+	while (tmp)
+	{
+		tmp2 = tmp->redirections;
+		if (!tmp2 || !ft_search(tmp2, 'h'))
+			g_data.nbr_cmd++;
+		tmp = tmp->next;
+	}
 }
