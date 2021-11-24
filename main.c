@@ -6,7 +6,7 @@
 /*   By: sbensarg <sbensarg@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/12 04:34:45 by milmi             #+#    #+#             */
-/*   Updated: 2021/11/24 01:37:01 by sbensarg         ###   ########.fr       */
+/*   Updated: 2021/11/24 04:47:56 by sbensarg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,6 +69,7 @@ int	main(int argc, char **argv, char **env)
 	i = 0;
 	if (argc == 1)
 	{
+		g_data.statuscode = 0;
 		ft_strlen(argv[0]);
 		newenv = copy_env(env);
 		init_struct(newenv, &node);

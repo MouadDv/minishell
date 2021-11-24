@@ -6,7 +6,7 @@
 /*   By: sbensarg <sbensarg@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/17 12:31:16 by sbensarg          #+#    #+#             */
-/*   Updated: 2021/11/14 03:53:08 by sbensarg         ###   ########.fr       */
+/*   Updated: 2021/11/24 04:46:06 by sbensarg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,6 @@ void	ft_exit(char **ptr)
 	int			ret;
 
 	i = 1;
-	g_data.statuscode = 0;
 	s = size_ptr_exit(ptr);
 	if (s != 0)
 	{
@@ -75,5 +74,5 @@ void	ft_exit(char **ptr)
 	else if (ret == 1 || (nbr == -1 && ft_strncmp(ptr[1], "-1", 3) != 0))
 		f_exit_norm(ptr);
 	else
-		exit(0);
+		exit(g_data.statuscode);
 }

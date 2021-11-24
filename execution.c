@@ -6,7 +6,7 @@
 /*   By: sbensarg <sbensarg@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/06 12:34:40 by sbensarg          #+#    #+#             */
-/*   Updated: 2021/11/23 12:28:28 by sbensarg         ###   ########.fr       */
+/*   Updated: 2021/11/24 04:41:32 by sbensarg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,8 @@ void	ft_b_in_echo_norm(char **ptr)
 
 void	ft_builtins(char **ptr, t_node *node, int *flag)
 {
+	if (ptr == NULL)
+		return ;
 	if (ft_strncmp(ptr[0], "cd", 3) == 0)
 		impli_cd(ptr[1], node);
 	else if (ft_strncmp(ptr[0], "export", 7) == 0)
