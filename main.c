@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sbensarg <sbensarg@student.42.fr>          +#+  +:+       +#+        */
+/*   By: milmi <milmi@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/12 04:34:45 by milmi             #+#    #+#             */
-/*   Updated: 2021/11/24 04:47:56 by sbensarg         ###   ########.fr       */
+/*   Updated: 2021/11/24 05:54:23 by milmi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,10 @@ void	get_line(t_node *node)
 	{
 		add_history(buf);
 		if (scan(buf) == 0)
+		{
+			g_data.statuscode = 258;
 			write (1, "Minishell: Syntax error\n", 24);
+		}
 		else
 			parse_and_exec(buf, node);
 	}
