@@ -6,7 +6,7 @@
 /*   By: milmi <milmi@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/16 20:03:10 by sbensarg          #+#    #+#             */
-/*   Updated: 2021/11/24 04:19:56 by milmi            ###   ########.fr       */
+/*   Updated: 2021/11/24 06:57:38 by milmi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -191,5 +191,6 @@ void	ft_err_export(char *name, char *value);
 void	ft_child_heredoc(t_red *tmp2);
 int		ft_isspace(char c);
 void	get_cmd_norm(char *s, int i, int *f, char *c);
+void	signalhandling(void);
 
 #endif

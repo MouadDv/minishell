@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_redir_norm.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sbensarg <sbensarg@student.42.fr>          +#+  +:+       +#+        */
+/*   By: milmi <milmi@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/08 12:22:54 by sbensarg          #+#    #+#             */
-/*   Updated: 2021/11/23 12:27:15 by sbensarg         ###   ########.fr       */
+/*   Updated: 2021/11/24 07:13:58 by milmi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,20 +36,39 @@ int	ft_ret_input_fd(t_red *tmp2)
 	return (fdin);
 }
 
+void	canceling(int sig)
+{
+	if (sig == SIGINT)
+	{
+		exit(1);
+	}
+}
+
 int	ft_ret_heredoc_fd(t_red *tmp2)
 {
 	int		fdin;
+	int		status_code;
 	pid_t	f;
 
 	if (pipe(g_data.fd) == -1)
 		exit (EXIT_FAILURE);
 	f = fork();
 	if (f == 0)
+	{
+		signal(SIGINT, SIG_DFL);
+		signal(SIGQUIT, SIG_IGN);
 		ft_child_heredoc(tmp2);
+	}
 	else
 	{
-		waitpid(f, NULL, 0);
+		waitpid(f, &status_code, 0);
 		close(g_data.fd[1]);
+	}
+	if (WIFSIGNALED(status_code))
+	{
+		g_data.statuscode = 1;
+		if (WTERMSIG(status_code) == SIGINT)
+			write(1, "heredoc>  \b\b\n", 13);
 	}
 	fdin = g_data.fd[0];
 	return (fdin);
