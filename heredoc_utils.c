@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   heredoc_utils.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sbensarg <sbensarg@student.42.fr>          +#+  +:+       +#+        */
+/*   By: milmi <milmi@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/23 10:30:31 by sbensarg          #+#    #+#             */
-/*   Updated: 2021/11/23 12:28:01 by sbensarg         ###   ########.fr       */
+/*   Updated: 2021/11/24 06:42:10 by milmi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,5 +82,5 @@ void	ft_child_heredoc(t_red *tmp2)
 		write(g_data.fd[1], "\n", 1);
 		free(line);
 	}
-	exit(1);
+	exit(0);
 }

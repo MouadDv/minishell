@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: sbensarg <sbensarg@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/08/29 18:10:16 by chicky            #+#    #+#             */
-/*   Updated: 2021/11/24 06:12:54 by sbensarg         ###   ########.fr       */
+/*   Created: 2021/11/24 07:18:28 by milmi             #+#    #+#             */
+/*   Updated: 2021/11/24 07:31:57 by sbensarg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,8 @@ void	ft_exec_cmd_redir(char **cmd, t_node *node)
 			exit (EXIT_FAILURE);
 		else if (g_data.p1 == 0)
 		{
+			signal(SIGQUIT, SIG_DFL);
+			signal(SIGINT, SIG_DFL);
 			execve(g_data.ptrs[0], g_data.ptrs, envp);
 			exit(g_data.statuscode);
 		}
@@ -76,7 +78,7 @@ void	ft_exec_cmd_redir(char **cmd, t_node *node)
 		free_envp(envp);
 		free_envp(g_data.path);
 	}
-	g_data.statuscode = WEXITSTATUS(g_data.statuscode);
+	signalhandling();
 }
 
 void	ft_exec_redirections(char **cmd, t_red *redir, t_node *node)
@@ -93,7 +95,8 @@ void	ft_exec_redirections(char **cmd, t_red *redir, t_node *node)
 	ret = ft_dup_redir(redir);
 	if (ret == 1)
 		return ;
-	ft_exec_cmd_redir(cmd, node);
+	if (g_data.statuscode != 1)
+		ft_exec_cmd_redir(cmd, node);
 	reset_dup();
 }
 
