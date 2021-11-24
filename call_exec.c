@@ -6,7 +6,7 @@
 /*   By: sbensarg <sbensarg@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/24 16:06:52 by chicky            #+#    #+#             */
-/*   Updated: 2021/11/23 12:34:51 by sbensarg         ###   ########.fr       */
+/*   Updated: 2021/11/24 01:53:58 by sbensarg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ char	*ft_check_path(char **path, char **cmd)
 
 	j = 0;
 	file = ft_strjoin("/", *cmd);
-	while (path[j] != NULL)
+	while (path && path[j] != NULL)
 	{
 		newpath = ft_if_exec(path, file, &j);
 		if (newpath)
@@ -35,7 +35,8 @@ void	call_exec(char **cmd)
 {
 	pid_t	p;
 	char	**envp;
-
+	
+	g_data.path = ft_path(g_data.node);
 	g_data.ptrs = ft_find_path(g_data.path, cmd);
 	envp = env_gen(g_data.node);
 	p = fork();

@@ -6,7 +6,7 @@
 /*   By: sbensarg <sbensarg@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/09 16:27:13 by sbensarg          #+#    #+#             */
-/*   Updated: 2021/11/23 12:05:17 by sbensarg         ###   ########.fr       */
+/*   Updated: 2021/11/24 01:43:18 by sbensarg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,6 +83,7 @@ void	ft_pipes(t_node *node, t_cmd *strct)
 	g_data.i = 0;
 	g_data.j = 0;
 	g_data.fd_in = 0;
+	g_data.path = ft_path(node);
 	tmp2 = NULL;
 	if (if_heredoc(strct))
 		g_data.thereishd = 1;

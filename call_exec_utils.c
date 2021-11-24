@@ -6,7 +6,7 @@
 /*   By: sbensarg <sbensarg@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/09 14:05:59 by sbensarg          #+#    #+#             */
-/*   Updated: 2021/11/16 20:19:58 by sbensarg         ###   ########.fr       */
+/*   Updated: 2021/11/24 01:52:48 by sbensarg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,6 +89,7 @@ char	**ft_path(t_node *head)
 	char	*tmp;
 
 	cur = head;
+	ptr = NULL;
 	while (cur != NULL)
 	{
 		if (ft_strncmp(cur->name, "PATH", ft_strlen(cur->name)) == 0)
