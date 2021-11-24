@@ -6,7 +6,7 @@
 /*   By: milmi <milmi@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/12 04:35:05 by milmi             #+#    #+#             */
-/*   Updated: 2021/11/16 05:06:35 by milmi            ###   ########.fr       */
+/*   Updated: 2021/11/24 03:32:53 by milmi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,4 +69,12 @@ int	sizeoftab(char	**tab)
 	while (tab[ret] != NULL)
 		ret++;
 	return (ret);
+}
+
+int	ft_isspace(char c)
+{
+	if (c == '\n' || c == '\t'
+		|| c == '\v' || c == '\r' || c == '\f' || c == ' ')
+		return (1);
+	return (0);
 }

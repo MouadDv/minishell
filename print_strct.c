@@ -6,7 +6,7 @@
 /*   By: milmi <milmi@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/12 04:35:15 by milmi             #+#    #+#             */
-/*   Updated: 2021/11/12 04:37:35 by milmi            ###   ########.fr       */
+/*   Updated: 2021/11/24 03:56:21 by milmi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ void	print_strct(t_cmd *strct)
 	while (tmp)
 	{
 		fprintf(stderr, "[cmd] == > %s\n", tmp->cmd);
-		while (tmp->args[i])
+		while (tmp->args && tmp->args[i])
 		{
 			fprintf(stderr, "Arg[%d]. ========> %s\n", i, tmp->args[i]);
 			i++;

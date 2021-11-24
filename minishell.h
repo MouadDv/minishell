@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sbensarg <sbensarg@student.42.fr>          +#+  +:+       +#+        */
+/*   By: milmi <milmi@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/16 20:03:10 by sbensarg          #+#    #+#             */
-/*   Updated: 2021/11/23 12:27:31 by sbensarg         ###   ########.fr       */
+/*   Updated: 2021/11/24 04:19:56 by milmi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -189,5 +189,7 @@ void	ft_norm_pipes(t_cmd	*tmp, t_red	*tmp2, t_node *node);
 void	ft_save_input_for_next_cmd(void);
 void	ft_err_export(char *name, char *value);
 void	ft_child_heredoc(t_red *tmp2);
+int		ft_isspace(char c);
+void	get_cmd_norm(char *s, int i, int *f, char *c);
 
 #endif
