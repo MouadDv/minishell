@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   data_proccessing.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sbensarg <sbensarg@student.42.fr>          +#+  +:+       +#+        */
+/*   By: milmi <milmi@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/12 04:33:40 by milmi             #+#    #+#             */
-/*   Updated: 2021/11/17 08:00:25 by sbensarg         ###   ########.fr       */
+/*   Updated: 2021/11/24 03:54:54 by milmi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,10 +83,11 @@ void	data_proc(t_cmd	*strct, t_node	*node)
 	{
 		tmp2 = strct->redirections;
 		i = 0;
-		while (strct->args[i])
+		while (strct->args && strct->args[i])
 		{
 			str = strct->args[i];
-			strct->args[i] = replace_env(str, str, node, 0);
+			if (strct->args[i][0] != '\0')
+				strct->args[i] = replace_env(str, str, node, 0);
 			free_null(str);
 			i++;
 		}

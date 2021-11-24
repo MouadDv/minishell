@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   free.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sbensarg <sbensarg@student.42.fr>          +#+  +:+       +#+        */
+/*   By: milmi <milmi@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/12 04:34:41 by milmi             #+#    #+#             */
-/*   Updated: 2021/11/19 19:04:33 by sbensarg         ###   ########.fr       */
+/*   Updated: 2021/11/24 04:01:39 by milmi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ void	free_strct(t_cmd	*strct, t_red	*tmp, t_red	*tmp2, t_cmd	*tmp3)
 		tmp2 = strct->redirections;
 		i = 0;
 		free(strct->cmd);
-		while (strct->args[i])
+		while (strct->args && strct->args[i])
 		{
 			free_null(strct->args[i]);
 			i++;

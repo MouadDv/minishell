@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sbensarg <sbensarg@student.42.fr>          +#+  +:+       +#+        */
+/*   By: milmi <milmi@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/12 04:34:50 by milmi             #+#    #+#             */
-/*   Updated: 2021/11/23 11:36:04 by sbensarg         ###   ########.fr       */
+/*   Updated: 2021/11/24 04:17:15 by milmi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,18 +65,22 @@ void	add_to_args(t_cmd *strct, char *str, int size, int size2)
 	free(tmp);
 }
 
-void	get_cmd(char *str, t_cmd *strct, int *r)
+void	get_cmd(char *s, t_cmd *strct, int *r, int i)
 {
-	int	i;
+	int		f;
+	char	c;
 
-	i = 0;
-	if (str[i] != '<' && str[i] != '>' && str[i] != '|')
+	f = 0;
+	if (s[i] != '<' && s[i] != '>' && s[i] != '|')
 	{
-		while (str[i] && str[i] != '<' && str[i] != '>' && str[i] != '|')
+		while ((s[i] && s[i] != '<' && s[i] != '>' && s[i] != '|') || f == 1)
+		{
+			get_cmd_norm(s, i, &f, &c);
 			i++;
+		}
 		if (strct->cmd != NULL)
 			free(strct->cmd);
-		strct->cmd = ft_substr(str, 0, i);
+		strct->cmd = ft_substr(s, 0, i);
 		*r = *r + i - 1;
 	}
 	if (strct->args == NULL)
@@ -108,8 +112,8 @@ void	parce_syntax(char *str, t_cmd *strct, t_red *tmp, int i)
 			strct->next = alloc_cmd_s();
 			strct = strct->next;
 		}
-		else if (str[i] != ' ')
-			get_cmd(str + i, strct, &i);
+		else if (!ft_isspace(str[i]))
+			get_cmd(str + i, strct, &i, 0);
 		i++;
 	}
 }
@@ -123,7 +127,7 @@ int	parse_and_exec(char *buf, t_node *node)
 	g_data.strct = strct;
 	if (!strct)
 		return (0);
-	str = ft_strtrim(buf, " ");
+	str = ft_strtrim(buf, " \t\n\v\f\r");
 	parce_syntax(str, strct, NULL, 0);
 	data_proc(strct, node);
 	rm_quotes(strct);
