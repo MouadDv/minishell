@@ -6,7 +6,7 @@
 /*   By: milmi <milmi@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/12 04:34:45 by milmi             #+#    #+#             */
-/*   Updated: 2021/11/24 05:54:23 by milmi            ###   ########.fr       */
+/*   Updated: 2021/11/24 06:07:57 by milmi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@ void	sighandler(int sig)
 {
 	if (sig == SIGINT)
 	{
+		g_data.statuscode = 1;
 		rl_on_new_line();
 		write (1, "\033[32;1mminishell$ \033[0m", 23);
 		write (1, rl_line_buffer, ft_strlen(rl_line_buffer));
@@ -30,6 +31,7 @@ void	get_line(t_node *node)
 	char	*buf;
 
 	signal(SIGINT, sighandler);
+	signal(SIGQUIT, SIG_IGN);
 	buf = readline("\033[32;1mminishell$ \033[0m");
 	if (buf == NULL)
 	{

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execution.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sbensarg <sbensarg@student.42.fr>          +#+  +:+       +#+        */
+/*   By: milmi <milmi@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/06 12:34:40 by sbensarg          #+#    #+#             */
-/*   Updated: 2021/11/24 04:41:32 by sbensarg         ###   ########.fr       */
+/*   Updated: 2021/11/24 06:11:21 by milmi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,6 +78,7 @@ void	ft_execution(t_cmd *strct, t_node *node)
 
 	tmp = strct;
 	tmp2 = tmp->redirections;
+	signal(SIGINT, SIG_IGN);
 	if (tmp->next != NULL)
 		ft_pipes(node, strct);
 	else if (tmp2)
