@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: milmi <milmi@student.42.fr>                +#+  +:+       +#+        */
+/*   By: sbensarg <sbensarg@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/12 04:34:45 by milmi             #+#    #+#             */
-/*   Updated: 2021/11/24 05:54:23 by milmi            ###   ########.fr       */
+/*   Updated: 2021/11/24 06:15:01 by sbensarg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,9 +52,8 @@ void	get_line(t_node *node)
 	free(buf);
 }
 
-void	ft_init(t_node *head)
+void	ft_init()
 {
-	g_data.path = ft_path(head);
 	g_data.newpath = NULL;
 	g_data.cmderr = NULL;
 	g_data.tab = malloc(sizeof(int) * 3);
@@ -77,7 +76,7 @@ int	main(int argc, char **argv, char **env)
 		newenv = copy_env(env);
 		init_struct(newenv, &node);
 		g_data.node = node;
-		ft_init(node);
+		ft_init();
 		while (newenv[i++])
 			free_null(newenv[i - 1]);
 		free_null(newenv);

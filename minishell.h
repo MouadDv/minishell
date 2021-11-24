@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: milmi <milmi@student.42.fr>                +#+  +:+       +#+        */
+/*   By: sbensarg <sbensarg@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/16 20:03:10 by sbensarg          #+#    #+#             */
-/*   Updated: 2021/11/24 04:19:56 by milmi            ###   ########.fr       */
+/*   Updated: 2021/11/24 06:32:02 by sbensarg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,7 +108,6 @@ void	free_strct(t_cmd *strct, t_red *tmp, t_red *tmp2, t_cmd *tmp3);
 void	free_node(t_node *node);
 char	*get_arg(char *str, int *r);
 char	**copy_env(char **env);
-void	test_add(t_node **head, char *name, char *val);
 void	init_struct(char **envp, t_node **head);
 char	*ft_strjoin1(char *s1, char const *s2);
 void	*ft_memcpy1(void *dest, const void *src, size_t n);
@@ -167,7 +166,6 @@ void	ft_sort_list(t_node *head);
 t_node	*copy_list(t_node *node);
 int		ft_check_valid_identifier(char *name);
 int		ft_check(t_node **head, char *name, char *val, int *flag);
-void	test_add(t_node **head, char *name, char *val);
 int		len_list(t_node *head);
 void	ft_swap(t_node *tmp1, t_node *tmp2);
 void	ft_sort_list(t_node *head);

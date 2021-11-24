@@ -6,7 +6,7 @@
 /*   By: sbensarg <sbensarg@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/14 20:49:09 by chicky            #+#    #+#             */
-/*   Updated: 2021/11/24 01:24:54 by sbensarg         ###   ########.fr       */
+/*   Updated: 2021/11/24 07:07:12 by sbensarg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,8 @@ void	ft_err_unset(char *name)
 void	ft_unset_norm(t_node *tmp, t_node **head)
 {
 	*head = (*head)->next;
+	free_null(tmp->name);
+	free_null(tmp->val);
 	free(tmp);
 }	
 
@@ -50,6 +52,8 @@ void	ft_unset(t_node **head, char *name)
 				{
 					tmp = cur->next;
 					cur->next = cur->next->next;
+					free_null(tmp->name);
+					free_null(tmp->val);
 					free(tmp);
 					break ;
 				}

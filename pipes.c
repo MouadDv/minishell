@@ -6,7 +6,7 @@
 /*   By: sbensarg <sbensarg@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/09 16:27:13 by sbensarg          #+#    #+#             */
-/*   Updated: 2021/11/24 01:43:18 by sbensarg         ###   ########.fr       */
+/*   Updated: 2021/11/24 06:13:02 by sbensarg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,7 @@ void	ft_exec_pipe(t_node *node, t_cmd *tmp)
 		execve(g_data.ptrs[0], g_data.ptrs, envp);
 	}
 	free_envp(envp);
+	free_envp(g_data.path);
 	exit(g_data.statuscode);
 }
 
