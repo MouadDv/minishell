@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   implim_exit.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sbensarg <sbensarg@student.42.fr>          +#+  +:+       +#+        */
+/*   By: milmi <milmi@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/17 12:31:16 by sbensarg          #+#    #+#             */
-/*   Updated: 2021/11/24 04:46:06 by sbensarg         ###   ########.fr       */
+/*   Updated: 2021/11/25 02:34:26 by milmi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ int	is_digit(char *ptr)
 
 void	f_exit_norm(char **ptr)
 {
-	write(2, "bash: exit: ", 13);
+	write(2, "minishell: exit: ", 17);
 	write(2, ptr[1], ft_strlen(ptr[1]));
 	write(2, ": numeric argument required\n", 29);
 	exit(255);
@@ -68,7 +68,7 @@ void	ft_exit(char **ptr)
 		exit (nbr % 256);
 	if (s > 1 && ret == 0)
 	{
-		write(2, "bash: exit: too many arguments\n", 32);
+		write(2, "minishell: exit: too many arguments\n", 36);
 		g_data.statuscode = 1;
 	}
 	else if (ret == 1 || (nbr == -1 && ft_strncmp(ptr[1], "-1", 3) != 0))

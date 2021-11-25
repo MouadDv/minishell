@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sbensarg <sbensarg@student.42.fr>          +#+  +:+       +#+        */
+/*   By: milmi <milmi@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/24 06:15:01 by sbensarg          #+#    #+#             */
-/*   Updated: 2021/11/24 22:50:54 by sbensarg         ###   ########.fr       */
+/*   Updated: 2021/11/25 02:17:36 by milmi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void	sighandler(int sig)
 	{
 		g_data.statuscode = 1;
 		rl_on_new_line();
-		write (1, "\033[32;1mminishell$ \033[0m", 23);
+		write (1, "minishell$ ", 11);
 		write (1, rl_line_buffer, ft_strlen(rl_line_buffer));
 		write (1, "  \b\b\n", 5);
 		rl_replace_line("", 1);
@@ -32,7 +32,7 @@ void	get_line(t_node *node)
 
 	signal(SIGINT, sighandler);
 	signal(SIGQUIT, SIG_IGN);
-	buf = readline("\033[32;1mminishell$ \033[0m");
+	buf = readline("minishell$ ");
 	if (buf == NULL)
 	{
 		write(1, "exit\n", 5);

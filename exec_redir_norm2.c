@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_redir_norm2.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sbensarg <sbensarg@student.42.fr>          +#+  +:+       +#+        */
+/*   By: milmi <milmi@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/08 12:28:44 by sbensarg          #+#    #+#             */
-/*   Updated: 2021/11/08 12:45:45 by sbensarg         ###   ########.fr       */
+/*   Updated: 2021/11/25 02:33:49 by milmi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ void	ft_check_err_norm2(t_red *tmp2)
 
 void	ft_print_err_msg(char *msg)
 {
-	write(2, "bash: ", 7);
+	write(2, "minishell: ", 11);
 	write(2, g_data.cmderr, ft_strlen(g_data.cmderr));
 	write(2, msg, ft_strlen(msg));
 }

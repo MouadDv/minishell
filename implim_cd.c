@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   implim_cd.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sbensarg <sbensarg@student.42.fr>          +#+  +:+       +#+        */
+/*   By: milmi <milmi@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/02 15:07:03 by sbensarg          #+#    #+#             */
-/*   Updated: 2021/11/24 23:41:39 by sbensarg         ###   ########.fr       */
+/*   Updated: 2021/11/25 05:58:31 by milmi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ void	check_ret_chdir(int ret, char *err)
 {
 	if (ret == -1)
 	{
-		write(2, "bash: cd: ", 10);
+		write(2, "minishell: cd: ", 15);
 		write(2, err, ft_strlen(err));
 		write(2, ": No such file or directory\n", 28);
 		g_data.statuscode = 1;
@@ -50,10 +50,10 @@ void	check_val_home(t_node *tmp, int *flag)
 	home = ft_home(tmp);
 	while (tmp != NULL)
 	{
-		if (ft_strncmp(tmp->name, "HOME", strlen(tmp->name)) == 0)
+		if (ft_strncmp(tmp->name, "HOME", ft_strlen(tmp->name)) == 0)
 		{
 			*flag = 1;
-			if (ft_strncmp(tmp->val, "=\"\"", strlen(tmp->val)) == 0)
+			if (ft_strncmp(tmp->val, "=\"\"", ft_strlen(tmp->val)) == 0)
 				chdir(".");
 			else
 			{
@@ -75,7 +75,7 @@ void	impli_cd_norm(t_node *tmp)
 	check_val_home(tmp, &flag);
 	if (flag != 1)
 	{
-		write(2, "bash: cd: « HOME » non défini\n", 33);
+		write(2, "minishell: cd: « HOME » non défini\n", 38);
 		g_data.statuscode = 1;
 	}
 }

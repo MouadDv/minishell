@@ -6,7 +6,7 @@
 /*   By: milmi <milmi@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/12 04:34:55 by milmi             #+#    #+#             */
-/*   Updated: 2021/11/24 04:18:16 by milmi            ###   ########.fr       */
+/*   Updated: 2021/11/25 05:25:53 by milmi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,12 +14,24 @@
 
 int	end_of_delimiter(char *str)
 {
-	int	i;
+	char	c;
+	int		i;
+	int		f;
 
 	i = 0;
-	while (str[i] && str[i] != '|' && str[i] != '<'
-		&& str[i] != '>' && str[i] != ' ')
+	f = 0;
+	while ((str[i] && str[i] != '|' && str[i] != '<'
+			&& str[i] != '>' && !ft_isspace(str[i])) || f == 1)
+	{
+		if ((str[i] == '\'' || str[i] == '"') && f == 0)
+		{
+			f = 1;
+			c = str[i];
+		}
+		else if (c == str[i] && f == 1)
+			f = 0;
 		i++;
+	}
 	return (i);
 }
 
@@ -27,7 +39,7 @@ void	subarg(int *r, int i, char *str, t_red *red)
 {
 	int	end;
 
-	while (str[i] && str[i] == ' ')
+	while (str[i] && ft_isspace(str[i]))
 		i++;
 	end = end_of_delimiter(str + i);
 	red->arg = ft_substr(str, i, end);
@@ -63,5 +75,7 @@ void	get_cmd_norm(char *s, int i, int *f, char *c)
 		*f = 1;
 	}
 	else if (s[i] == *c && *f == 1)
+	{
 		*f = 0;
+	}
 }

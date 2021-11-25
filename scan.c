@@ -6,7 +6,7 @@
 /*   By: milmi <milmi@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/12 04:35:20 by milmi             #+#    #+#             */
-/*   Updated: 2021/11/24 05:54:49 by milmi            ###   ########.fr       */
+/*   Updated: 2021/11/25 04:33:28 by milmi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ int	ft_scan_b(char *str, int *i, int j)
 	{
 		if (str[j] == str[j + 1])
 			j++;
-		while (str[j + 1] != '\0' && str[j + 1] == ' ')
+		while (str[j + 1] != '\0' && ft_isspace(str[j + 1]))
 			j++;
 		if (str[j + 1] == '>' || str[j + 1] == '<'
 			|| str[j + 1] == '|' || str[j + 1] == '\0')
@@ -29,7 +29,7 @@ int	ft_scan_b(char *str, int *i, int j)
 	}
 	if (str[j] == '|')
 	{
-		while (str[j + 1] && str[j + 1] == ' ')
+		while (str[j + 1] && ft_isspace(str[j + 1]))
 			j++;
 		if (str[j + 1] == '|' || str[j + 1] == '\0')
 		{
@@ -41,6 +41,34 @@ int	ft_scan_b(char *str, int *i, int j)
 	return (1);
 }
 
+int	scan_norm(char *str)
+{
+	int		i;
+	int		f;
+	char	c;
+
+	i = 0;
+	f = 0;
+	while (str[i] && ft_isspace(str[i]))
+		i++;
+	if (str[i] == '|')
+		return (0);
+	while (str[i])
+	{
+		if (f == 0 && (str[i] == '\'' || str[i] == '"'))
+		{
+			c = str[i];
+			f = 1;
+		}
+		else if (str[i] == c && f == 1)
+			f = 0;
+		i++;
+	}
+	if (f == 1 && str[i] == '\0')
+		return (0);
+	return (1);
+}
+
 int	scan(char *str)
 {
 	int		i;
@@ -48,7 +76,7 @@ int	scan(char *str)
 	int		ret;
 
 	i = 0;
-	if (str[0] == '|')
+	if (scan_norm(str) == 0)
 		return (0);
 	while (str[i])
 	{

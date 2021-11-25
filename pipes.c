@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipes.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sbensarg <sbensarg@student.42.fr>          +#+  +:+       +#+        */
+/*   By: milmi <milmi@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/09 16:27:13 by sbensarg          #+#    #+#             */
-/*   Updated: 2021/11/25 01:47:44 by sbensarg         ###   ########.fr       */
+/*   Updated: 2021/11/25 05:32:35 by milmi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,16 +31,17 @@ void	ft_exec_pipe(t_node *node, t_cmd *tmp)
 	char	**envp;
 
 	flag = 0;
+	g_data.path = ft_path(node);
 	envp = env_gen(node);
 	ft_thereishd(tmp);
 	ft_builtins(tmp->args, node, &flag);
 	if (flag == 1)
 	{
 		g_data.ptrs = ft_find_path(g_data.path, tmp->args);
+		free_envp(g_data.path);
 		execve(g_data.ptrs[0], g_data.ptrs, envp);
 	}
 	free_envp(envp);
-	free_envp(g_data.path);
 	exit(g_data.statuscode);
 }
 
@@ -86,7 +87,6 @@ void	ft_pipes(t_node *node, t_cmd *strct)
 	g_data.i = 0;
 	g_data.j = 0;
 	g_data.fd_in = 0;
-	g_data.path = ft_path(node);
 	tmp2 = NULL;
 	if (if_heredoc(strct))
 		g_data.thereishd = 1;

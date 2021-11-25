@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sbensarg <sbensarg@student.42.fr>          +#+  +:+       +#+        */
+/*   By: milmi <milmi@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/16 20:03:10 by sbensarg          #+#    #+#             */
-/*   Updated: 2021/11/24 07:28:53 by sbensarg         ###   ########.fr       */
+/*   Updated: 2021/11/25 06:06:37 by milmi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,6 @@
 # include "libft/libft.h"
 # include <stdlib.h>
 # include <stdio.h>
-# include <string.h>
 # include <readline/readline.h>
 # include <readline/history.h>
 # include <limits.h>

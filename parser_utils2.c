@@ -6,7 +6,7 @@
 /*   By: milmi <milmi@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/12 04:34:59 by milmi             #+#    #+#             */
-/*   Updated: 2021/11/12 04:36:14 by milmi            ###   ########.fr       */
+/*   Updated: 2021/11/25 04:29:22 by milmi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,15 +27,15 @@ void	sizelen_norm(int *i, int *ret, char *str)
 				trig = 1;
 			else if (str[*i] == '\'')
 				trig = 0;
-			if (str[*i] == ' ' && trig == 0)
+			if (ft_isspace(str[*i]) && trig == 0)
 				break ;
 			*i = *i + 1;
 		}
 	}
-	else if (str[*i] != ' ')
+	else if (!ft_isspace(str[*i]))
 	{
 		*ret = *ret + 1;
-		while (str[*i] && str[*i] != ' ')
+		while (str[*i] && !ft_isspace(str[*i]))
 			*i = *i + 1;
 	}
 }
@@ -55,14 +55,14 @@ int	sizelen(char *str, int ret, int i, int trig)
 					trig = 1;
 				else if (str[i] == '"')
 					trig = 0;
-				if (str[i] == ' ' && trig == 0)
+				if (ft_isspace(str[i]) && trig == 0)
 					break ;
 				i++;
 			}
 		}
-		else if (str[i] != ' ' || str[i] == '\'')
+		else if (!ft_isspace(str[i]) || str[i] == '\'')
 			sizelen_norm(&i, &ret, str);
-		if (str[i] == '"' || str[i] == '\'' || str[i] == ' ')
+		if (str[i] == '"' || str[i] == '\'' || ft_isspace(str[i]))
 			i++;
 	}
 	return (ret);
@@ -80,7 +80,7 @@ char	*singlequote(char *str, int *s, int i)
 			trig = 1;
 		else if (str[*s + i] == '\'')
 			trig = 0;
-		if (str[*s + i] == ' ' && trig == 0)
+		if (ft_isspace(str[*s + i]) && trig == 0)
 			break ;
 		*s = *s + 1;
 	}
@@ -100,7 +100,7 @@ char	*doublequote(char *str, int *s, int i)
 			trig = 1;
 		else if (str[*s + i] == '"')
 			trig = 0;
-		if (str[*s + i] == ' ' && trig == 0)
+		if (ft_isspace(str[*s + i]) && trig == 0)
 			break ;
 		*s = *s + 1;
 	}
@@ -116,7 +116,7 @@ char	*get_arg(char *str, int *r)
 
 	i = *r;
 	s = 1;
-	while (str[i] && str[i] == ' ')
+	while (str[i] && ft_isspace(str[i]))
 		i++;
 	if (str[i] == '\'')
 		ret = singlequote(str, &s, i);
@@ -124,7 +124,7 @@ char	*get_arg(char *str, int *r)
 		ret = doublequote(str, &s, i);
 	else
 	{
-		while (str[s + i] && str[s + i] != ' ')
+		while (str[s + i] && !ft_isspace(str[s + i]))
 			s++;
 		ret = ft_substr(str + i, 0, s);
 	}

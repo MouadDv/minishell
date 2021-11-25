@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipes_norm.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sbensarg <sbensarg@student.42.fr>          +#+  +:+       +#+        */
+/*   By: milmi <milmi@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/06 13:31:51 by sbensarg          #+#    #+#             */
-/*   Updated: 2021/11/23 11:39:02 by sbensarg         ###   ########.fr       */
+/*   Updated: 2021/11/25 02:34:47 by milmi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,19 +16,19 @@ void	ft_check_err_redir(void)
 {
 	if (g_data.flagerr == 1)
 	{
-		write(2, "bash: ", 7);
+		write(2, "minishell: ", 11);
 		write(2, g_data.cmderr, ft_strlen(g_data.cmderr));
 		write(2, ": No such file or directory\n", 29);
 	}
 	else if (g_data.flagerr == 2)
 	{
-		write(2, "bash: ", 7);
+		write(2, "minishell: ", 11);
 		write(2, g_data.cmderr, ft_strlen(g_data.cmderr));
 		write(2, ": Is a Directory\n", 18);
 	}
 	else if (g_data.flagerr == 3)
 	{
-		write(2, "bash: ", 7);
+		write(2, "minishell: ", 11);
 		write(2, g_data.cmderr, ft_strlen(g_data.cmderr));
 		write(2, ": Permission Denied\n", 20);
 	}

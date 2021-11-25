@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   implim_pwd.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sbensarg <sbensarg@student.42.fr>          +#+  +:+       +#+        */
+/*   By: milmi <milmi@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/02 17:00:49 by sbensarg          #+#    #+#             */
-/*   Updated: 2021/11/09 17:21:05 by sbensarg         ###   ########.fr       */
+/*   Updated: 2021/11/25 05:58:40 by milmi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,6 @@ void	ft_pwd(void)
 
 	g_data.statuscode = 0;
 	ret_getcwd = getcwd(buf, MAXPATHLEN);
-	write(1, ret_getcwd, strlen(ret_getcwd));
+	write(1, ret_getcwd, ft_strlen(ret_getcwd));
 	write(1, "\n", 1);
 }

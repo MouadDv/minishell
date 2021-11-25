@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   implim_export.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sbensarg <sbensarg@student.42.fr>          +#+  +:+       +#+        */
+/*   By: milmi <milmi@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/03 16:38:33 by sbensarg          #+#    #+#             */
-/*   Updated: 2021/11/24 22:18:35 by sbensarg         ###   ########.fr       */
+/*   Updated: 2021/11/25 05:24:35 by milmi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,21 +24,17 @@ void	ft_global_export_norm1(char *s, int *i, t_node *node, char **ptr)
 	value = ft_strjoin("=\"", (s + 1));
 	tmp = value;
 	value = ft_strjoin(value, "\"");
+	free_null(tmp);
 	ft_check(&node, ptr[*i], value, &flag);
 	if (flag != 2)
 	{
 		ret = ft_check_valid_identifier(ptr[*i]);
 		if (ret != 1)
-		{
-			free_null(tmp);
 			test_add(&node, ptr[*i], value);
-			free_null(value);
-		}
 		else
 			ft_err_export(ptr[*i], value);
+		free_null(value);
 	}
-	else
-		free_null(tmp);
 }
 
 void	ft_global_export_norm2(int *i, t_node *node, char **ptr)
@@ -59,8 +55,13 @@ void	ft_global_export_norm2(int *i, t_node *node, char **ptr)
 			free_null(value);
 		}
 		else
+		{
 			ft_err_export(ptr[*i], NULL);
+			free_null(value);
+		}
 	}
+	else
+		free_null(value);
 }
 
 void	ft_global_export(char **ptr, t_node	*node)

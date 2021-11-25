@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   implim_unset.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sbensarg <sbensarg@student.42.fr>          +#+  +:+       +#+        */
+/*   By: milmi <milmi@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/14 20:49:09 by chicky            #+#    #+#             */
-/*   Updated: 2021/11/24 23:11:29 by sbensarg         ###   ########.fr       */
+/*   Updated: 2021/11/25 02:34:33 by milmi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	ft_err_unset(char *name)
 {
-	write(2, "bash: unset: « ", 16);
+	write(2, "minishell: unset: « ", 21);
 	write(2, name, ft_strlen(name));
 	write(2, " » : identifiant non valable\n", 30);
 	g_data.statuscode = 1;

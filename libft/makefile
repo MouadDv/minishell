@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: milmi <marvin@42.fr>                       +#+  +:+       +#+         #
+#    By: milmi <milmi@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/11/10 00:43:14 by milmi             #+#    #+#              #
-#    Updated: 2019/11/10 00:43:16 by milmi            ###   ########.fr        #
+#    Updated: 2021/11/25 05:46:59 by milmi            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,16 +22,16 @@ OBJECTS_BS = $(BS:.c=.o)
 INCLUDES=./
 all: $(NAME)
 $(NAME): $(SRCS) libft.h
-	gcc -Wall -Wextra -Werror -I $(INCLUDES) -c $(SRCS)
-	ar rc $(NAME) $(OBJECTS)
-	ranlib $(NAME)
+	@gcc -Wall -Wextra -Werror -I $(INCLUDES) -c $(SRCS)
+	@ar rc $(NAME) $(OBJECTS)
+	@ranlib $(NAME)
 bonus:
-	gcc -Wall -Wextra -Werror -I $(INCLUDES) -c $(BS)
-	ar rc $(NAME) $(OBJECTS_BS)
-	ranlib $(NAME)
+	@gcc -Wall -Wextra -Werror -I $(INCLUDES) -c $(BS)
+	@ar rc $(NAME) $(OBJECTS_BS)
+	@ranlib $(NAME)
 clean:
-	rm -f $(OBJECTS)
-	rm -f $(OBJECTS_BS)
+	@rm -f $(OBJECTS)
+	@rm -f $(OBJECTS_BS)
 fclean: clean
-	rm -f $(NAME)
+	@rm -f $(NAME)
 re:	fclean all

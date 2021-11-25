@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   call_exec_utils.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sbensarg <sbensarg@student.42.fr>          +#+  +:+       +#+        */
+/*   By: milmi <milmi@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/09 14:05:59 by sbensarg          #+#    #+#             */
-/*   Updated: 2021/11/25 00:01:27 by sbensarg         ###   ########.fr       */
+/*   Updated: 2021/11/25 02:33:24 by milmi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ char	**ft_find_path(char **path, char **ptrs)
 {
 	if (ptrs[0][0] == '\0')
 	{
-		write(2, "bash: ", 7);
+		write(2, "minishell: ", 11);
 		write(2, ": command not found\n", 21);
 		g_data.statuscode = 127;
 	}

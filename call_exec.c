@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   call_exec.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sbensarg <sbensarg@student.42.fr>          +#+  +:+       +#+        */
+/*   By: milmi <milmi@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/24 16:06:52 by chicky            #+#    #+#             */
-/*   Updated: 2021/11/25 01:43:46 by sbensarg         ###   ########.fr       */
+/*   Updated: 2021/11/25 02:33:36 by milmi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,7 @@ void	call_exec(char **cmd)
 
 void	print_invalid_cmd(char *cmd)
 {
-	write(2, "bash: ", 6);
+	write(2, "minishell: ", 11);
 	write(2, cmd, ft_strlen(cmd));
 	write(2, ": command not found\n", 20);
 	g_data.statuscode = 127;
@@ -80,7 +80,7 @@ void	print_invalid_cmd(char *cmd)
 
 void	ft_err_export(char *name, char *value)
 {
-	write(2, "bash: export: « ", 17);
+	write(2, "minishell: export: « ", 22);
 	write(2, name, ft_strlen(name));
 	if (value != NULL)
 		write(2, value, ft_strlen(value));
