@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   free.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: milmi <milmi@student.42.fr>                +#+  +:+       +#+        */
+/*   By: sbensarg <sbensarg@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/12 04:34:41 by milmi             #+#    #+#             */
-/*   Updated: 2021/11/24 04:01:39 by milmi            ###   ########.fr       */
+/*   Updated: 2021/11/24 23:06:01 by sbensarg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,10 +73,10 @@ void	free_envp(char **envp)
 	int	i;
 
 	i = 0;
-	while (envp[i])
+	while (envp && envp[i])
 	{
-		free(envp[i]);
+		free_null(envp[i]);
 		i++;
 	}
-	free(envp);
+	free_null(envp);
 }

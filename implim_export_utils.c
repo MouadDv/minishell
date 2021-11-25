@@ -6,7 +6,7 @@
 /*   By: sbensarg <sbensarg@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/08 14:38:08 by sbensarg          #+#    #+#             */
-/*   Updated: 2021/11/24 01:18:28 by sbensarg         ###   ########.fr       */
+/*   Updated: 2021/11/24 22:14:48 by sbensarg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,9 @@ int	ft_check(t_node **head, char *name, char *val, int *flag)
 			*flag = 2;
 			if (cur->val != NULL && *val != '\0')
 			{
-				free(cur->val);
+				free_null(cur->val);
 				cur->val = ft_strdup(val);
+				free_null(val);
 			}
 			return (0);
 		}

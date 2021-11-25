@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_redir_norm.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: milmi <milmi@student.42.fr>                +#+  +:+       +#+        */
+/*   By: sbensarg <sbensarg@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/08 12:22:54 by sbensarg          #+#    #+#             */
-/*   Updated: 2021/11/24 07:13:58 by milmi            ###   ########.fr       */
+/*   Updated: 2021/11/24 23:59:17 by sbensarg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,14 +36,6 @@ int	ft_ret_input_fd(t_red *tmp2)
 	return (fdin);
 }
 
-void	canceling(int sig)
-{
-	if (sig == SIGINT)
-	{
-		exit(1);
-	}
-}
-
 int	ft_ret_heredoc_fd(t_red *tmp2)
 {
 	int		fdin;
@@ -54,11 +46,7 @@ int	ft_ret_heredoc_fd(t_red *tmp2)
 		exit (EXIT_FAILURE);
 	f = fork();
 	if (f == 0)
-	{
-		signal(SIGINT, SIG_DFL);
-		signal(SIGQUIT, SIG_IGN);
 		ft_child_heredoc(tmp2);
-	}
 	else
 	{
 		waitpid(f, &status_code, 0);

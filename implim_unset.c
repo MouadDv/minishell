@@ -6,7 +6,7 @@
 /*   By: sbensarg <sbensarg@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/14 20:49:09 by chicky            #+#    #+#             */
-/*   Updated: 2021/11/24 07:07:12 by sbensarg         ###   ########.fr       */
+/*   Updated: 2021/11/24 23:11:29 by sbensarg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,32 @@ void	ft_unset_norm(t_node *tmp, t_node **head)
 	free_null(tmp->name);
 	free_null(tmp->val);
 	free(tmp);
-}	
+}
+
+void	ft_rm_element(t_node **head, char *name, t_node *tmp, t_node *cur)
+{
+	if (ft_strncmp((*head)->name, name, ft_strlen(name)) == 0)
+	{
+		tmp = *head;
+		ft_unset_norm(tmp, head);
+	}
+	else
+	{
+		while (cur->next != NULL)
+		{
+			if (ft_strncmp(cur->next->name, name, ft_strlen(name)) == 0)
+			{
+				tmp = cur->next;
+				cur->next = cur->next->next;
+				free_null(tmp->name);
+				free_null(tmp->val);
+				free(tmp);
+				break ;
+			}
+			cur = cur->next;
+		}
+	}
+}
 
 void	ft_unset(t_node **head, char *name)
 {
@@ -36,31 +61,10 @@ void	ft_unset(t_node **head, char *name)
 
 	g_data.statuscode = 0;
 	cur = *head;
+	tmp = NULL;
 	ret = ft_check_valid_identifier(name);
 	if (ret != 1)
-	{
-		if (ft_strncmp((*head)->name, name, ft_strlen(name)) == 0)
-		{
-			tmp = *head;
-			ft_unset_norm(tmp, head);
-		}
-		else
-		{
-			while (cur->next != NULL)
-			{
-				if (ft_strncmp(cur->next->name, name, ft_strlen(name)) == 0)
-				{
-					tmp = cur->next;
-					cur->next = cur->next->next;
-					free_null(tmp->name);
-					free_null(tmp->val);
-					free(tmp);
-					break ;
-				}
-				cur = cur->next;
-			}
-		}
-	}
+		ft_rm_element(head, name, tmp, cur);
 	else
 		ft_err_unset(name);
 }

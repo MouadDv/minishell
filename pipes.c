@@ -6,7 +6,7 @@
 /*   By: sbensarg <sbensarg@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/09 16:27:13 by sbensarg          #+#    #+#             */
-/*   Updated: 2021/11/24 06:13:02 by sbensarg         ###   ########.fr       */
+/*   Updated: 2021/11/25 01:47:44 by sbensarg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,8 @@ void	ft_save_input_for_next_cmd(void)
 
 void	ft_child_pipe(t_cmd	*tmp, t_red	*tmp2, t_node *node, int j)
 {
+	signal(SIGQUIT, SIG_DFL);
+	signal(SIGINT, SIG_DFL);
 	if (tmp->next != NULL && g_data.thereishd)
 	{
 		g_data.filename = ft_strjoin("/tmp/tmpfile", ft_itoa(j));
@@ -90,5 +92,5 @@ void	ft_pipes(t_node *node, t_cmd *strct)
 		g_data.thereishd = 1;
 	ft_norm_pipes(tmp, tmp2, node);
 	loop_pids();
-	g_data.statuscode = WEXITSTATUS(g_data.statuscode);
+	signalhandling();
 }

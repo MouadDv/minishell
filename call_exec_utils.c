@@ -6,7 +6,7 @@
 /*   By: sbensarg <sbensarg@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/09 14:05:59 by sbensarg          #+#    #+#             */
-/*   Updated: 2021/11/24 04:50:41 by sbensarg         ###   ########.fr       */
+/*   Updated: 2021/11/25 00:01:27 by sbensarg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,8 +55,6 @@ char	*ft_check_absolute_path(char **cmd)
 
 char	**ft_find_path(char **path, char **ptrs)
 {
-	// if (g_data.newpath != NULL)
-	// 	free (g_data.newpath);
 	if (ptrs[0][0] == '\0')
 	{
 		write(2, "bash: ", 7);

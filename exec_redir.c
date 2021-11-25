@@ -6,22 +6,11 @@
 /*   By: sbensarg <sbensarg@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/24 07:18:28 by milmi             #+#    #+#             */
-/*   Updated: 2021/11/24 07:31:57 by sbensarg         ###   ########.fr       */
+/*   Updated: 2021/11/24 23:54:16 by sbensarg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-int	*ft_tab_of_in_out(t_red *redir)
-{
-	t_red	*tmp2;
-
-	tmp2 = redir;
-	ft_tab_of_in_out_norm(tmp2);
-	g_data.tab[0] = g_data.fdin;
-	g_data.tab[1] = g_data.fdout;
-	return (g_data.tab);
-}
 
 int	ft_dup_redir(t_red *redir)
 {
@@ -50,6 +39,14 @@ int	ft_dup_redir(t_red *redir)
 	return (0);
 }
 
+void	ft_child_redir(char **envp)
+{
+	signal(SIGQUIT, SIG_DFL);
+	signal(SIGINT, SIG_DFL);
+	execve(g_data.ptrs[0], g_data.ptrs, envp);
+	exit(g_data.statuscode);
+}
+
 void	ft_exec_cmd_redir(char **cmd, t_node *node)
 {
 	int		flag;
@@ -67,12 +64,7 @@ void	ft_exec_cmd_redir(char **cmd, t_node *node)
 		if (g_data.p1 == -1)
 			exit (EXIT_FAILURE);
 		else if (g_data.p1 == 0)
-		{
-			signal(SIGQUIT, SIG_DFL);
-			signal(SIGINT, SIG_DFL);
-			execve(g_data.ptrs[0], g_data.ptrs, envp);
-			exit(g_data.statuscode);
-		}
+			ft_child_redir(envp);
 		else
 			waitpid(g_data.p1, &g_data.statuscode, 0);
 		free_envp(envp);

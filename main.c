@@ -6,7 +6,7 @@
 /*   By: sbensarg <sbensarg@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/24 06:15:01 by sbensarg          #+#    #+#             */
-/*   Updated: 2021/11/24 07:31:35 by sbensarg         ###   ########.fr       */
+/*   Updated: 2021/11/24 22:50:54 by sbensarg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ void	get_line(t_node *node)
 	free(buf);
 }
 
-void	ft_init()
+void	ft_init(void)
 {
 	g_data.newpath = NULL;
 	g_data.cmderr = NULL;

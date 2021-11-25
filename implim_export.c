@@ -6,7 +6,7 @@
 /*   By: sbensarg <sbensarg@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/03 16:38:33 by sbensarg          #+#    #+#             */
-/*   Updated: 2021/11/24 06:24:47 by sbensarg         ###   ########.fr       */
+/*   Updated: 2021/11/24 22:18:35 by sbensarg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,8 +25,6 @@ void	ft_global_export_norm1(char *s, int *i, t_node *node, char **ptr)
 	tmp = value;
 	value = ft_strjoin(value, "\"");
 	ft_check(&node, ptr[*i], value, &flag);
-	free_null(value);
-	free_null(tmp);
 	if (flag != 2)
 	{
 		ret = ft_check_valid_identifier(ptr[*i]);
@@ -39,6 +37,8 @@ void	ft_global_export_norm1(char *s, int *i, t_node *node, char **ptr)
 		else
 			ft_err_export(ptr[*i], value);
 	}
+	else
+		free_null(tmp);
 }
 
 void	ft_global_export_norm2(int *i, t_node *node, char **ptr)
